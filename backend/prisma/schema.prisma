@@ -1,0 +1,482 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Platform users who manage Reddit accounts and review content
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  name         String
+  role         UserRole @default(reviewer)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Referral fields
+  referralCode       String?   @unique @map("referral_code") @db.VarChar(8)
+  referredByCode     String?   @map("referred_by_code") @db.VarChar(8)
+  referredByUserId   String?   @map("referred_by_user_id")
+  referredByUser     User?     @relation("UserReferrals", fields: [referredByUserId], references: [id])
+  referredUsers      User[]    @relation("UserReferrals")
+
+  // Subscription fields
+  subscriptionTier      SubscriptionTier @default(free) @map("subscription_tier")
+  subscriptionExpiresAt DateTime?        @map("subscription_expires_at")
+
+  // Relations
+  reviewedEngagements EngagementItem[] @relation("ReviewedBy")
+  preferences         UserPreferences?
+  sentReferrals       Referral[]       @relation("ReferrerReferrals")
+  receivedReferral    Referral?        @relation("RefereeReferrals")
+
+  @@map("users")
+}
+
+// Referral tracking
+model Referral {
+  id              String         @id @default(uuid())
+  referrerUserId  String         @map("referrer_user_id")
+  referrer        User           @relation("ReferrerReferrals", fields: [referrerUserId], references: [id], onDelete: Cascade)
+  refereeUserId   String?        @unique @map("referee_user_id")
+  referee         User?          @relation("RefereeReferrals", fields: [refereeUserId], references: [id], onDelete: SetNull)
+  refereeEmail    String?        @map("referee_email")
+  status          ReferralStatus @default(pending)
+  referrerCredited   Boolean     @default(false) @map("referrer_credited")
+  referrerCreditedAt DateTime?   @map("referrer_credited_at")
+  refereeCredited    Boolean     @default(false) @map("referee_credited")
+  refereeCreditedAt  DateTime?   @map("referee_credited_at")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  completedAt     DateTime?      @map("completed_at")
+  expiresAt       DateTime?      @map("expires_at")
+
+  @@unique([referrerUserId, refereeEmail])
+  @@index([referrerUserId])
+  @@index([status])
+  @@map("referrals")
+}
+
+// User preferences for AI configuration
+model UserPreferences {
+  id        String @id @default(uuid())
+  userId    String @unique @map("user_id")
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  aiProvider String @default("anthropic") @map("ai_provider")
+  aiModel    String @default("claude-sonnet-4-20250514") @map("ai_model")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user_preferences")
+}
+
+enum UserRole {
+  admin
+  manager
+  reviewer
+}
+
+enum ReferralStatus {
+  pending
+  signed_up
+  credited
+  expired
+}
+
+enum SubscriptionTier {
+  free
+  premium
+  pro
+  lifetime
+}
+
+// Character definitions for AI generation
+model Persona {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+
+  // Core persona attributes (used in AI prompts)
+  toneOfVoice     String   @map("tone_of_voice")
+  goals           Json     @default("[]")
+  characterTraits Json     @default("[]") @map("character_traits")
+
+  // Extended persona context
+  backgroundStory   String? @map("background_story")
+  expertiseAreas    Json    @default("[]") @map("expertise_areas")
+  writingGuidelines String? @map("writing_guidelines")
+  exampleResponses  Json    @default("[]") @map("example_responses")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  redditAccounts RedditAccount[]
+
+  @@map("personas")
+}
+
+// Connected Reddit accounts with OAuth credentials
+model RedditAccount {
+  id            String               @id @default(uuid())
+  username      String
+  redditUserId  String?              @map("reddit_user_id")
+  accessToken   String               @map("access_token") // encrypted
+  refreshToken  String               @map("refresh_token") // encrypted
+  tokenExpiresAt DateTime            @map("token_expires_at")
+  karma         Int?
+  accountAgeDays Int?                @map("account_age_days")
+  status        RedditAccountStatus  @default(warming_up)
+
+  personaId String?  @map("persona_id")
+  persona   Persona? @relation(fields: [personaId], references: [id], onDelete: SetNull)
+
+  // Shadowban detection
+  shadowbanStatus    String?   @map("shadowban_status") // 'clear', 'suspected', 'confirmed'
+  lastShadowbanCheck DateTime? @map("last_shadowban_check")
+
+  // Account health scoring
+  healthScore       Int?      @map("health_score") // 0-100
+  lastHealthCheck   DateTime? @map("last_health_check")
+  healthFactors     Json?     @map("health_factors") // Detailed breakdown
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  engagements EngagementItem[]
+
+  @@map("reddit_accounts")
+}
+
+enum RedditAccountStatus {
+  active
+  warming_up
+  suspended
+  disconnected
+}
+
+// Keywords for content discovery
+model Keyword {
+  id            String   @id @default(uuid())
+  keyword       String
+  category      String?  // 'core', 'competitor', 'broad', 'brand'
+  priority      Int      @default(2) // 1 = high, 2 = medium, 3 = low
+  searchVariants Json    @default("[]") @map("search_variants")
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  // GSC integration - linked keywords from Search Console
+  gscKeywords GSCKeyword[]
+
+  @@map("keywords")
+}
+
+// Target subreddits for monitoring
+model Subreddit {
+  id            String   @id @default(uuid())
+  name          String   @unique
+  phase         Int      @default(1) // Rollout phase
+  selfPromoRules String? @map("self_promo_rules")
+  minKarma      Int      @default(0) @map("min_karma")
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@map("subreddits")
+}
+
+// Workflow items tracking posts from discovery through publishing
+model EngagementItem {
+  id String @id @default(uuid())
+
+  // Reddit post data
+  redditPostId    String   @map("reddit_post_id")
+  subreddit       String
+  postTitle       String   @map("post_title")
+  postContent     String?  @map("post_content")
+  postUrl         String   @map("post_url")
+  postAuthor      String?  @map("post_author")
+  postScore       Int?     @map("post_score")
+  postCreatedAt   DateTime? @map("post_created_at")
+
+  // Discovery metadata
+  matchedKeyword  String?  @map("matched_keyword")
+  relevanceScore  Int?     @map("relevance_score")
+  aiAnalysis      Json?    @map("ai_analysis")
+  isRecommended   Boolean  @default(false) @map("is_recommended")
+
+  // Response content
+  draftResponse   String?  @map("draft_response")
+  editedResponse  String?  @map("edited_response")
+
+  // Assignment
+  assignedAccountId String?        @map("assigned_account_id")
+  assignedAccount   RedditAccount? @relation(fields: [assignedAccountId], references: [id])
+
+  // Workflow status
+  status EngagementStatus @default(discovered)
+
+  // Review tracking
+  reviewerId    String?   @map("reviewer_id")
+  reviewer      User?     @relation("ReviewedBy", fields: [reviewerId], references: [id])
+  reviewerNotes String?   @map("reviewer_notes")
+  reviewedAt    DateTime? @map("reviewed_at")
+
+  // Publishing
+  publishedAt     DateTime? @map("published_at")
+  redditCommentId String?   @map("reddit_comment_id")
+
+  // Engagement metrics (for published comments)
+  commentScore      Int?      @map("comment_score")
+  replyCount        Int?      @map("reply_count")
+  lastMetricCheck   DateTime? @map("last_metric_check")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  metrics EngagementMetric[]
+
+  @@map("engagement_items")
+}
+
+// Historical engagement metrics for tracking comment performance over time
+model EngagementMetric {
+  id           String   @id @default(uuid())
+  engagementId String   @map("engagement_id")
+  engagement   EngagementItem @relation(fields: [engagementId], references: [id], onDelete: Cascade)
+
+  commentScore Int      @map("comment_score")
+  replyCount   Int      @map("reply_count")
+  recordedAt   DateTime @default(now()) @map("recorded_at")
+
+  @@index([engagementId])
+  @@map("engagement_metrics")
+}
+
+enum EngagementStatus {
+  discovered
+  analyzing
+  draft_ready
+  in_review
+  approved
+  rejected
+  published
+  failed
+}
+
+// Audit log for tracking state changes
+model AuditLog {
+  id         String   @id @default(uuid())
+  entityType String   @map("entity_type")
+  entityId   String   @map("entity_id")
+  action     String
+  userId     String?  @map("user_id")
+  oldValue   Json?    @map("old_value")
+  newValue   Json?    @map("new_value")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([entityType, entityId])
+  @@map("audit_logs")
+}
+
+// Refresh tokens for JWT authentication
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String   @map("user_id")
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@map("refresh_tokens")
+}
+
+// Google Search Console integration
+model GoogleAccount {
+  id              String              @id @default(uuid())
+  email           String              @unique
+  accessToken     String              @map("access_token") // encrypted
+  refreshToken    String              @map("refresh_token") // encrypted
+  tokenExpiresAt  DateTime            @map("token_expires_at")
+  siteUrl         String              @map("site_url") // verified property URL
+  status          GoogleAccountStatus @default(active)
+  createdAt       DateTime            @default(now()) @map("created_at")
+  updatedAt       DateTime            @updatedAt @map("updated_at")
+
+  // Relations
+  gscKeywords GSCKeyword[]
+  syncJobs    GSCSyncJob[]
+
+  @@map("google_accounts")
+}
+
+enum GoogleAccountStatus {
+  active
+  token_expired
+  disconnected
+}
+
+// GSC keyword data from Search Console
+model GSCKeyword {
+  id              String        @id @default(uuid())
+  googleAccountId String        @map("google_account_id")
+  googleAccount   GoogleAccount @relation(fields: [googleAccountId], references: [id], onDelete: Cascade)
+
+  query       String  // Search query/keyword
+  page        String? // Landing page URL
+  country     String?
+  device      String?
+
+  // Link to internal keyword for correlation
+  linkedKeywordId String?  @map("linked_keyword_id")
+  linkedKeyword   Keyword? @relation(fields: [linkedKeywordId], references: [id], onDelete: SetNull)
+
+  // Metrics
+  clicks      Int     @default(0)
+  impressions Int     @default(0)
+  ctr         Float   @default(0)
+  position    Float   @default(0)
+
+  dataDate  DateTime @map("data_date")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([googleAccountId, query, page, country, device, dataDate])
+  @@index([googleAccountId])
+  @@index([linkedKeywordId])
+  @@map("gsc_keywords")
+}
+
+// GSC sync job tracking
+model GSCSyncJob {
+  id              String        @id @default(uuid())
+  googleAccountId String        @map("google_account_id")
+  googleAccount   GoogleAccount @relation(fields: [googleAccountId], references: [id], onDelete: Cascade)
+
+  status          GSCSyncStatus @default(pending)
+  syncType        String        @default("manual") @map("sync_type") // 'daily', 'weekly', 'manual', 'full'
+  startDate       DateTime      @map("start_date")
+  endDate         DateTime      @map("end_date")
+  progress        Int           @default(0)
+  keywordsImported Int          @default(0) @map("keywords_imported")
+  error           String?
+
+  startedAt   DateTime? @map("started_at")
+  completedAt DateTime? @map("completed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  @@index([googleAccountId])
+  @@map("gsc_sync_jobs")
+}
+
+enum GSCSyncStatus {
+  pending
+  running
+  completed
+  failed
+}
+
+// YouTube channel discovery and analysis
+model YouTubeChannel {
+  id              String   @id @default(uuid())
+  channelId       String   @unique @map("channel_id") // YouTube channel ID
+  name            String
+  description     String?
+  customUrl       String?  @map("custom_url") // @handle
+  thumbnailUrl    String?  @map("thumbnail_url")
+
+  // Metrics from YouTube API
+  subscriberCount Int?     @map("subscriber_count")
+  videoCount      Int?     @map("video_count")
+  viewCount       BigInt?  @map("view_count") // Can be very large
+
+  // Calculated metrics
+  avgViewsPerVideo Int?    @map("avg_views_per_video")
+  engagementRate   Float?  @map("engagement_rate") // 0-100
+
+  // AI Analysis
+  relevanceScore  Int?     @map("relevance_score") // 1-10
+  aiAnalysis      Json?    @map("ai_analysis")
+
+  // ROI Scoring
+  roiScore        Int?     @map("roi_score") // 0-100
+  roiFactors      Json?    @map("roi_factors") // Breakdown
+
+  // Discovery metadata
+  discoveredKeyword String? @map("discovered_keyword")
+  category          String? // influencer, competitor, opportunity
+  notes             String?
+  status            YouTubeChannelStatus @default(discovered)
+
+  // Tracking
+  lastSyncAt      DateTime? @map("last_sync_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  videos          YouTubeVideo[]
+
+  @@map("youtube_channels")
+}
+
+model YouTubeVideo {
+  id            String   @id @default(uuid())
+  videoId       String   @unique @map("video_id")
+  channelId     String   @map("channel_id")
+  channel       YouTubeChannel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  title         String
+  description   String?
+  publishedAt   DateTime? @map("published_at")
+  thumbnailUrl  String?   @map("thumbnail_url")
+
+  // Metrics
+  viewCount     Int?      @map("view_count")
+  likeCount     Int?      @map("like_count")
+  commentCount  Int?      @map("comment_count")
+
+  // Relevance for content analysis
+  relevanceScore Int?     @map("relevance_score")
+
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  @@index([channelId])
+  @@map("youtube_videos")
+}
+
+model YouTubeDiscoveryJob {
+  id            String   @id @default(uuid())
+  status        YouTubeJobStatus @default(pending)
+  keywords      Json     // Array of search keywords
+  progress      Int      @default(0)
+  channelsFound Int      @default(0) @map("channels_found")
+  error         String?
+
+  startedAt     DateTime? @map("started_at")
+  completedAt   DateTime? @map("completed_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  @@map("youtube_discovery_jobs")
+}
+
+enum YouTubeChannelStatus {
+  discovered
+  analyzing
+  analyzed
+  shortlisted
+  contacted
+  rejected
+}
+
+enum YouTubeJobStatus {
+  pending
+  running
+  completed
+  failed
+}
