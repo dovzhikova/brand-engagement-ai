@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 
 import authRoutes from './api/routes/auth.routes';
+import organizationsRoutes from './api/routes/organizations.routes';
 import accountRoutes from './api/routes/accounts.routes';
 import personaRoutes from './api/routes/personas.routes';
 import engagementRoutes from './api/routes/engagements.routes';
@@ -65,6 +66,7 @@ app.get('/health', (_req: Request, res: Response) => {
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/organizations', organizationsRoutes);
 app.use('/api/accounts', accountRoutes);
 app.use('/api/personas', personaRoutes);
 app.use('/api/engagements', engagementRoutes);

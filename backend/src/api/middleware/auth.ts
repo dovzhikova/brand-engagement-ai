@@ -2,11 +2,20 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { UnauthorizedError, ForbiddenError } from './errorHandler';
 import { prisma } from '../../utils/prisma';
+import { OrgRole } from '@prisma/client';
+
+export interface OrganizationInfo {
+  id: string;
+  name: string;
+  slug: string;
+  role: OrgRole;
+}
 
 export interface JWTPayload {
   userId: string;
   email: string;
   role: string;
+  organizations?: OrganizationInfo[];
 }
 
 declare global {

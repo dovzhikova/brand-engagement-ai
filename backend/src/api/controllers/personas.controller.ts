@@ -16,9 +16,10 @@ const personaSchema = z.object({
 });
 
 export class PersonasController {
-  list = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
+  list = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const personas = await prisma.persona.findMany({
+        where: { organizationId: req.organizationId },
         include: {
           _count: {
             select: { redditAccounts: true },
@@ -37,8 +38,8 @@ export class PersonasController {
     try {
       const { id } = req.params;
 
-      const persona = await prisma.persona.findUnique({
-        where: { id },
+      const persona = await prisma.persona.findFirst({
+        where: { id, organizationId: req.organizationId },
         include: {
           redditAccounts: {
             select: {
@@ -65,7 +66,10 @@ export class PersonasController {
       const data = personaSchema.parse(req.body);
 
       const persona = await prisma.persona.create({
-        data,
+        data: {
+          ...data,
+          organizationId: req.organizationId,
+        },
       });
 
       res.status(201).json(persona);
@@ -79,7 +83,9 @@ export class PersonasController {
       const { id } = req.params;
       const data = personaSchema.partial().parse(req.body);
 
-      const existing = await prisma.persona.findUnique({ where: { id } });
+      const existing = await prisma.persona.findFirst({
+        where: { id, organizationId: req.organizationId },
+      });
       if (!existing) {
         throw new NotFoundError('Persona not found');
       }
@@ -99,7 +105,9 @@ export class PersonasController {
     try {
       const { id } = req.params;
 
-      const existing = await prisma.persona.findUnique({ where: { id } });
+      const existing = await prisma.persona.findFirst({
+        where: { id, organizationId: req.organizationId },
+      });
       if (!existing) {
         throw new NotFoundError('Persona not found');
       }

@@ -5,6 +5,14 @@ import { z } from 'zod';
 import { prisma } from '../../utils/prisma';
 import { UnauthorizedError, ValidationError, ConflictError } from '../middleware/errorHandler';
 import { v4 as uuidv4 } from 'uuid';
+import { OrgRole } from '@prisma/client';
+
+interface OrganizationInfo {
+  id: string;
+  name: string;
+  slug: string;
+  role: OrgRole;
+}
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -19,9 +27,32 @@ const registerSchema = z.object({
 });
 
 export class AuthController {
-  private generateTokens(userId: string, email: string, role: string) {
+  private async getUserOrganizations(userId: string): Promise<OrganizationInfo[]> {
+    const memberships = await prisma.organizationMember.findMany({
+      where: { userId },
+      include: {
+        organization: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'asc' },
+    });
+
+    return memberships.map((m) => ({
+      id: m.organization.id,
+      name: m.organization.name,
+      slug: m.organization.slug,
+      role: m.role,
+    }));
+  }
+
+  private generateTokens(userId: string, email: string, role: string, organizations: OrganizationInfo[]) {
     const accessToken = jwt.sign(
-      { userId, email, role },
+      { userId, email, role, organizations },
       process.env.JWT_SECRET!,
       { expiresIn: process.env.JWT_EXPIRES_IN || '15m' } as any
     );
@@ -43,10 +74,14 @@ export class AuthController {
         throw new UnauthorizedError('Invalid credentials');
       }
 
+      // Get user's organizations
+      const organizations = await this.getUserOrganizations(user.id);
+
       const { accessToken, refreshToken } = this.generateTokens(
         user.id,
         user.email,
-        user.role
+        user.role,
+        organizations
       );
 
       // Store refresh token
@@ -69,6 +104,8 @@ export class AuthController {
           email: user.email,
           name: user.name,
           role: user.role,
+          defaultOrganizationId: user.defaultOrganizationId,
+          organizations,
         },
       });
     } catch (error) {
@@ -100,6 +137,9 @@ export class AuthController {
         throw new UnauthorizedError('User not found');
       }
 
+      // Get user's organizations
+      const organizations = await this.getUserOrganizations(user.id);
+
       // Delete old refresh token
       await prisma.refreshToken.delete({
         where: { id: storedToken.id },
@@ -109,7 +149,8 @@ export class AuthController {
       const { accessToken, refreshToken: newRefreshToken } = this.generateTokens(
         user.id,
         user.email,
-        user.role
+        user.role,
+        organizations
       );
 
       // Store new refresh token
@@ -192,6 +233,7 @@ export class AuthController {
           email: true,
           name: true,
           role: true,
+          defaultOrganizationId: true,
           createdAt: true,
         },
       });
@@ -200,7 +242,13 @@ export class AuthController {
         throw new UnauthorizedError('User not found');
       }
 
-      res.json(user);
+      // Get user's organizations
+      const organizations = await this.getUserOrganizations(user.id);
+
+      res.json({
+        ...user,
+        organizations,
+      });
     } catch (error) {
       next(error);
     }

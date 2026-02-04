@@ -88,7 +88,9 @@ export class YouTubeController {
     try {
       const { status, category, minRoiScore, sortBy, sortOrder, limit, offset } = listQuerySchema.parse(req.query);
 
-      const where: Record<string, unknown> = {};
+      const where: Record<string, unknown> = {
+        organizationId: req.organizationId,
+      };
       if (status) where.status = status;
       if (category) where.category = category;
       if (minRoiScore !== undefined) {
@@ -129,8 +131,8 @@ export class YouTubeController {
     try {
       const { id } = req.params;
 
-      const channelRaw = await prisma.youTubeChannel.findUnique({
-        where: { id },
+      const channelRaw = await prisma.youTubeChannel.findFirst({
+        where: { id, organizationId: req.organizationId },
         include: {
           videos: {
             orderBy: { publishedAt: 'desc' },
@@ -162,8 +164,8 @@ export class YouTubeController {
     try {
       const { id } = req.params;
 
-      const channel = await prisma.youTubeChannel.findUnique({
-        where: { id },
+      const channel = await prisma.youTubeChannel.findFirst({
+        where: { id, organizationId: req.organizationId },
       });
 
       if (!channel) {
@@ -208,8 +210,8 @@ export class YouTubeController {
       const { id } = req.params;
       const data = updateChannelSchema.parse(req.body);
 
-      const existing = await prisma.youTubeChannel.findUnique({
-        where: { id },
+      const existing = await prisma.youTubeChannel.findFirst({
+        where: { id, organizationId: req.organizationId },
       });
 
       if (!existing) {
@@ -234,8 +236,8 @@ export class YouTubeController {
     try {
       const { id } = req.params;
 
-      const existing = await prisma.youTubeChannel.findUnique({
-        where: { id },
+      const existing = await prisma.youTubeChannel.findFirst({
+        where: { id, organizationId: req.organizationId },
       });
 
       if (!existing) {
@@ -257,6 +259,8 @@ export class YouTubeController {
    */
   getAnalytics = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+      const orgFilter = { organizationId: req.organizationId };
+
       const [
         totalChannels,
         statusBreakdown,
@@ -265,21 +269,22 @@ export class YouTubeController {
         topByRelevance,
         recentlyDiscovered,
       ] = await Promise.all([
-        prisma.youTubeChannel.count(),
+        prisma.youTubeChannel.count({ where: orgFilter }),
 
         prisma.youTubeChannel.groupBy({
           by: ['status'],
           _count: true,
+          where: orgFilter,
         }),
 
         prisma.youTubeChannel.groupBy({
           by: ['category'],
           _count: true,
-          where: { category: { not: null } },
+          where: { ...orgFilter, category: { not: null } },
         }),
 
         prisma.youTubeChannel.findMany({
-          where: { roiScore: { not: null } },
+          where: { ...orgFilter, roiScore: { not: null } },
           orderBy: { roiScore: 'desc' },
           take: 5,
           select: {
@@ -293,7 +298,7 @@ export class YouTubeController {
         }),
 
         prisma.youTubeChannel.findMany({
-          where: { relevanceScore: { not: null } },
+          where: { ...orgFilter, relevanceScore: { not: null } },
           orderBy: { relevanceScore: 'desc' },
           take: 5,
           select: {
@@ -307,6 +312,7 @@ export class YouTubeController {
         }),
 
         prisma.youTubeChannel.findMany({
+          where: orgFilter,
           orderBy: { createdAt: 'desc' },
           take: 10,
           select: {
@@ -328,6 +334,7 @@ export class YouTubeController {
           engagementRate: true,
         },
         where: {
+          ...orgFilter,
           roiScore: { not: null },
         },
       });

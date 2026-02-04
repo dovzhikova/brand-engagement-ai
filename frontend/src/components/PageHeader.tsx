@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { ChevronRight, Home } from 'lucide-react';
 import { ReactNode } from 'react';
 
 interface Breadcrumb {
@@ -28,15 +27,15 @@ export default function PageHeader({
   const getBadgeClass = (variant?: string) => {
     switch (variant) {
       case 'success':
-        return 'badge-success';
+        return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300';
       case 'warning':
-        return 'badge-warning';
+        return 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300';
       case 'danger':
-        return 'badge-danger';
+        return 'bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300';
       case 'info':
-        return 'badge-info';
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300';
       default:
-        return 'badge-gray';
+        return 'bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-200';
     }
   };
 
@@ -44,25 +43,25 @@ export default function PageHeader({
     <div className="mb-6">
       {/* Breadcrumbs */}
       {breadcrumbs.length > 0 && (
-        <nav className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 mb-2">
+        <nav className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-2">
           <Link
             to="/"
-            className="hover:text-gray-700 dark:hover:text-gray-300 flex items-center"
+            className="hover:text-slate-700 dark:hover:text-slate-300 flex items-center"
           >
-            <Home className="h-4 w-4" />
+            <span className="material-icons-round text-[14px]">home</span>
           </Link>
           {breadcrumbs.map((crumb, index) => (
-            <div key={index} className="flex items-center gap-1">
-              <ChevronRight className="h-4 w-4" />
+            <div key={index} className="flex items-center gap-2">
+              <span className="material-icons-round text-[14px]">chevron_right</span>
               {crumb.href ? (
                 <Link
                   to={crumb.href}
-                  className="hover:text-gray-700 dark:hover:text-gray-300"
+                  className="hover:text-slate-700 dark:hover:text-slate-300"
                 >
                   {crumb.label}
                 </Link>
               ) : (
-                <span className="text-gray-700 dark:text-gray-300">{crumb.label}</span>
+                <span className="text-slate-900 dark:text-slate-200 font-medium">{crumb.label}</span>
               )}
             </div>
           ))}
@@ -73,17 +72,17 @@ export default function PageHeader({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
               {title}
             </h1>
             {badge && (
-              <span className={`badge ${getBadgeClass(badge.variant)}`}>
+              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getBadgeClass(badge.variant)}`}>
                 {badge.label}
               </span>
             )}
           </div>
           {description && (
-            <p className="mt-1 text-gray-600 dark:text-gray-400">{description}</p>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{description}</p>
           )}
         </div>
         {actions && <div className="flex items-center gap-2">{actions}</div>}

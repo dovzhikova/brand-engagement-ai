@@ -1,12 +1,14 @@
 import { Router } from 'express';
 import { AccountsController } from '../controllers/accounts.controller';
 import { authenticate } from '../middleware/auth';
+import { requireOrgContext } from '../middleware/organization';
 
 const router = Router();
 const accountsController = new AccountsController();
 
-// All routes require authentication
+// All routes require authentication and organization context
 router.use(authenticate);
+router.use(requireOrgContext);
 
 // GET /api/accounts - List all Reddit accounts
 router.get('/', accountsController.list);

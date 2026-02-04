@@ -1,12 +1,14 @@
 import { Router } from 'express';
 import { YouTubeController } from '../controllers/youtube.controller';
 import { authenticate } from '../middleware/auth';
+import { requireOrgContext } from '../middleware/organization';
 
 const router = Router();
 const youtubeController = new YouTubeController();
 
-// All routes require authentication
+// All routes require authentication and organization context
 router.use(authenticate);
+router.use(requireOrgContext);
 
 // ==========================================
 // Discovery

@@ -26,12 +26,19 @@ const processQueue = (token: string | null, error: Error | null) => {
   refreshQueue = [];
 };
 
-// Request interceptor to add auth token
+// Request interceptor to add auth token and organization header
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const { accessToken } = useAuthStore.getState();
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
+
+  // Add organization context header
+  const orgId = localStorage.getItem('currentOrganizationId');
+  if (orgId) {
+    config.headers['X-Organization-Id'] = orgId;
+  }
+
   return config;
 });
 
@@ -250,6 +257,24 @@ export const referralsApi = {
   validateCode: (code: string) => api.get(`/referrals/validate/${code}`),
   applyCode: (code: string) => api.post('/referrals/apply', { code }),
   getHistory: () => api.get('/referrals/history'),
+};
+
+// Organizations API
+export const organizationsApi = {
+  list: () => api.get('/organizations'),
+  create: (data: { name: string; slug: string }) =>
+    api.post('/organizations', data),
+  get: (id: string) => api.get(`/organizations/${id}`),
+  update: (id: string, data: { name?: string; slug?: string }) =>
+    api.put(`/organizations/${id}`, data),
+  delete: (id: string) => api.delete(`/organizations/${id}`),
+  inviteMember: (id: string, data: { email: string; role?: 'ADMIN' | 'MEMBER' }) =>
+    api.post(`/organizations/${id}/members`, data),
+  removeMember: (id: string, memberId: string) =>
+    api.delete(`/organizations/${id}/members/${memberId}`),
+  updateMemberRole: (id: string, memberId: string, role: 'OWNER' | 'ADMIN' | 'MEMBER') =>
+    api.patch(`/organizations/${id}/members/${memberId}/role`, { role }),
+  leave: (id: string) => api.post(`/organizations/${id}/leave`),
 };
 
 // YouTube API

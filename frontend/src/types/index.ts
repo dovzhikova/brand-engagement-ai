@@ -1,8 +1,52 @@
+export type OrgRole = 'OWNER' | 'ADMIN' | 'MEMBER';
+
+export interface Organization {
+  id: string;
+  name: string;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  _count?: {
+    members: number;
+    redditAccounts: number;
+    personas: number;
+    keywords: number;
+    engagementItems: number;
+    youtubeChannels: number;
+    googleAccounts: number;
+  };
+}
+
+export interface OrganizationMember {
+  id: string;
+  organizationId: string;
+  userId: string;
+  role: OrgRole;
+  createdAt: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
+
+export interface OrganizationWithMembers extends Organization {
+  members: OrganizationMember[];
+  currentUserRole: OrgRole;
+}
+
 export interface User {
   id: string;
   email: string;
   name: string;
   role: 'admin' | 'manager' | 'reviewer';
+  defaultOrganizationId?: string;
+  organizations?: Array<{
+    id: string;
+    name: string;
+    slug: string;
+    role: OrgRole;
+  }>;
   createdAt: string;
 }
 

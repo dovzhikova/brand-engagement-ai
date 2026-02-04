@@ -32,14 +32,12 @@ export class SettingsController {
 
       // Return defaults if no preferences exist
       if (!preferences) {
-        preferences = {
-          id: '',
-          userId,
+        res.json({
           aiProvider: 'anthropic',
           aiModel: 'claude-sonnet-4-20250514',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
+          availableModels: AVAILABLE_MODELS,
+        });
+        return;
       }
 
       res.json({

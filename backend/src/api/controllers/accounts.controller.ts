@@ -14,9 +14,10 @@ const updateAccountSchema = z.object({
 export class AccountsController {
   private redditService = new RedditService();
 
-  list = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
+  list = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const accounts = await prisma.redditAccount.findMany({
+        where: { organizationId: req.organizationId },
         include: {
           persona: {
             select: {
@@ -44,8 +45,8 @@ export class AccountsController {
     try {
       const { id } = req.params;
 
-      const account = await prisma.redditAccount.findUnique({
-        where: { id },
+      const account = await prisma.redditAccount.findFirst({
+        where: { id, organizationId: req.organizationId },
         include: {
           persona: true,
           _count: {
@@ -101,7 +102,9 @@ export class AccountsController {
       const { id } = req.params;
       const data = updateAccountSchema.parse(req.body);
 
-      const existing = await prisma.redditAccount.findUnique({ where: { id } });
+      const existing = await prisma.redditAccount.findFirst({
+        where: { id, organizationId: req.organizationId },
+      });
       if (!existing) {
         throw new NotFoundError('Account not found');
       }
@@ -130,7 +133,9 @@ export class AccountsController {
     try {
       const { id } = req.params;
 
-      const existing = await prisma.redditAccount.findUnique({ where: { id } });
+      const existing = await prisma.redditAccount.findFirst({
+        where: { id, organizationId: req.organizationId },
+      });
       if (!existing) {
         throw new NotFoundError('Account not found');
       }
@@ -151,7 +156,9 @@ export class AccountsController {
     try {
       const { id } = req.params;
 
-      const existing = await prisma.redditAccount.findUnique({ where: { id } });
+      const existing = await prisma.redditAccount.findFirst({
+        where: { id, organizationId: req.organizationId },
+      });
       if (!existing) {
         throw new NotFoundError('Account not found');
       }
@@ -190,7 +197,9 @@ export class AccountsController {
     try {
       const { id } = req.params;
 
-      const existing = await prisma.redditAccount.findUnique({ where: { id } });
+      const existing = await prisma.redditAccount.findFirst({
+        where: { id, organizationId: req.organizationId },
+      });
       if (!existing) {
         throw new NotFoundError('Account not found');
       }

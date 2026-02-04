@@ -69,9 +69,10 @@ export class GSCController {
   // Account management
   // ==========================================
 
-  listAccounts = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
+  listAccounts = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const accounts = await prisma.googleAccount.findMany({
+        where: { organizationId: req.organizationId },
         select: {
           id: true,
           email: true,
@@ -99,8 +100,8 @@ export class GSCController {
     try {
       const { id } = req.params;
 
-      const account = await prisma.googleAccount.findUnique({
-        where: { id },
+      const account = await prisma.googleAccount.findFirst({
+        where: { id, organizationId: req.organizationId },
         select: {
           id: true,
           email: true,
@@ -175,8 +176,8 @@ export class GSCController {
       const { syncType } = syncSchema.parse(req.body);
 
       // Verify account exists and is active
-      const account = await prisma.googleAccount.findUnique({
-        where: { id },
+      const account = await prisma.googleAccount.findFirst({
+        where: { id, organizationId: req.organizationId },
       });
 
       if (!account) {
@@ -205,8 +206,8 @@ export class GSCController {
       const { id } = req.params;
 
       // Verify account exists and is active
-      const account = await prisma.googleAccount.findUnique({
-        where: { id },
+      const account = await prisma.googleAccount.findFirst({
+        where: { id, organizationId: req.organizationId },
       });
 
       if (!account) {
@@ -286,8 +287,8 @@ export class GSCController {
       const days = parseInt(req.query.days as string) || 30;
 
       // Verify account exists
-      const account = await prisma.googleAccount.findUnique({
-        where: { id },
+      const account = await prisma.googleAccount.findFirst({
+        where: { id, organizationId: req.organizationId },
       });
 
       if (!account) {
@@ -385,7 +386,7 @@ export class GSCController {
       let googleAccountId = accountId;
       if (!googleAccountId) {
         const account = await prisma.googleAccount.findFirst({
-          where: { status: 'active' },
+          where: { status: 'active', organizationId: req.organizationId },
           select: { id: true },
         });
 
@@ -418,10 +419,11 @@ export class GSCController {
         throw new ValidationError('Query is required');
       }
 
-      // Check if keyword already exists
+      // Check if keyword already exists in this organization
       const existing = await prisma.keyword.findFirst({
         where: {
           keyword: { equals: query, mode: 'insensitive' },
+          organizationId: req.organizationId,
         },
       });
 
@@ -435,6 +437,7 @@ export class GSCController {
           category: category || 'broad',
           priority: priority || 2,
           isActive: true,
+          organizationId: req.organizationId,
         },
       });
 
