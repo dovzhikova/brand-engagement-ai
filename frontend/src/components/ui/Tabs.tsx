@@ -45,13 +45,13 @@ export default function Tabs({
     pills: {
       container: 'flex gap-2',
       tab: 'rounded-full',
-      active: 'bg-carol-600 text-white',
+      active: 'bg-brand-600 text-white',
       inactive: 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700',
     },
     underline: {
       container: 'flex gap-1 border-b border-gray-200 dark:border-gray-700',
       tab: 'border-b-2 -mb-px',
-      active: 'border-carol-500 text-carol-600 dark:text-carol-400',
+      active: 'border-brand-500 text-brand-600 dark:text-brand-400',
       inactive: 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300',
     },
   };
@@ -134,7 +134,7 @@ export default function Tabs({
             ${fullWidth ? 'flex-1' : ''}
             ${tab.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
             font-medium transition-all duration-150
-            focus:outline-none focus-visible:ring-2 focus-visible:ring-carol-500 focus-visible:ring-offset-2
+            focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2
             flex items-center justify-center gap-2
           `}
         >
@@ -147,7 +147,7 @@ export default function Tabs({
                   activeTab === tab.id
                     ? variant === 'pills'
                       ? 'bg-white/20'
-                      : 'bg-carol-100 dark:bg-carol-900/30 text-carol-600 dark:text-carol-400'
+                      : 'bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400'
                     : 'bg-gray-200 dark:bg-gray-700'
                 }
               `}

@@ -1,6 +1,6 @@
 # Railway Deployment Guide
 
-This guide will help you deploy the CAROL Bike Reddit Engagement Platform to Railway.
+This guide will help you deploy the Brand Engagement AI Platform to Railway.
 
 ## Prerequisites
 
@@ -30,13 +30,13 @@ This will open your browser for authentication.
 ### Step 2: Initialize Railway Project
 
 ```bash
-cd /Users/dariadovzhikova/carol-bike-reddit
+cd /Users/dariadovzhikova/brand-engagement-ai
 railway init
 ```
 
 Select:
 - "Create new project"
-- Name: "carol-bike-reddit" (or your preferred name)
+- Name: "brand-engagement-ai" (or your preferred name)
 - Link to your GitHub repository when prompted
 
 ### Step 3: Add PostgreSQL Database
@@ -79,7 +79,7 @@ railway variables set PORT=3001 --service backend
 railway variables set REDDIT_CLIENT_ID=your-reddit-client-id --service backend
 railway variables set REDDIT_CLIENT_SECRET=your-reddit-client-secret --service backend
 railway variables set REDDIT_REDIRECT_URI=https://your-frontend-url.railway.app/api/accounts/oauth/callback --service backend
-railway variables set REDDIT_USER_AGENT=CAROLBikeEngagement/1.0 --service backend
+railway variables set REDDIT_USER_AGENT=BrandEngagementAI/1.0 --service backend
 
 # AI Services (choose one or both)
 railway variables set AI_PROVIDER=openai --service backend
@@ -140,7 +140,7 @@ railway domain --service frontend
 
 1. Go to https://railway.app/new
 2. Select "Deploy from GitHub repo"
-3. Choose your `carol-bike-reddit` repository
+3. Choose your `brand-engagement-ai` repository
 4. Railway will auto-detect the monorepo structure
 
 5. **Add Services:**
@@ -201,7 +201,7 @@ railway variables set FRONTEND_URL=https://your-frontend-url.railway.app --servi
 ### 3. Default Login
 
 After seeding the database, use these credentials:
-- Email: `admin@carolbike.com`
+- Email: `admin@example.com`
 - Password: `admin123`
 
 **Important:** Change the admin password immediately after first login!
@@ -285,4 +285,4 @@ After deployment:
 
 - Railway Docs: https://docs.railway.app
 - Railway Discord: https://discord.gg/railway
-- Project Repository: https://github.com/dovzhikova/carol-bike-reddit
+- Project Repository: https://github.com/dovzhikova/brand-engagement-ai

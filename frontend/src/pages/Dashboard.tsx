@@ -119,11 +119,11 @@ export default function Dashboard() {
 
       {/* Quick Start Banner - show if no data */}
       {!hasData && (
-        <div className="card p-6 bg-gradient-to-r from-carol-50 to-red-50 dark:from-carol-900/20 dark:to-red-900/20 border-carol-200 dark:border-carol-800">
+        <div className="card p-6 bg-gradient-to-r from-brand-50 to-red-50 dark:from-brand-900/20 dark:to-red-900/20 border-brand-200 dark:border-brand-800">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                Welcome to CAROL Engage!
+                Welcome to Brand Engage!
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 Start by discovering Reddit content opportunities for your keywords.
@@ -373,7 +373,7 @@ export default function Dashboard() {
             {topAccounts.slice(0, 3).map((account: { username: string; publishedCount: number; totalScore: number }, index: number) => (
               <div key={account.username} className="flex items-center justify-between py-2">
                 <div className="flex items-center">
-                  <span className="text-lg font-bold text-carol-600 mr-3">#{index + 1}</span>
+                  <span className="text-lg font-bold text-brand-600 mr-3">#{index + 1}</span>
                   <span className="text-gray-900 dark:text-gray-100">u/{account.username}</span>
                 </div>
                 <div className="text-right text-sm">
@@ -458,7 +458,7 @@ export default function Dashboard() {
                       href={mention.postUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-carol-600 ml-2"
+                      className="text-gray-400 hover:text-brand-600 ml-2"
                     >
                       <ExternalLink className="h-4 w-4" />
                     </a>

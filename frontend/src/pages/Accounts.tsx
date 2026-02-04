@@ -262,7 +262,7 @@ export default function Accounts() {
                         <button
                           onClick={() => checkHealthMutation.mutate(account.id)}
                           disabled={checkHealthMutation.isPending}
-                          className="text-gray-400 hover:text-carol-600 dark:hover:text-carol-400"
+                          className="text-gray-400 hover:text-brand-600 dark:hover:text-brand-400"
                           title="Refresh health score"
                         >
                           <RefreshCw className={`h-3 w-3 ${checkHealthMutation.isPending ? 'animate-spin' : ''}`} />
@@ -278,7 +278,7 @@ export default function Accounts() {
                         <button
                           onClick={() => checkShadowbanMutation.mutate(account.id)}
                           disabled={checkShadowbanMutation.isPending}
-                          className="text-gray-400 hover:text-carol-600 dark:hover:text-carol-400"
+                          className="text-gray-400 hover:text-brand-600 dark:hover:text-brand-400"
                           title="Check for shadowban"
                         >
                           <RefreshCw className={`h-3 w-3 ${checkShadowbanMutation.isPending ? 'animate-spin' : ''}`} />
@@ -367,7 +367,7 @@ export default function Accounts() {
         }}
         onConfirm={confirmDelete}
         title="Disconnect Account"
-        message={`Are you sure you want to disconnect u/${accountToDelete?.username}? This will remove the account from CAROL Engage but won't affect the Reddit account itself.`}
+        message={`Are you sure you want to disconnect u/${accountToDelete?.username}? This will remove the account from Brand Engage but won't affect the Reddit account itself.`}
         confirmLabel={deleteMutation.isPending ? 'Disconnecting...' : 'Disconnect'}
         variant="danger"
       />

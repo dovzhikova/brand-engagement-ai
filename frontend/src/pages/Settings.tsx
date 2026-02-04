@@ -184,27 +184,27 @@ export default function Settings() {
         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Business Rules</h2>
         <div className="space-y-3 text-sm">
           <div className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-carol-100 dark:bg-carol-900/30 text-carol-600 dark:text-carol-400 flex items-center justify-center text-xs font-bold mr-3">1</span>
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xs font-bold mr-3">1</span>
             <p className="text-gray-700 dark:text-gray-300"><strong>80/20 Rule:</strong> Responses must be max 80% value content, 20% product mention</p>
           </div>
           <div className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-carol-100 dark:bg-carol-900/30 text-carol-600 dark:text-carol-400 flex items-center justify-center text-xs font-bold mr-3">2</span>
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xs font-bold mr-3">2</span>
             <p className="text-gray-700 dark:text-gray-300"><strong>Relevance Threshold:</strong> Only generate drafts for posts with relevance score {'>='} 6</p>
           </div>
           <div className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-carol-100 dark:bg-carol-900/30 text-carol-600 dark:text-carol-400 flex items-center justify-center text-xs font-bold mr-3">3</span>
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xs font-bold mr-3">3</span>
             <p className="text-gray-700 dark:text-gray-300"><strong>Account Warm-up:</strong> New accounts start in warming_up status for 14 days</p>
           </div>
           <div className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-carol-100 dark:bg-carol-900/30 text-carol-600 dark:text-carol-400 flex items-center justify-center text-xs font-bold mr-3">4</span>
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xs font-bold mr-3">4</span>
             <p className="text-gray-700 dark:text-gray-300"><strong>Rate Limits:</strong> Max 10 posts per account per day to avoid spam flags</p>
           </div>
           <div className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-carol-100 dark:bg-carol-900/30 text-carol-600 dark:text-carol-400 flex items-center justify-center text-xs font-bold mr-3">5</span>
-            <p className="text-gray-700 dark:text-gray-300"><strong>Disclosure:</strong> If subreddit rules require, disclose CAROL affiliation</p>
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xs font-bold mr-3">5</span>
+            <p className="text-gray-700 dark:text-gray-300"><strong>Disclosure:</strong> If subreddit rules require, disclose brand affiliation</p>
           </div>
           <div className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-carol-100 dark:bg-carol-900/30 text-carol-600 dark:text-carol-400 flex items-center justify-center text-xs font-bold mr-3">6</span>
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xs font-bold mr-3">6</span>
             <p className="text-gray-700 dark:text-gray-300"><strong>No Medical Claims:</strong> Never make health claims not backed by cited research</p>
           </div>
         </div>
@@ -214,7 +214,7 @@ export default function Settings() {
       <div className="card p-6">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">About</h2>
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          CAROL Bike Reddit Engagement Platform v1.0.0
+          Brand Engagement Platform v1.0.0
         </p>
         <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
           A platform for managing Reddit engagement with persona-based AI response generation.
@@ -325,7 +325,7 @@ function DecisionRemindersCard() {
   return (
     <div className="card p-6">
       <div className="flex items-center gap-3 mb-2">
-        <Bell className="h-5 w-5 text-carol-600 dark:text-carol-400" />
+        <Bell className="h-5 w-5 text-brand-600 dark:text-brand-400" />
         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
           Decision Reminders
         </h2>
@@ -385,7 +385,7 @@ function DecisionRemindersCard() {
                 key={config.type}
                 className={`
                   flex items-center gap-4 p-4 rounded-lg border
-                  ${enabled ? 'bg-carol-50/50 dark:bg-carol-900/10 border-carol-200 dark:border-carol-800' : 'bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700'}
+                  ${enabled ? 'bg-brand-50/50 dark:bg-brand-900/10 border-brand-200 dark:border-brand-800' : 'bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700'}
                   ${isDisabled ? 'opacity-60' : ''}
                   transition-colors
                 `}
@@ -416,7 +416,7 @@ function DecisionRemindersCard() {
                 <button
                   onClick={() => handleTest(config.type)}
                   disabled={isDisabled || testingType === config.type}
-                  className="text-sm text-carol-600 dark:text-carol-400 hover:underline disabled:opacity-50 disabled:no-underline"
+                  className="text-sm text-brand-600 dark:text-brand-400 hover:underline disabled:opacity-50 disabled:no-underline"
                 >
                   {testingType === config.type ? 'Sending...' : 'Test'}
                 </button>

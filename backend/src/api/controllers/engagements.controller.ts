@@ -39,8 +39,8 @@ const generateBodySchema = z.object({
 
 // Default persona for generating drafts without an account
 const defaultPersona = {
-  name: 'CAROL Brand Voice',
-  backgroundStory: 'A knowledgeable fitness enthusiast who has used CAROL Bike and is passionate about science-backed exercise.',
+  name: 'Default Brand Voice',
+  backgroundStory: 'A knowledgeable fitness enthusiast who has used the product and is passionate about science-backed exercise.',
   toneOfVoice: 'Friendly, helpful, and informative without being pushy or promotional',
   characterTraits: ['helpful', 'knowledgeable', 'genuine', 'science-minded'],
   expertiseAreas: ['REHIT protocol', 'VO2max', 'fitness science', 'time-efficient workouts'],

@@ -42,7 +42,7 @@ export default function ReferralCard() {
     return (
       <div className="card p-6">
         <div className="flex items-center gap-3 mb-4">
-          <Gift className="h-5 w-5 text-carol-600 dark:text-carol-400" />
+          <Gift className="h-5 w-5 text-brand-600 dark:text-brand-400" />
           <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             Invite & Earn
           </h2>
@@ -57,7 +57,7 @@ export default function ReferralCard() {
   return (
     <div className="card p-6">
       <div className="flex items-center gap-3 mb-2">
-        <Gift className="h-5 w-5 text-carol-600 dark:text-carol-400" />
+        <Gift className="h-5 w-5 text-brand-600 dark:text-brand-400" />
         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
           Invite & Earn
         </h2>
@@ -85,12 +85,12 @@ export default function ReferralCard() {
               <span className="text-sm text-gray-600 dark:text-gray-400">Your Referral Code</span>
             </div>
             <div className="flex items-center gap-2">
-              <code className="flex-1 text-xl font-mono font-bold text-carol-600 dark:text-carol-400 bg-white dark:bg-gray-900 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-center tracking-wider">
+              <code className="flex-1 text-xl font-mono font-bold text-brand-600 dark:text-brand-400 bg-white dark:bg-gray-900 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-center tracking-wider">
                 {referralCode}
               </code>
               <button
                 onClick={handleCopy}
-                className="p-2 text-gray-500 hover:text-carol-600 dark:hover:text-carol-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                className="p-2 text-gray-500 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                 title="Copy code"
               >
                 {copied ? (

@@ -321,7 +321,7 @@ export class GSCAnalyticsService {
 
     // Filter to relevant fitness/bike keywords
     const fitnessKeywords = opportunities.filter((o: typeof opportunities[number]) =>
-      /bike|cycling|fitness|workout|exercise|cardio|hiit|spin|peloton|carol|rehit|vo2|interval|training|gym|health/i.test(
+      /bike|cycling|fitness|workout|exercise|cardio|hiit|spin|peloton|your-brand|vo2|interval|training|gym|health/i.test(
         o.query
       )
     );
@@ -338,7 +338,7 @@ export class GSCAnalyticsService {
       let reason = '';
 
       // Determine category based on query content
-      if (/carol|rehit/i.test(query)) {
+      if (/your-brand/i.test(query)) {
         suggestedCategory = 'brand';
       } else if (/peloton|nordictrack|echelon|schwinn|bowflex/i.test(query)) {
         suggestedCategory = 'competitor';

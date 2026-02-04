@@ -1,25 +1,28 @@
-# CAROL Bike Reddit Engagement Platform
+# Brand Engagement AI Platform
 
-A web application for managing Reddit engagement for CAROL Bike's social media team. The platform enables multi-account Reddit management with persona-based AI response generation, content discovery, review workflows, and direct publishing.
+A web application for managing Reddit engagement for brands. The platform enables multi-account Reddit management with persona-based AI response generation, content discovery, review workflows, and direct publishing.
 
 ## Features
 
 - **Multi-Account Management**: Connect and manage multiple Reddit accounts via OAuth
 - **Persona System**: Define unique personalities (tone, goals, traits) for each account
 - **Content Discovery**: Automated and manual fetching of relevant Reddit posts/comments
-- **AI Draft Generation**: LLM-powered responses using persona-specific parameters
+- **AI Draft Generation**: LLM-powered responses using persona-specific parameters (Claude, GPT, Gemini)
 - **Review Workflow**: Edit, proofread, approve/reject drafts before publishing
 - **Direct Publishing**: Post comments/replies to Reddit from the platform
+- **YouTube Discovery**: Find and analyze potential influencer partnerships
+- **Google Search Console**: Track keyword performance and discover content opportunities
+- **Competitor Monitoring**: Track mentions of competitor brands
 
 ## Tech Stack
 
 | Layer | Technology |
 |-------|------------|
-| Frontend | React + TypeScript + Vite |
+| Frontend | React + TypeScript + Vite + TailwindCSS |
 | Backend | Node.js + Express + TypeScript |
 | Database | PostgreSQL + Prisma |
 | Cache/Queue | Redis + Bull |
-| AI | OpenAI / Anthropic Claude |
+| AI | Anthropic Claude / OpenAI GPT / Google Gemini |
 
 ## Prerequisites
 
@@ -27,14 +30,14 @@ A web application for managing Reddit engagement for CAROL Bike's social media t
 - PostgreSQL 14+
 - Redis 6+
 - Reddit API credentials (create app at https://www.reddit.com/prefs/apps)
-- OpenAI or Anthropic API key
+- AI provider API key (Anthropic, OpenAI, or Google)
 
 ## Setup
 
 ### 1. Clone and install dependencies
 
 ```bash
-cd carol-bike-reddit
+cd brand-engagement-ai
 
 # Install backend dependencies
 cd backend
@@ -58,7 +61,18 @@ cd ../frontend
 cp .env.example .env
 ```
 
-### 3. Set up the database
+### 3. Configure your brand
+
+Set your brand context in the backend `.env`:
+```
+BRAND_CONTEXT="- Brand: Your product name and description
+- Key benefits: Main value propositions
+- Target audience: Who you're trying to reach
+- Differentiator: What makes you unique
+- Competitors: Key competitors to position against"
+```
+
+### 4. Set up the database
 
 ```bash
 cd backend
@@ -73,7 +87,7 @@ npm run db:migrate
 npm run db:seed
 ```
 
-### 4. Start the development servers
+### 5. Start the development servers
 
 ```bash
 # Terminal 1 - Backend
@@ -94,7 +108,7 @@ The application will be available at:
 1. Go to https://www.reddit.com/prefs/apps
 2. Click "Create App" or "Create Another App"
 3. Fill in:
-   - Name: CAROL Bike Engagement (or your preferred name)
+   - Name: Your App Name
    - Type: web app
    - Redirect URI: http://localhost:3000/api/accounts/oauth/callback
 4. Copy the client ID (under the app name) and secret to your `.env`
@@ -102,7 +116,7 @@ The application will be available at:
 ## Project Structure
 
 ```
-carol-bike-reddit/
+brand-engagement-ai/
 ├── backend/
 │   ├── prisma/
 │   │   └── schema.prisma       # Database schema
@@ -165,9 +179,9 @@ carol-bike-reddit/
 2. **Relevance Threshold**: Only engage with posts scoring ≥ 6
 3. **Account Warm-up**: New accounts in warm-up for 14 days
 4. **Rate Limits**: Max 10 posts per account per day
-5. **Disclosure**: Disclose affiliation when required
-6. **No Medical Claims**: Only cite backed research
+5. **Disclosure**: Disclose brand affiliation when required
+6. **No Unverified Claims**: Only cite backed research
 
 ## License
 
-Private - CAROL Bike Internal Use Only
+MIT

@@ -185,7 +185,7 @@ export default function Dropdown({
                     ? 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20'
                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                 }
-                ${selectedId === item.id ? 'bg-carol-50 dark:bg-carol-900/20' : ''}
+                ${selectedId === item.id ? 'bg-brand-50 dark:bg-brand-900/20' : ''}
               `}
             >
               {item.icon && (
@@ -200,7 +200,7 @@ export default function Dropdown({
                 )}
               </div>
               {selectedId === item.id && (
-                <Check className="h-4 w-4 text-carol-600 dark:text-carol-400 flex-shrink-0" />
+                <Check className="h-4 w-4 text-brand-600 dark:text-brand-400 flex-shrink-0" />
               )}
             </button>
           ))}
@@ -313,7 +313,7 @@ export function SplitButton({
 
   const buttonClasses =
     variant === 'primary'
-      ? 'bg-carol-600 text-white hover:bg-carol-700'
+      ? 'bg-brand-600 text-white hover:bg-brand-700'
       : 'bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600';
 
   return (

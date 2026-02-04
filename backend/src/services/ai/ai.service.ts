@@ -85,13 +85,13 @@ export class AIService {
   }
 
   private getDefaultBrandContext(): string {
-    return `
-- CAROL Bike: AI-powered exercise bike using REHIT protocol
-- REHIT: Reduced Exertion High-Intensity Training (2x20sec sprints)
-- Key benefits: VO2max improvement, time efficiency (9-min workouts), science-backed
-- Target audience: Busy professionals, biohackers, health-conscious adults 40+
-- Differentiator: Based on University of Bath research, AI-personalized resistance
-- Competitors: Peloton, NordicTrack, Echelon (position as science-focused alternative)
+    // This should be configured per-client in production
+    return process.env.BRAND_CONTEXT || `
+- Brand: Your company/product name and description
+- Key benefits: Main value propositions for your product/service
+- Target audience: Who you're trying to reach
+- Differentiator: What makes you unique vs competitors
+- Competitors: Key competitors to position against
     `.trim();
   }
 
@@ -128,7 +128,7 @@ export class AIService {
     score: number;
   }, config?: AIConfig): Promise<AnalysisResult> {
     const prompt = `
-Analyze this Reddit post for engagement opportunity for CAROL Bike.
+Analyze this Reddit post for engagement opportunity for your brand.
 
 BRAND CONTEXT:
 ${this.getDefaultBrandContext()}

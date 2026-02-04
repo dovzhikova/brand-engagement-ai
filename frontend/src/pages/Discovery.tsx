@@ -159,7 +159,7 @@ export default function Discovery() {
                         setSelectedSubreddits(selectedSubreddits.filter((s) => s !== sub.name));
                       }
                     }}
-                    className="rounded border-gray-300 dark:border-gray-600 text-carol-600 focus:ring-carol-500"
+                    className="rounded border-gray-300 dark:border-gray-600 text-brand-600 focus:ring-brand-500"
                   />
                   <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">r/{sub.name}</span>
                 </label>
@@ -192,7 +192,7 @@ export default function Discovery() {
                         setSelectedKeywords(selectedKeywords.filter((k) => k !== kw.keyword));
                       }
                     }}
-                    className="rounded border-gray-300 dark:border-gray-600 text-carol-600 focus:ring-carol-500"
+                    className="rounded border-gray-300 dark:border-gray-600 text-brand-600 focus:ring-brand-500"
                   />
                   <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">{kw.keyword}</span>
                   {kw.category && (

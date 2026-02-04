@@ -176,6 +176,6 @@ export class YouTubeROIService {
       return 'Moderate potential. Add to watchlist for future opportunities.';
     }
 
-    return 'Low priority. Limited alignment with CAROL Bike target audience or metrics.';
+    return 'Low priority. Limited alignment with your brand target audience or metrics.';
   }
 }

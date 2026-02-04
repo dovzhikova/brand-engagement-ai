@@ -156,7 +156,7 @@ export default function Layout() {
             aria-expanded={isOpen}
             className={`w-full flex items-center justify-between px-3 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors ${
               isActive
-                ? 'text-carol-600 dark:text-carol-400'
+                ? 'text-brand-600 dark:text-brand-400'
                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
             }`}
           >
@@ -185,7 +185,7 @@ export default function Layout() {
                 className={({ isActive }) =>
                   `flex items-center ${collapsed ? 'justify-center' : ''} px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
                     isActive
-                      ? 'bg-carol-50 text-carol-600 dark:bg-carol-900/30 dark:text-carol-400'
+                      ? 'bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-400'
                       : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
                   }`
                 }
@@ -234,7 +234,7 @@ export default function Layout() {
           }`}
         >
           <div className="flex h-16 items-center justify-between px-4 border-b dark:border-gray-700">
-            <span className="text-xl font-bold text-carol-600 whitespace-nowrap">CAROL Engage</span>
+            <span className="text-xl font-bold text-brand-600 whitespace-nowrap">Brand Engage</span>
             <button
               onClick={() => setSidebarOpen(false)}
               className="p-2 -mr-2 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
@@ -278,7 +278,7 @@ export default function Layout() {
         <div className="flex flex-col flex-1 border-r border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
           <div className={`flex h-16 items-center border-b dark:border-gray-700 ${sidebarCollapsed ? 'justify-center px-2' : 'justify-between px-4'}`}>
             {!sidebarCollapsed && (
-              <span className="text-xl font-bold text-carol-600 whitespace-nowrap flex-shrink-0">CAROL Engage</span>
+              <span className="text-xl font-bold text-brand-600 whitespace-nowrap flex-shrink-0">Brand Engage</span>
             )}
             <div className="flex items-center gap-0.5 flex-shrink-0">
               <button
@@ -353,7 +353,7 @@ export default function Layout() {
             >
               <Menu className="h-6 w-6" aria-hidden="true" />
             </button>
-            <span className="text-xl font-bold text-carol-600 whitespace-nowrap">CAROL Engage</span>
+            <span className="text-xl font-bold text-brand-600 whitespace-nowrap">Brand Engage</span>
           </div>
           <button
             onClick={cycleTheme}

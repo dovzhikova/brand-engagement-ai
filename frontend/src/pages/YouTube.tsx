@@ -806,7 +806,7 @@ export default function YouTube() {
                         </div>
                         <div className="h-2 bg-gray-200 dark:bg-gray-600 rounded-full mt-1">
                           <div
-                            className="h-full bg-carol-600 rounded-full"
+                            className="h-full bg-brand-600 rounded-full"
                             style={{
                               width: `${(selectedChannel.roiFactors.audienceFit / 35) * 100}%`,
                             }}

@@ -58,8 +58,8 @@ const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
               text-sm text-gray-900 dark:text-gray-100
               bg-white dark:bg-gray-800
               border-gray-300 dark:border-gray-600
-              focus:ring-carol-500 focus:border-carol-500
-              dark:focus:ring-carol-400 dark:focus:border-carol-400
+              focus:ring-brand-500 focus:border-brand-500
+              dark:focus:ring-brand-400 dark:focus:border-brand-400
               disabled:opacity-50 disabled:cursor-not-allowed
               ${showIcon ? 'pl-9' : 'pl-3'} pr-3 py-2
               ${error ? 'border-red-500 dark:border-red-400' : 'border'}
@@ -108,8 +108,8 @@ export function InlineTimePicker({
         text-gray-700 dark:text-gray-300
         bg-gray-100 dark:bg-gray-700
         border border-gray-200 dark:border-gray-600
-        focus:ring-2 focus:ring-carol-500 focus:border-carol-500
-        dark:focus:ring-carol-400 dark:focus:border-carol-400
+        focus:ring-2 focus:ring-brand-500 focus:border-brand-500
+        dark:focus:ring-brand-400 dark:focus:border-brand-400
         disabled:opacity-50 disabled:cursor-not-allowed
         transition-colors
         ${className}

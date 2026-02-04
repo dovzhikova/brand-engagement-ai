@@ -203,7 +203,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           ref={ref}
           type="checkbox"
           id={checkboxId}
-          className="h-4 w-4 mt-0.5 rounded border-gray-300 text-carol-600 focus:ring-carol-500 dark:border-gray-600 dark:bg-gray-800"
+          className="h-4 w-4 mt-0.5 rounded border-gray-300 text-brand-600 focus:ring-brand-500 dark:border-gray-600 dark:bg-gray-800"
           aria-invalid={!!error}
           {...props}
         />
@@ -290,7 +290,7 @@ export function RadioGroup({
               checked={value === option.value}
               onChange={(e) => onChange?.(e.target.value)}
               disabled={option.disabled}
-              className="h-4 w-4 mt-0.5 border-gray-300 text-carol-600 focus:ring-carol-500 dark:border-gray-600 dark:bg-gray-800"
+              className="h-4 w-4 mt-0.5 border-gray-300 text-brand-600 focus:ring-brand-500 dark:border-gray-600 dark:bg-gray-800"
             />
             <div>
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">

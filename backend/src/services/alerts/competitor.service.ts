@@ -11,24 +11,13 @@ export interface CompetitorMention {
   createdAt: Date;
 }
 
-// Known competitor brands for CAROL Bike
+// Competitor brands - configure these for your industry
+// In production, these should come from database or configuration
 const COMPETITORS = [
-  // Major competitors
-  { name: 'Peloton', variants: ['peloton', 'pelaton', 'peleton'] },
-  { name: 'NordicTrack', variants: ['nordictrack', 'nordic track', 'nordictrk'] },
-  { name: 'Echelon', variants: ['echelon'] },
-  { name: 'SoulCycle', variants: ['soulcycle', 'soul cycle'] },
-  { name: 'Bowflex', variants: ['bowflex', 'bow flex', 'velocore'] },
-  { name: 'Schwinn', variants: ['schwinn', 'ic4', 'ic8'] },
-  { name: 'Keiser', variants: ['keiser', 'm3i'] },
-  { name: 'Concept2', variants: ['concept2', 'concept 2', 'bikeerg'] },
-  { name: 'Stages', variants: ['stages cycling', 'stages bike'] },
-  { name: 'Wahoo', variants: ['wahoo kickr', 'wahoo bike'] },
-  { name: 'Tacx', variants: ['tacx', 'garmin tacx'] },
-  // HIIT alternatives
-  { name: 'Tonal', variants: ['tonal'] },
-  { name: 'Mirror', variants: ['mirror fitness', 'lululemon mirror'] },
-  { name: 'Hydrow', variants: ['hydrow'] },
+  // Add your competitors here
+  { name: 'Competitor A', variants: ['competitor a', 'comp a'] },
+  { name: 'Competitor B', variants: ['competitor b', 'comp b'] },
+  { name: 'Competitor C', variants: ['competitor c', 'comp c'] },
 ];
 
 // Sentiment indicators
@@ -86,8 +75,6 @@ export class CompetitorAlertService {
       priority = 'high';
     } else if (sentiment === 'negative' && mentionedCompetitors.length > 0) {
       priority = 'high'; // User unhappy with competitor - opportunity!
-    } else if (mentionedCompetitors.includes('Peloton')) {
-      priority = 'high'; // Main competitor
     }
 
     // Low priority: positive sentiment about competitor

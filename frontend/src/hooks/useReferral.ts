@@ -123,7 +123,7 @@ export function useReferral(): UseReferralResult {
 
     const shareUrl = `${window.location.origin}/signup?ref=${referralCode}`;
     const shareData = {
-      title: 'Join me on CAROL Engage',
+      title: 'Join me on Brand Engage',
       text: `Use my code ${referralCode} to get 1 week premium free!`,
       url: shareUrl,
     };

@@ -553,7 +553,7 @@ export default function GSCAnalytics() {
                             <button
                               onClick={() => addKeywordMutation.mutate(suggestion)}
                               disabled={addKeywordMutation.isPending}
-                              className="text-carol-600 hover:text-carol-700 dark:text-carol-400 dark:hover:text-carol-300 text-sm font-medium"
+                              className="text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 text-sm font-medium"
                             >
                               Add
                             </button>

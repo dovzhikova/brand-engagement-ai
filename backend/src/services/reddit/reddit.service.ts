@@ -35,7 +35,7 @@ export class RedditService {
   private clientId = process.env.REDDIT_CLIENT_ID!;
   private clientSecret = process.env.REDDIT_CLIENT_SECRET!;
   private redirectUri = process.env.REDDIT_REDIRECT_URI!;
-  private userAgent = process.env.REDDIT_USER_AGENT || 'CAROLBikeEngagement/1.0';
+  private userAgent = process.env.REDDIT_USER_AGENT || 'BrandEngagementAI/1.0';
 
   getAuthorizationUrl(): string {
     const state = uuidv4();

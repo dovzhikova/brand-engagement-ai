@@ -29,7 +29,7 @@ export default function LoadingSpinner({
       aria-label={label || 'Loading'}
     >
       <Loader2
-        className={`${sizeClasses[size]} animate-spin text-carol-600 dark:text-carol-400`}
+        className={`${sizeClasses[size]} animate-spin text-brand-600 dark:text-brand-400`}
       />
       {label && (
         <span className="text-sm text-gray-600 dark:text-gray-400">{label}</span>
@@ -71,7 +71,7 @@ export function ButtonSpinner({ className = '' }: { className?: string }) {
 export function PageLoading({ message = 'Loading...' }: { message?: string }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
-      <Loader2 className="h-10 w-10 animate-spin text-carol-600 dark:text-carol-400" />
+      <Loader2 className="h-10 w-10 animate-spin text-brand-600 dark:text-brand-400" />
       <p className="text-gray-500 dark:text-gray-400">{message}</p>
     </div>
   );

@@ -82,9 +82,9 @@ function KanbanCard({ item, onClick, isSelected, onKeyDown, onMoveToColumn }: Ka
       tabIndex={0}
       aria-selected={isSelected}
       aria-label={`${item.postTitle} in r/${item.subreddit}${item.relevanceScore ? `, relevance ${item.relevanceScore} out of 10` : ''}`}
-      className={`p-3 rounded-lg border cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-carol-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 ${
+      className={`p-3 rounded-lg border cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 ${
         isSelected
-          ? 'border-carol-500 bg-carol-50 dark:bg-carol-900/30'
+          ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30'
           : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-500'
       }`}
       onClick={onClick}
@@ -95,7 +95,7 @@ function KanbanCard({ item, onClick, isSelected, onKeyDown, onMoveToColumn }: Ka
           {...attributes}
           {...listeners}
           aria-label="Drag to reorder"
-          className="mt-1 cursor-grab text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-carol-500 rounded"
+          className="mt-1 cursor-grab text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
         >
           <GripVertical className="h-4 w-4" aria-hidden="true" />
         </button>
@@ -124,7 +124,7 @@ function KanbanCard({ item, onClick, isSelected, onKeyDown, onMoveToColumn }: Ka
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="text-gray-400 hover:text-carol-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-carol-500 rounded"
+          className="text-gray-400 hover:text-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
           aria-label={`Open original post in new tab`}
         >
           <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -373,7 +373,7 @@ export default function KanbanBoard({
         <DragOverlay>
           {activeItem ? (
             <div
-              className="p-3 rounded-lg border border-carol-500 bg-white dark:bg-gray-800 shadow-lg rotate-3"
+              className="p-3 rounded-lg border border-brand-500 bg-white dark:bg-gray-800 shadow-lg rotate-3"
               aria-hidden="true"
             >
               <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">

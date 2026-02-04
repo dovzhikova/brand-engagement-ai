@@ -29,7 +29,7 @@ body {
 
 /* Skip to main content link for accessibility */
 .skip-to-content {
-  @apply absolute -top-10 left-4 z-[9999] bg-carol-600 text-white px-4 py-2 rounded-lg font-medium transition-all focus:top-4;
+  @apply absolute -top-10 left-4 z-[9999] bg-brand-600 text-white px-4 py-2 rounded-lg font-medium transition-all focus:top-4;
 }
 
 @layer components {
@@ -39,7 +39,7 @@ body {
   }
 
   .btn-primary {
-    @apply bg-carol-600 text-white hover:bg-carol-700 focus:ring-carol-500;
+    @apply bg-brand-600 text-white hover:bg-brand-700 focus:ring-brand-500;
     @apply hover:shadow-md;
   }
 
@@ -75,7 +75,7 @@ body {
 
   .input {
     @apply block w-full rounded-lg border border-gray-300 px-3 py-2 transition-colors duration-150;
-    @apply focus:border-carol-500 focus:outline-none focus:ring-2 focus:ring-carol-500/20;
+    @apply focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20;
     @apply dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400;
   }
 
@@ -257,7 +257,7 @@ body {
 
   /* Focus visible ring improvements */
   .focus-ring {
-    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-carol-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900;
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900;
   }
 
   /* Interactive element minimum touch target */
@@ -313,7 +313,7 @@ body {
   }
 
   .dropdown-item-active {
-    @apply bg-carol-50 text-carol-700 dark:bg-carol-900/30 dark:text-carol-300;
+    @apply bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300;
   }
 
   /* Toast notifications */
@@ -351,12 +351,12 @@ body {
     @apply px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400;
     @apply border-b-2 border-transparent -mb-px;
     @apply hover:text-gray-900 dark:hover:text-gray-200;
-    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-carol-500 focus-visible:ring-offset-2;
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2;
     @apply transition-colors duration-150;
   }
 
   .tab-active {
-    @apply text-carol-600 dark:text-carol-400 border-carol-500;
+    @apply text-brand-600 dark:text-brand-400 border-brand-500;
   }
 
   /* Form field wrapper */
@@ -380,7 +380,7 @@ body {
   .toggle {
     @apply relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent;
     @apply transition-colors duration-200 ease-in-out;
-    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-carol-500 focus-visible:ring-offset-2;
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2;
   }
 
   .toggle-off {
@@ -388,7 +388,7 @@ body {
   }
 
   .toggle-on {
-    @apply bg-carol-600;
+    @apply bg-brand-600;
   }
 
   .toggle-thumb {

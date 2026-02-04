@@ -28,7 +28,7 @@ export class YouTubeAnalysisService {
   private aiService = new AIService();
 
   /**
-   * Analyze a YouTube channel for relevance to CAROL Bike
+   * Analyze a YouTube channel for relevance to your brand
    */
   async analyzeChannel(channel: ChannelData, videos: VideoData[]): Promise<ChannelAnalysis> {
     const videoTitles = videos.map((v) => v.title).join('\n- ');
@@ -39,10 +39,10 @@ export class YouTubeAnalysisService {
       .join('\n\n');
 
     const prompt = `
-Analyze this YouTube channel for potential collaboration or monitoring for CAROL Bike.
+Analyze this YouTube channel for potential collaboration or monitoring for your brand.
 
 === BRAND CONTEXT ===
-- CAROL Bike: AI-powered exercise bike using REHIT protocol
+- your brand: AI-powered exercise bike using REHIT protocol
 - REHIT: Reduced Exertion High-Intensity Training (2x20sec sprints)
 - Key benefits: VO2max improvement, time efficiency (9-min workouts), science-backed
 - Target audience: Busy professionals, biohackers, health-conscious adults 40+
@@ -61,7 +61,7 @@ Video Count: ${channel.videoCount || 'Unknown'}
 ${videoDescriptions || 'No descriptions available'}
 
 === ANALYSIS TASK ===
-Evaluate this channel's relevance to CAROL Bike for:
+Evaluate this channel's relevance to your brand for:
 1. Influencer outreach (potential sponsorship/collaboration)
 2. Competitor monitoring (competing products/messaging)
 3. Content opportunities (educational content, reviews)
@@ -72,7 +72,7 @@ Respond ONLY with valid JSON (no markdown, no code blocks):
   "category": "influencer|competitor|opportunity|low_fit",
   "reasoning": "Brief explanation of relevance",
   "content_topics": ["list", "of", "main", "topics"],
-  "audience_alignment": "How well their audience matches CAROL's target",
+  "audience_alignment": "How well their audience matches your brand's target",
   "collaboration_potential": "What type of collaboration might work",
   "cautions": ["Any risks or considerations"]
 }
@@ -112,7 +112,7 @@ Respond ONLY with valid JSON (no markdown, no code blocks):
    */
   async analyzeVideoRelevance(video: VideoData): Promise<number> {
     const prompt = `
-Rate how relevant this YouTube video is to CAROL Bike (AI-powered REHIT exercise bike) on a scale of 1-10.
+Rate how relevant this YouTube video is to your brand (AI-powered REHIT exercise bike) on a scale of 1-10.
 
 Video Title: ${video.title}
 Description: ${video.description?.substring(0, 500) || 'No description'}

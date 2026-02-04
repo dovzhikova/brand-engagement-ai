@@ -320,7 +320,7 @@ export default function Workflow() {
                 onClick={() => setViewMode('list')}
                 className={`px-3 py-2 flex items-center gap-1 text-sm ${
                   viewMode === 'list'
-                    ? 'bg-carol-600 text-white'
+                    ? 'bg-brand-600 text-white'
                     : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                 }`}
               >
@@ -331,7 +331,7 @@ export default function Workflow() {
                 onClick={() => setViewMode('kanban')}
                 className={`px-3 py-2 flex items-center gap-1 text-sm ${
                   viewMode === 'kanban'
-                    ? 'bg-carol-600 text-white'
+                    ? 'bg-brand-600 text-white'
                     : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                 }`}
               >
@@ -381,7 +381,7 @@ export default function Workflow() {
                 onClick={() => setActiveTab(tab.key)}
                 className={`whitespace-nowrap border-b-2 py-3 px-1 text-sm font-medium ${
                   activeTab === tab.key
-                    ? 'border-carol-500 text-carol-600'
+                    ? 'border-brand-500 text-brand-600'
                     : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
                 }`}
               >
@@ -394,14 +394,14 @@ export default function Workflow() {
 
       {/* Bulk Action Bar */}
       {selectedItems.size > 0 && viewMode === 'list' && (
-        <div className="bg-carol-50 dark:bg-carol-900/30 border border-carol-200 dark:border-carol-800 rounded-lg p-4 flex items-center justify-between">
+        <div className="bg-brand-50 dark:bg-brand-900/30 border border-brand-200 dark:border-brand-800 rounded-lg p-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-carol-700 dark:text-carol-300">
+            <span className="text-sm font-medium text-brand-700 dark:text-brand-300">
               {selectedItems.size} item{selectedItems.size > 1 ? 's' : ''} selected
             </span>
             <button
               onClick={selectAllItems}
-              className="text-sm text-carol-600 hover:text-carol-700 dark:text-carol-400 dark:hover:text-carol-300"
+              className="text-sm text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
             >
               Select all eligible
             </button>
@@ -501,7 +501,7 @@ export default function Workflow() {
                   <div
                     key={item.id}
                     className={`p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 ${
-                      selectedItem?.id === item.id ? 'bg-carol-50 dark:bg-carol-900/30' : ''
+                      selectedItem?.id === item.id ? 'bg-brand-50 dark:bg-brand-900/30' : ''
                     }`}
                   >
                     <div className="flex items-start gap-3">
@@ -513,7 +513,7 @@ export default function Workflow() {
                         }}
                         className={`mt-0.5 p-0.5 rounded ${
                           ['draft_ready', 'in_review'].includes(item.status)
-                            ? 'text-gray-400 hover:text-carol-600 dark:hover:text-carol-400'
+                            ? 'text-gray-400 hover:text-brand-600 dark:hover:text-brand-400'
                             : 'text-gray-300 dark:text-gray-600 cursor-not-allowed'
                         }`}
                         disabled={!['draft_ready', 'in_review'].includes(item.status)}
@@ -524,7 +524,7 @@ export default function Workflow() {
                         }
                       >
                         {selectedItems.has(item.id) ? (
-                          <CheckSquare className="h-5 w-5 text-carol-600 dark:text-carol-400" />
+                          <CheckSquare className="h-5 w-5 text-brand-600 dark:text-brand-400" />
                         ) : (
                           <Square className="h-5 w-5" />
                         )}

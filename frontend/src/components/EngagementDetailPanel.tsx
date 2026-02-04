@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import type { EngagementItem, RedditAccount, GenerationOptions, CommentLength, CommentStyle } from '../types';
 
-const LAST_ACCOUNT_KEY = 'carol_last_account_id';
+const LAST_ACCOUNT_KEY = 'brand_last_account_id';
 
 const REDDIT_CHAR_LIMIT = 10000;
 
@@ -139,7 +139,7 @@ export default function EngagementDetailPanel({
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
       .replace(/`(.*?)`/g, '<code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">$1</code>')
-      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-carol-600 underline">$1</a>')
+      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-brand-600 underline">$1</a>')
       .replace(/\n/g, '<br/>');
   };
 
@@ -195,7 +195,7 @@ export default function EngagementDetailPanel({
             href={item.postUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-carol-600 hover:text-carol-700"
+            className="text-brand-600 hover:text-brand-700"
           >
             <ExternalLink className="h-4 w-4" />
           </a>
@@ -326,7 +326,7 @@ export default function EngagementDetailPanel({
                     <button
                       onClick={() => setShowAccountDropdown(!showAccountDropdown)}
                       disabled={isGenerating}
-                      className="btn btn-primary text-sm px-2 rounded-l-none border-l border-carol-500"
+                      className="btn btn-primary text-sm px-2 rounded-l-none border-l border-brand-500"
                     >
                       <ChevronDown className="h-4 w-4" />
                     </button>
@@ -338,7 +338,7 @@ export default function EngagementDetailPanel({
                           key={acc.id}
                           onClick={() => handleSelectAccount(acc.id)}
                           className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 first:rounded-t-lg last:rounded-b-lg ${
-                            selectedAccountId === acc.id ? 'bg-carol-50 dark:bg-carol-900/30' : ''
+                            selectedAccountId === acc.id ? 'bg-brand-50 dark:bg-brand-900/30' : ''
                           }`}
                         >
                           <span className="font-medium">u/{acc.username}</span>
@@ -435,7 +435,7 @@ export default function EngagementDetailPanel({
                             type="button"
                             onClick={() => onRefine({ action: 'shorten' })}
                             disabled={isRefining}
-                            className="p-1.5 text-gray-500 hover:text-carol-600 dark:text-gray-400 dark:hover:text-carol-400 hover:bg-carol-50 dark:hover:bg-carol-900/30 rounded flex items-center gap-1 text-xs"
+                            className="p-1.5 text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/30 rounded flex items-center gap-1 text-xs"
                             title="Make shorter"
                           >
                             {isRefining ? (
@@ -450,7 +450,7 @@ export default function EngagementDetailPanel({
                               type="button"
                               onClick={() => setShowStyleDropdown(!showStyleDropdown)}
                               disabled={isRefining}
-                              className="p-1.5 text-gray-500 hover:text-carol-600 dark:text-gray-400 dark:hover:text-carol-400 hover:bg-carol-50 dark:hover:bg-carol-900/30 rounded flex items-center gap-1 text-xs"
+                              className="p-1.5 text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/30 rounded flex items-center gap-1 text-xs"
                               title="Change style"
                             >
                               <Palette className="h-3.5 w-3.5" />
@@ -478,7 +478,7 @@ export default function EngagementDetailPanel({
                             type="button"
                             onClick={() => onRefine({ action: 'expand' })}
                             disabled={isRefining}
-                            className="p-1.5 text-gray-500 hover:text-carol-600 dark:text-gray-400 dark:hover:text-carol-400 hover:bg-carol-50 dark:hover:bg-carol-900/30 rounded flex items-center gap-1 text-xs"
+                            className="p-1.5 text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/30 rounded flex items-center gap-1 text-xs"
                             title="Expand with more detail"
                           >
                             <Maximize2 className="h-3.5 w-3.5" />
@@ -526,7 +526,7 @@ export default function EngagementDetailPanel({
                         <button
                           onClick={() => setShowAccountDropdown(!showAccountDropdown)}
                           disabled={isGenerating}
-                          className="btn btn-primary text-sm px-2 rounded-l-none border-l border-carol-500"
+                          className="btn btn-primary text-sm px-2 rounded-l-none border-l border-brand-500"
                         >
                           <ChevronDown className="h-4 w-4" />
                         </button>
@@ -538,7 +538,7 @@ export default function EngagementDetailPanel({
                               key={acc.id}
                               onClick={() => handleSelectAccount(acc.id)}
                               className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 first:rounded-t-lg last:rounded-b-lg ${
-                                selectedAccountId === acc.id ? 'bg-carol-50 dark:bg-carol-900/30' : ''
+                                selectedAccountId === acc.id ? 'bg-brand-50 dark:bg-brand-900/30' : ''
                               }`}
                             >
                               <span className="font-medium">u/{acc.username}</span>
