@@ -159,8 +159,8 @@ export default function Dropdown({
           aria-orientation="vertical"
           className={`
             absolute mt-1 py-1
-            bg-white dark:bg-gray-800
-            border border-gray-200 dark:border-gray-700
+            bg-white dark:bg-surface-800
+            border border-surface-200 dark:border-surface-700
             rounded-lg shadow-elevated
             animate-scale-in origin-top
             ${align === 'right' ? 'right-0' : 'left-0'}
@@ -177,15 +177,15 @@ export default function Dropdown({
                 w-full text-left px-3 py-2 text-sm
                 flex items-center gap-2
                 transition-colors duration-100
-                focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-700
+                focus:outline-none focus:bg-surface-100 dark:focus:bg-surface-700
                 ${
                   item.disabled
                     ? 'opacity-50 cursor-not-allowed'
                     : item.destructive
                     ? 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    : 'text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700'
                 }
-                ${selectedId === item.id ? 'bg-brand-50 dark:bg-brand-900/20' : ''}
+                ${selectedId === item.id ? 'bg-primary-50 dark:bg-primary-900/20' : ''}
               `}
             >
               {item.icon && (
@@ -194,13 +194,13 @@ export default function Dropdown({
               <div className="flex-1 min-w-0">
                 <span className="block truncate">{item.label}</span>
                 {item.description && (
-                  <span className="block text-xs text-gray-500 dark:text-gray-400 truncate">
+                  <span className="block text-xs text-surface-500 dark:text-surface-400 truncate">
                     {item.description}
                   </span>
                 )}
               </div>
               {selectedId === item.id && (
-                <Check className="h-4 w-4 text-brand-600 dark:text-brand-400 flex-shrink-0" />
+                <Check className="h-4 w-4 text-primary-600 dark:text-primary-400 flex-shrink-0" />
               )}
             </button>
           ))}
@@ -313,8 +313,8 @@ export function SplitButton({
 
   const buttonClasses =
     variant === 'primary'
-      ? 'bg-brand-600 text-white hover:bg-brand-700'
-      : 'bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600';
+      ? 'bg-primary-600 text-white hover:bg-primary-700'
+      : 'bg-surface-200 text-surface-900 hover:bg-surface-300 dark:bg-surface-700 dark:text-surface-100 dark:hover:bg-surface-600';
 
   return (
     <div ref={containerRef} className={`relative inline-flex ${className}`}>
@@ -340,7 +340,7 @@ export function SplitButton({
       {isOpen && (
         <div
           role="menu"
-          className="absolute right-0 mt-1 top-full py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-elevated animate-scale-in origin-top-right"
+          className="absolute right-0 mt-1 top-full py-1 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg shadow-elevated animate-scale-in origin-top-right"
           style={{ zIndex: Z_INDEX.dropdown }}
         >
           {items.map((item) => (
@@ -357,9 +357,9 @@ export function SplitButton({
                 ${
                   item.disabled
                     ? 'opacity-50 cursor-not-allowed'
-                    : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                    : 'hover:bg-surface-100 dark:hover:bg-surface-700'
                 }
-                ${item.destructive ? 'text-red-600 dark:text-red-400' : 'text-gray-700 dark:text-gray-300'}
+                ${item.destructive ? 'text-red-600 dark:text-red-400' : 'text-surface-700 dark:text-surface-300'}
               `}
             >
               {item.icon && <span className="w-4 h-4">{item.icon}</span>}

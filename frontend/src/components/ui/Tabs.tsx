@@ -37,22 +37,22 @@ export default function Tabs({
 
   const variantClasses = {
     default: {
-      container: 'flex gap-1 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg',
+      container: 'flex gap-1 bg-surface-100 dark:bg-surface-800 p-1 rounded-lg',
       tab: 'rounded-md',
-      active: 'bg-white dark:bg-gray-700 shadow-sm',
-      inactive: 'hover:bg-gray-200 dark:hover:bg-gray-700',
+      active: 'bg-white dark:bg-surface-700 shadow-sm',
+      inactive: 'hover:bg-surface-200 dark:hover:bg-surface-700',
     },
     pills: {
       container: 'flex gap-2',
       tab: 'rounded-full',
-      active: 'bg-brand-600 text-white',
-      inactive: 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700',
+      active: 'bg-primary-600 text-white',
+      inactive: 'bg-surface-100 dark:bg-surface-800 hover:bg-surface-200 dark:hover:bg-surface-700',
     },
     underline: {
-      container: 'flex gap-1 border-b border-gray-200 dark:border-gray-700',
+      container: 'flex gap-1 border-b border-surface-200 dark:border-surface-700',
       tab: 'border-b-2 -mb-px',
-      active: 'border-brand-500 text-brand-600 dark:text-brand-400',
-      inactive: 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300',
+      active: 'border-primary-500 text-primary-600 dark:text-primary-400',
+      inactive: 'border-transparent text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300 hover:border-surface-300',
     },
   };
 
@@ -134,7 +134,7 @@ export default function Tabs({
             ${fullWidth ? 'flex-1' : ''}
             ${tab.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
             font-medium transition-all duration-150
-            focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2
+            focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2
             flex items-center justify-center gap-2
           `}
         >
@@ -147,8 +147,8 @@ export default function Tabs({
                   activeTab === tab.id
                     ? variant === 'pills'
                       ? 'bg-white/20'
-                      : 'bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400'
-                    : 'bg-gray-200 dark:bg-gray-700'
+                      : 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400'
+                    : 'bg-surface-200 dark:bg-surface-700'
                 }
               `}
             >

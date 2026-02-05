@@ -37,7 +37,7 @@ const roiTierColors: Record<string, string> = {
   excellent: 'text-green-600 dark:text-green-400',
   good: 'text-blue-600 dark:text-blue-400',
   moderate: 'text-yellow-600 dark:text-yellow-400',
-  low: 'text-gray-500 dark:text-gray-400',
+  low: 'text-surface-500 dark:text-surface-400',
 };
 
 function formatNumber(num: number | undefined | null): string {
@@ -258,7 +258,7 @@ export default function YouTube() {
                 <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 mr-3" />
               ) : null}
               <div>
-                <p className="font-medium dark:text-gray-100">
+                <p className="font-medium dark:text-surface-100">
                   {isRunning
                     ? 'Discovery in progress...'
                     : currentJob.status === 'completed'
@@ -267,7 +267,7 @@ export default function YouTube() {
                     ? 'Discovery failed'
                     : 'Pending'}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-surface-600 dark:text-surface-400">
                   {currentJob.channelsFound} channels discovered
                 </p>
               </div>
@@ -300,8 +300,8 @@ export default function YouTube() {
                 <Youtube className="h-5 w-5 text-red-600 dark:text-red-400" />
               </div>
               <div className="ml-3">
-                <p className="text-sm text-gray-500 dark:text-gray-400">Total Channels</p>
-                <p className="text-xl font-bold dark:text-gray-100">{analytics.totalChannels}</p>
+                <p className="text-sm text-surface-500 dark:text-surface-400">Total Channels</p>
+                <p className="text-xl font-bold dark:text-surface-100">{analytics.totalChannels}</p>
               </div>
             </div>
           </div>
@@ -312,10 +312,10 @@ export default function YouTube() {
               </div>
               <div className="ml-3">
                 <div className="flex items-center gap-1">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Avg ROI Score</p>
+                  <p className="text-sm text-surface-500 dark:text-surface-400">Avg ROI Score</p>
                   <InfoTooltip content={metricExplanations.roiScore} iconClassName="h-3 w-3" />
                 </div>
-                <p className="text-xl font-bold dark:text-gray-100">
+                <p className="text-xl font-bold dark:text-surface-100">
                   {analytics.averageScores.roiScore}
                 </p>
               </div>
@@ -328,10 +328,10 @@ export default function YouTube() {
               </div>
               <div className="ml-3">
                 <div className="flex items-center gap-1">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Avg Relevance</p>
+                  <p className="text-sm text-surface-500 dark:text-surface-400">Avg Relevance</p>
                   <InfoTooltip content={metricExplanations.relevanceScore} iconClassName="h-3 w-3" />
                 </div>
-                <p className="text-xl font-bold dark:text-gray-100">
+                <p className="text-xl font-bold dark:text-surface-100">
                   {analytics.averageScores.relevanceScore}/10
                 </p>
               </div>
@@ -344,10 +344,10 @@ export default function YouTube() {
               </div>
               <div className="ml-3">
                 <div className="flex items-center gap-1">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Avg Engagement</p>
+                  <p className="text-sm text-surface-500 dark:text-surface-400">Avg Engagement</p>
                   <InfoTooltip content={metricExplanations.engagementRate} iconClassName="h-3 w-3" />
                 </div>
-                <p className="text-xl font-bold dark:text-gray-100">
+                <p className="text-xl font-bold dark:text-surface-100">
                   {analytics.averageScores.engagementRate}%
                 </p>
               </div>
@@ -360,7 +360,7 @@ export default function YouTube() {
       <div className="card p-4">
         <div className="flex flex-wrap gap-4 items-end">
           <div className="flex-1 min-w-[200px] max-w-md">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
               Search
             </label>
             <SearchInput
@@ -370,7 +370,7 @@ export default function YouTube() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
               Status
             </label>
             <select
@@ -388,7 +388,7 @@ export default function YouTube() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
               Sort By
             </label>
             <select
@@ -407,7 +407,7 @@ export default function YouTube() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
               Order
             </label>
             <button
@@ -427,7 +427,7 @@ export default function YouTube() {
           </div>
         </div>
         {searchTerm && (
-          <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-3 text-sm text-surface-500 dark:text-surface-400">
             Showing {filteredChannels.length} of {channels.length} channels
           </p>
         )}
@@ -454,8 +454,8 @@ export default function YouTube() {
           />
         ) : filteredChannels.length === 0 ? (
           <div className="p-8 text-center">
-            <Search className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-600" />
-            <p className="mt-2 text-gray-500 dark:text-gray-400">
+            <Search className="h-12 w-12 mx-auto text-surface-300 dark:text-surface-600" />
+            <p className="mt-2 text-surface-500 dark:text-surface-400">
               No channels match "{searchTerm}"
             </p>
             <button
@@ -466,11 +466,11 @@ export default function YouTube() {
             </button>
           </div>
         ) : (
-          <div className="divide-y dark:divide-gray-700">
+          <div className="divide-y dark:divide-surface-700">
             {filteredChannels.map((channel) => (
               <div
                 key={channel.id}
-                className="p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer"
+                className="p-4 hover:bg-surface-50 dark:hover:bg-surface-800/50 cursor-pointer"
                 onClick={() => setSelectedChannel(channel)}
               >
                 <div className="flex items-start gap-4">
@@ -482,31 +482,31 @@ export default function YouTube() {
                       referrerPolicy="no-referrer"
                     />
                   ) : (
-                    <div className="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                      <Youtube className="h-8 w-8 text-gray-400" />
+                    <div className="w-16 h-16 rounded-full bg-surface-200 dark:bg-surface-700 flex items-center justify-center">
+                      <Youtube className="h-8 w-8 text-surface-400" />
                     </div>
                   )}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <h3 className="font-medium text-gray-900 dark:text-gray-100 truncate">
+                      <h3 className="font-medium text-surface-900 dark:text-surface-100 truncate">
                         {channel.name}
                       </h3>
                       <StatusBadge status={channel.status} />
                     </div>
                     {channel.customUrl && (
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{channel.customUrl}</p>
+                      <p className="text-sm text-surface-500 dark:text-surface-400">{channel.customUrl}</p>
                     )}
                     <div className="mt-2 flex flex-wrap gap-4 text-sm">
-                      <span className="flex items-center text-gray-600 dark:text-gray-400">
+                      <span className="flex items-center text-surface-600 dark:text-surface-400">
                         <Users className="h-4 w-4 mr-1" />
                         {formatNumber(channel.subscriberCount)} subscribers
                       </span>
-                      <span className="flex items-center text-gray-600 dark:text-gray-400">
+                      <span className="flex items-center text-surface-600 dark:text-surface-400">
                         <Eye className="h-4 w-4 mr-1" />
                         {formatNumber(channel.avgViewsPerVideo)} avg views
                       </span>
                       {channel.relevanceScore && (
-                        <span className="flex items-center text-gray-600 dark:text-gray-400">
+                        <span className="flex items-center text-surface-600 dark:text-surface-400">
                           <TrendingUp className="h-4 w-4 mr-1" />
                           Relevance: {channel.relevanceScore}/10
                         </span>
@@ -523,7 +523,7 @@ export default function YouTube() {
                         >
                           {channel.roiScore}
                         </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">ROI Score</p>
+                        <p className="text-xs text-surface-500 dark:text-surface-400">ROI Score</p>
                       </div>
                     ) : channel.status === 'discovered' ? (
                       <button
@@ -548,25 +548,25 @@ export default function YouTube() {
       {/* Discovery Modal */}
       {showDiscoveryModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-lg mx-4 max-h-[80vh] flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
-              <h2 className="text-lg font-semibold dark:text-gray-100">Discover Channels</h2>
+          <div className="bg-white dark:bg-surface-800 rounded-lg shadow-xl w-full max-w-lg mx-4 max-h-[80vh] flex flex-col">
+            <div className="flex items-center justify-between p-4 border-b dark:border-surface-700">
+              <h2 className="text-lg font-semibold dark:text-surface-100">Discover Channels</h2>
               <button
                 onClick={() => setShowDiscoveryModal(false)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="text-surface-400 hover:text-surface-600 dark:hover:text-surface-300"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             {/* Source Tabs */}
-            <div className="flex border-b dark:border-gray-700">
+            <div className="flex border-b dark:border-surface-700">
               <button
                 onClick={() => setKeywordSource('manual')}
                 className={`flex-1 py-3 px-4 text-sm font-medium ${
                   keywordSource === 'manual'
                     ? 'border-b-2 border-blue-500 text-blue-600 dark:text-blue-400'
-                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                    : 'text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-300'
                 }`}
               >
                 <Search className="h-4 w-4 inline mr-2" />
@@ -577,7 +577,7 @@ export default function YouTube() {
                 className={`flex-1 py-3 px-4 text-sm font-medium ${
                   keywordSource === 'gsc'
                     ? 'border-b-2 border-blue-500 text-blue-600 dark:text-blue-400'
-                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                    : 'text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-300'
                 }`}
               >
                 <Database className="h-4 w-4 inline mr-2" />
@@ -588,7 +588,7 @@ export default function YouTube() {
             <div className="p-4 flex-1 overflow-y-auto">
               {keywordSource === 'manual' ? (
                 <>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
                     Search Keywords
                   </label>
                   <textarea
@@ -597,14 +597,14 @@ export default function YouTube() {
                     placeholder="Enter keywords separated by commas (e.g., fitness bike, home workout, HIIT training)"
                     className="input w-full h-32"
                   />
-                  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  <p className="mt-2 text-sm text-surface-500 dark:text-surface-400">
                     Searches YouTube for channels matching these keywords
                   </p>
                 </>
               ) : (
                 <>
                   <div className="flex items-center justify-between mb-3">
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-surface-600 dark:text-surface-400">
                       Select keywords from your Search Console data
                     </p>
                     <div className="flex gap-2">
@@ -616,7 +616,7 @@ export default function YouTube() {
                       </button>
                       <button
                         onClick={clearGscSelection}
-                        className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400"
+                        className="text-xs text-surface-500 hover:text-surface-700 dark:text-surface-400"
                       >
                         Clear
                       </button>
@@ -624,10 +624,10 @@ export default function YouTube() {
                   </div>
                   {gscLoading ? (
                     <div className="flex items-center justify-center py-8">
-                      <RefreshCw className="h-6 w-6 animate-spin text-gray-400" />
+                      <RefreshCw className="h-6 w-6 animate-spin text-surface-400" />
                     </div>
                   ) : gscSuggestions.length === 0 ? (
-                    <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                    <div className="text-center py-8 text-surface-500 dark:text-surface-400">
                       <Database className="h-8 w-8 mx-auto mb-2 opacity-50" />
                       <p>No GSC data available</p>
                       <p className="text-sm">Connect and sync your Search Console first</p>
@@ -640,7 +640,7 @@ export default function YouTube() {
                           className={`flex items-center p-3 rounded-lg border cursor-pointer transition-colors ${
                             selectedGscKeywords.has(suggestion.query)
                               ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-500'
-                              : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+                              : 'border-surface-200 dark:border-surface-700 hover:border-surface-300 dark:hover:border-surface-600'
                           }`}
                         >
                           <input
@@ -650,10 +650,10 @@ export default function YouTube() {
                             className="h-4 w-4 text-blue-600 rounded"
                           />
                           <div className="ml-3 flex-1">
-                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                            <p className="text-sm font-medium text-surface-900 dark:text-surface-100">
                               {suggestion.query}
                             </p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                            <p className="text-xs text-surface-500 dark:text-surface-400">
                               {suggestion.impressions.toLocaleString()} impressions · Position {suggestion.position.toFixed(1)}
                             </p>
                           </div>
@@ -669,7 +669,7 @@ export default function YouTube() {
                 </>
               )}
             </div>
-            <div className="flex justify-end gap-3 p-4 border-t dark:border-gray-700">
+            <div className="flex justify-end gap-3 p-4 border-t dark:border-surface-700">
               <button
                 onClick={() => setShowDiscoveryModal(false)}
                 className="btn btn-secondary"
@@ -712,12 +712,12 @@ export default function YouTube() {
             className="absolute inset-0 bg-black bg-opacity-50"
             onClick={() => setSelectedChannel(null)}
           />
-          <div className="relative w-full max-w-lg bg-white dark:bg-gray-800 shadow-xl overflow-y-auto">
-            <div className="sticky top-0 bg-white dark:bg-gray-800 border-b dark:border-gray-700 p-4 flex items-center justify-between">
-              <h2 className="text-lg font-semibold dark:text-gray-100">Channel Details</h2>
+          <div className="relative w-full max-w-lg bg-white dark:bg-surface-800 shadow-xl overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-surface-800 border-b dark:border-surface-700 p-4 flex items-center justify-between">
+              <h2 className="text-lg font-semibold dark:text-surface-100">Channel Details</h2>
               <button
                 onClick={() => setSelectedChannel(null)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                className="text-surface-400 hover:text-surface-600 dark:hover:text-surface-300"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -733,12 +733,12 @@ export default function YouTube() {
                     referrerPolicy="no-referrer"
                   />
                 ) : (
-                  <div className="w-20 h-20 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                    <Youtube className="h-10 w-10 text-gray-400" />
+                  <div className="w-20 h-20 rounded-full bg-surface-200 dark:bg-surface-700 flex items-center justify-center">
+                    <Youtube className="h-10 w-10 text-surface-400" />
                   </div>
                 )}
                 <div>
-                  <h3 className="text-xl font-bold dark:text-gray-100">{selectedChannel.name}</h3>
+                  <h3 className="text-xl font-bold dark:text-surface-100">{selectedChannel.name}</h3>
                   {selectedChannel.customUrl && (
                     <a
                       href={`https://youtube.com/${selectedChannel.customUrl}`}
@@ -756,27 +756,27 @@ export default function YouTube() {
 
               {/* Metrics */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Subscribers</p>
-                  <p className="text-lg font-bold dark:text-gray-100">
+                <div className="bg-surface-50 dark:bg-surface-700/50 p-3 rounded-lg">
+                  <p className="text-sm text-surface-500 dark:text-surface-400">Subscribers</p>
+                  <p className="text-lg font-bold dark:text-surface-100">
                     {formatNumber(selectedChannel.subscriberCount)}
                   </p>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Videos</p>
-                  <p className="text-lg font-bold dark:text-gray-100">
+                <div className="bg-surface-50 dark:bg-surface-700/50 p-3 rounded-lg">
+                  <p className="text-sm text-surface-500 dark:text-surface-400">Videos</p>
+                  <p className="text-lg font-bold dark:text-surface-100">
                     {formatNumber(selectedChannel.videoCount)}
                   </p>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Avg Views</p>
-                  <p className="text-lg font-bold dark:text-gray-100">
+                <div className="bg-surface-50 dark:bg-surface-700/50 p-3 rounded-lg">
+                  <p className="text-sm text-surface-500 dark:text-surface-400">Avg Views</p>
+                  <p className="text-lg font-bold dark:text-surface-100">
                     {formatNumber(selectedChannel.avgViewsPerVideo)}
                   </p>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Engagement</p>
-                  <p className="text-lg font-bold dark:text-gray-100">
+                <div className="bg-surface-50 dark:bg-surface-700/50 p-3 rounded-lg">
+                  <p className="text-sm text-surface-500 dark:text-surface-400">Engagement</p>
+                  <p className="text-lg font-bold dark:text-surface-100">
                     {selectedChannel.engagementRate?.toFixed(2) || '-'}%
                   </p>
                 </div>
@@ -784,9 +784,9 @@ export default function YouTube() {
 
               {/* ROI Score */}
               {selectedChannel.roiScore !== null && selectedChannel.roiScore !== undefined && (
-                <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-lg">
+                <div className="bg-surface-50 dark:bg-surface-700/50 p-4 rounded-lg">
                   <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-medium dark:text-gray-100">ROI Score</h4>
+                    <h4 className="font-medium dark:text-surface-100">ROI Score</h4>
                     <span
                       className={`text-2xl font-bold ${
                         roiTierColors[getRoiTier(selectedChannel.roiScore)]
@@ -799,14 +799,14 @@ export default function YouTube() {
                     <div className="space-y-2">
                       <div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600 dark:text-gray-400">Audience Fit</span>
-                          <span className="dark:text-gray-300">
+                          <span className="text-surface-600 dark:text-surface-400">Audience Fit</span>
+                          <span className="dark:text-surface-300">
                             {selectedChannel.roiFactors.audienceFit}/35
                           </span>
                         </div>
-                        <div className="h-2 bg-gray-200 dark:bg-gray-600 rounded-full mt-1">
+                        <div className="h-2 bg-surface-200 dark:bg-surface-600 rounded-full mt-1">
                           <div
-                            className="h-full bg-brand-600 rounded-full"
+                            className="h-full bg-primary-600 rounded-full"
                             style={{
                               width: `${(selectedChannel.roiFactors.audienceFit / 35) * 100}%`,
                             }}
@@ -815,12 +815,12 @@ export default function YouTube() {
                       </div>
                       <div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600 dark:text-gray-400">Engagement Quality</span>
-                          <span className="dark:text-gray-300">
+                          <span className="text-surface-600 dark:text-surface-400">Engagement Quality</span>
+                          <span className="dark:text-surface-300">
                             {selectedChannel.roiFactors.engagementQuality}/30
                           </span>
                         </div>
-                        <div className="h-2 bg-gray-200 dark:bg-gray-600 rounded-full mt-1">
+                        <div className="h-2 bg-surface-200 dark:bg-surface-600 rounded-full mt-1">
                           <div
                             className="h-full bg-blue-600 rounded-full"
                             style={{
@@ -831,12 +831,12 @@ export default function YouTube() {
                       </div>
                       <div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600 dark:text-gray-400">Channel Authority</span>
-                          <span className="dark:text-gray-300">
+                          <span className="text-surface-600 dark:text-surface-400">Channel Authority</span>
+                          <span className="dark:text-surface-300">
                             {selectedChannel.roiFactors.channelAuthority}/20
                           </span>
                         </div>
-                        <div className="h-2 bg-gray-200 dark:bg-gray-600 rounded-full mt-1">
+                        <div className="h-2 bg-surface-200 dark:bg-surface-600 rounded-full mt-1">
                           <div
                             className="h-full bg-purple-600 rounded-full"
                             style={{
@@ -847,12 +847,12 @@ export default function YouTube() {
                       </div>
                       <div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600 dark:text-gray-400">Growth Potential</span>
-                          <span className="dark:text-gray-300">
+                          <span className="text-surface-600 dark:text-surface-400">Growth Potential</span>
+                          <span className="dark:text-surface-300">
                             {selectedChannel.roiFactors.growthPotential}/15
                           </span>
                         </div>
-                        <div className="h-2 bg-gray-200 dark:bg-gray-600 rounded-full mt-1">
+                        <div className="h-2 bg-surface-200 dark:bg-surface-600 rounded-full mt-1">
                           <div
                             className="h-full bg-green-600 rounded-full"
                             style={{
@@ -869,28 +869,28 @@ export default function YouTube() {
               {/* AI Analysis */}
               {selectedChannel.aiAnalysis && (
                 <div className="space-y-3">
-                  <h4 className="font-medium dark:text-gray-100">AI Analysis</h4>
-                  <div className="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Reasoning</p>
-                    <p className="text-sm dark:text-gray-300 mt-1">
+                  <h4 className="font-medium dark:text-surface-100">AI Analysis</h4>
+                  <div className="bg-surface-50 dark:bg-surface-700/50 p-3 rounded-lg">
+                    <p className="text-sm text-surface-500 dark:text-surface-400">Reasoning</p>
+                    <p className="text-sm dark:text-surface-300 mt-1">
                       {selectedChannel.aiAnalysis.reasoning}
                     </p>
                   </div>
-                  <div className="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Audience Alignment</p>
-                    <p className="text-sm dark:text-gray-300 mt-1">
+                  <div className="bg-surface-50 dark:bg-surface-700/50 p-3 rounded-lg">
+                    <p className="text-sm text-surface-500 dark:text-surface-400">Audience Alignment</p>
+                    <p className="text-sm dark:text-surface-300 mt-1">
                       {selectedChannel.aiAnalysis.audienceAlignment}
                     </p>
                   </div>
-                  <div className="bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Collaboration Potential</p>
-                    <p className="text-sm dark:text-gray-300 mt-1">
+                  <div className="bg-surface-50 dark:bg-surface-700/50 p-3 rounded-lg">
+                    <p className="text-sm text-surface-500 dark:text-surface-400">Collaboration Potential</p>
+                    <p className="text-sm dark:text-surface-300 mt-1">
                       {selectedChannel.aiAnalysis.collaborationPotential}
                     </p>
                   </div>
                   {selectedChannel.aiAnalysis.contentTopics.length > 0 && (
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Content Topics</p>
+                      <p className="text-sm text-surface-500 dark:text-surface-400 mb-2">Content Topics</p>
                       <div className="flex flex-wrap gap-2">
                         {selectedChannel.aiAnalysis.contentTopics.map((topic) => (
                           <Badge key={topic} variant="gray">
@@ -918,16 +918,16 @@ export default function YouTube() {
               {/* Description */}
               {selectedChannel.description && (
                 <div>
-                  <h4 className="font-medium dark:text-gray-100 mb-2">Description</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-line">
+                  <h4 className="font-medium dark:text-surface-100 mb-2">Description</h4>
+                  <p className="text-sm text-surface-600 dark:text-surface-400 whitespace-pre-line">
                     {selectedChannel.description}
                   </p>
                 </div>
               )}
 
               {/* Actions */}
-              <div className="space-y-3 pt-4 border-t dark:border-gray-700">
-                <h4 className="font-medium dark:text-gray-100">Actions</h4>
+              <div className="space-y-3 pt-4 border-t dark:border-surface-700">
+                <h4 className="font-medium dark:text-surface-100">Actions</h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedChannel.status === 'discovered' && (
                     <button

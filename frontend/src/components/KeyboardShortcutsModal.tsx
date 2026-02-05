@@ -94,17 +94,17 @@ export default function KeyboardShortcutsModal() {
           className="fixed inset-0 bg-black bg-opacity-25"
           onClick={() => setIsOpen(false)}
         />
-        <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-lg w-full p-6">
+        <div className="relative bg-white dark:bg-surface-800 rounded-lg shadow-xl max-w-lg w-full p-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <Keyboard className="h-5 w-5 text-gray-500" />
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              <Keyboard className="h-5 w-5 text-surface-500" />
+              <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
                 Keyboard Shortcuts
               </h2>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="text-surface-400 hover:text-surface-600 dark:hover:text-surface-300"
             >
               <X className="h-5 w-5" />
             </button>
@@ -118,8 +118,8 @@ export default function KeyboardShortcutsModal() {
             {pageShortcuts && <ShortcutSection group={pageShortcuts} />}
           </div>
 
-          <div className="mt-6 pt-4 border-t dark:border-gray-700">
-            <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+          <div className="mt-6 pt-4 border-t dark:border-surface-700">
+            <p className="text-xs text-surface-500 dark:text-surface-400 text-center">
               Press <kbd className="kbd">?</kbd> anywhere to toggle this dialog
             </p>
           </div>
@@ -132,7 +132,7 @@ export default function KeyboardShortcutsModal() {
 function ShortcutSection({ group }: { group: ShortcutGroup }) {
   return (
     <div>
-      <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+      <h3 className="text-sm font-medium text-surface-700 dark:text-surface-300 mb-3">
         {group.title}
       </h3>
       <div className="space-y-2">
@@ -141,7 +141,7 @@ function ShortcutSection({ group }: { group: ShortcutGroup }) {
             key={index}
             className="flex items-center justify-between py-1.5"
           >
-            <span className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="text-sm text-surface-600 dark:text-surface-400">
               {shortcut.description}
             </span>
             <div className="flex items-center gap-1">
@@ -149,7 +149,7 @@ function ShortcutSection({ group }: { group: ShortcutGroup }) {
                 <span key={keyIndex}>
                   <kbd className="kbd">{key}</kbd>
                   {keyIndex < shortcut.keys.length - 1 && (
-                    <span className="text-gray-400 mx-1">+</span>
+                    <span className="text-surface-400 mx-1">+</span>
                   )}
                 </span>
               ))}

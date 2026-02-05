@@ -94,13 +94,13 @@ export default function Discovery() {
                 <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 mr-3" />
               ) : null}
               <div>
-                <p className="font-medium dark:text-gray-100">
+                <p className="font-medium dark:text-surface-100">
                   {isRunning ? 'Discovery in progress...' :
                    currentJob.status === 'completed' ? 'Discovery completed' :
                    currentJob.status === 'failed' ? 'Discovery failed' :
                    'Pending'}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-surface-600 dark:text-surface-400">
                   {currentJob.discoveredCount} posts discovered
                 </p>
               </div>
@@ -139,16 +139,16 @@ export default function Discovery() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="card p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-medium text-gray-900 dark:text-gray-100">Subreddits</h3>
+              <h3 className="font-medium text-surface-900 dark:text-surface-100">Subreddits</h3>
               {selectedSubreddits.length > 0 && (
-                <span className="text-sm text-gray-500 dark:text-gray-400">
+                <span className="text-sm text-surface-500 dark:text-surface-400">
                   {selectedSubreddits.length} selected
                 </span>
               )}
             </div>
             <div className="space-y-2 max-h-64 overflow-y-auto">
               {subredditsList.map((sub: Subreddit) => (
-                <label key={sub.id} className="flex items-center hover:bg-gray-50 dark:hover:bg-gray-700/50 p-2 rounded cursor-pointer">
+                <label key={sub.id} className="flex items-center hover:bg-surface-50 dark:hover:bg-surface-700/50 p-2 rounded cursor-pointer">
                   <input
                     type="checkbox"
                     checked={selectedSubreddits.includes(sub.name)}
@@ -159,29 +159,29 @@ export default function Discovery() {
                         setSelectedSubreddits(selectedSubreddits.filter((s) => s !== sub.name));
                       }
                     }}
-                    className="rounded border-gray-300 dark:border-gray-600 text-brand-600 focus:ring-brand-500"
+                    className="rounded border-surface-300 dark:border-surface-600 text-primary-600 focus:ring-primary-500"
                   />
-                  <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">r/{sub.name}</span>
+                  <span className="ml-2 text-sm text-surface-700 dark:text-surface-300">r/{sub.name}</span>
                 </label>
               ))}
               {subredditsList.length === 0 && (
-                <p className="text-sm text-gray-500 dark:text-gray-400">No subreddits configured</p>
+                <p className="text-sm text-surface-500 dark:text-surface-400">No subreddits configured</p>
               )}
             </div>
           </div>
 
           <div className="card p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-medium text-gray-900 dark:text-gray-100">Keywords</h3>
+              <h3 className="font-medium text-surface-900 dark:text-surface-100">Keywords</h3>
               {selectedKeywords.length > 0 && (
-                <span className="text-sm text-gray-500 dark:text-gray-400">
+                <span className="text-sm text-surface-500 dark:text-surface-400">
                   {selectedKeywords.length} selected
                 </span>
               )}
             </div>
             <div className="space-y-2 max-h-64 overflow-y-auto">
               {keywordsList.map((kw: Keyword) => (
-                <label key={kw.id} className="flex items-center hover:bg-gray-50 dark:hover:bg-gray-700/50 p-2 rounded cursor-pointer">
+                <label key={kw.id} className="flex items-center hover:bg-surface-50 dark:hover:bg-surface-700/50 p-2 rounded cursor-pointer">
                   <input
                     type="checkbox"
                     checked={selectedKeywords.includes(kw.keyword)}
@@ -192,16 +192,16 @@ export default function Discovery() {
                         setSelectedKeywords(selectedKeywords.filter((k) => k !== kw.keyword));
                       }
                     }}
-                    className="rounded border-gray-300 dark:border-gray-600 text-brand-600 focus:ring-brand-500"
+                    className="rounded border-surface-300 dark:border-surface-600 text-primary-600 focus:ring-primary-500"
                   />
-                  <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">{kw.keyword}</span>
+                  <span className="ml-2 text-sm text-surface-700 dark:text-surface-300">{kw.keyword}</span>
                   {kw.category && (
                     <span className="ml-2 badge badge-gray">{kw.category}</span>
                   )}
                 </label>
               ))}
               {keywordsList.length === 0 && (
-                <p className="text-sm text-gray-500 dark:text-gray-400">No keywords configured</p>
+                <p className="text-sm text-surface-500 dark:text-surface-400">No keywords configured</p>
               )}
             </div>
           </div>
@@ -210,9 +210,9 @@ export default function Discovery() {
 
       {/* Selection Summary */}
       {hasConfiguredFilters && (selectedSubreddits.length > 0 || selectedKeywords.length > 0) && (
-        <div className="card p-4 bg-gray-50 dark:bg-gray-800/50">
+        <div className="card p-4 bg-surface-50 dark:bg-surface-800/50">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-surface-600 dark:text-surface-400">
               Will search {selectedSubreddits.length === 0 ? 'all subreddits' : `${selectedSubreddits.length} subreddit(s)`} for{' '}
               {selectedKeywords.length === 0 ? 'all keywords' : `${selectedKeywords.length} keyword(s)`}
             </p>
@@ -222,7 +222,7 @@ export default function Discovery() {
                   setSelectedSubreddits([]);
                   setSelectedKeywords([]);
                 }}
-                className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                className="text-sm text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-300"
               >
                 Clear selection
               </button>

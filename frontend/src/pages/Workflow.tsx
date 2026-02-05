@@ -181,7 +181,7 @@ export default function Workflow() {
   const getScoreBadgeClass = (score: number) => {
     if (score >= 7) return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
     if (score >= 4) return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400';
-    return 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400';
+    return 'bg-surface-100 text-surface-600 dark:bg-surface-700 dark:text-surface-400';
   };
 
   // Calculate progress stats
@@ -315,13 +315,13 @@ export default function Workflow() {
               </button>
             )}
             {/* View Toggle */}
-            <div className="flex items-center border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
+            <div className="flex items-center border border-surface-200 dark:border-surface-600 rounded-lg overflow-hidden">
               <button
                 onClick={() => setViewMode('list')}
                 className={`px-3 py-2 flex items-center gap-1 text-sm ${
                   viewMode === 'list'
-                    ? 'bg-brand-600 text-white'
-                    : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-white dark:bg-surface-800 text-surface-600 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-700'
                 }`}
               >
                 <List className="h-4 w-4" />
@@ -331,8 +331,8 @@ export default function Workflow() {
                 onClick={() => setViewMode('kanban')}
                 className={`px-3 py-2 flex items-center gap-1 text-sm ${
                   viewMode === 'kanban'
-                    ? 'bg-brand-600 text-white'
-                    : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-white dark:bg-surface-800 text-surface-600 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-700'
                 }`}
               >
                 <LayoutGrid className="h-4 w-4" />
@@ -348,7 +348,7 @@ export default function Workflow() {
                 Export
               </button>
             )}
-            <div className="hidden lg:block text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-3 py-2 rounded-lg">
+            <div className="hidden lg:block text-xs text-surface-500 dark:text-surface-400 bg-surface-100 dark:bg-surface-800 px-3 py-2 rounded-lg">
               <span className="font-medium">Keys:</span> J/K · A · R · P
             </div>
           </div>
@@ -364,7 +364,7 @@ export default function Workflow() {
             placeholder="Search posts, subreddits, keywords..."
           />
           {searchTerm && (
-            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mt-2 text-sm text-surface-500 dark:text-surface-400">
               Showing {filteredItems.length} of {items.length} items
             </p>
           )}
@@ -373,7 +373,7 @@ export default function Workflow() {
 
       {/* Status Tabs - only show in list view */}
       {viewMode === 'list' && (
-        <div className="border-b border-gray-200 dark:border-gray-700">
+        <div className="border-b border-surface-200 dark:border-surface-700">
           <nav className="-mb-px flex space-x-6 overflow-x-auto">
             {statusTabs.map((tab) => (
               <button
@@ -381,8 +381,8 @@ export default function Workflow() {
                 onClick={() => setActiveTab(tab.key)}
                 className={`whitespace-nowrap border-b-2 py-3 px-1 text-sm font-medium ${
                   activeTab === tab.key
-                    ? 'border-brand-500 text-brand-600'
-                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                    ? 'border-primary-500 text-primary-600'
+                    : 'border-transparent text-surface-500 hover:border-surface-300 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-300'
                 }`}
               >
                 {tab.label}
@@ -394,20 +394,20 @@ export default function Workflow() {
 
       {/* Bulk Action Bar */}
       {selectedItems.size > 0 && viewMode === 'list' && (
-        <div className="bg-brand-50 dark:bg-brand-900/30 border border-brand-200 dark:border-brand-800 rounded-lg p-4 flex items-center justify-between">
+        <div className="bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800 rounded-lg p-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-brand-700 dark:text-brand-300">
+            <span className="text-sm font-medium text-primary-700 dark:text-primary-300">
               {selectedItems.size} item{selectedItems.size > 1 ? 's' : ''} selected
             </span>
             <button
               onClick={selectAllItems}
-              className="text-sm text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
+              className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
             >
               Select all eligible
             </button>
             <button
               onClick={clearSelection}
-              className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+              className="text-sm text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-300"
             >
               Clear selection
             </button>
@@ -454,7 +454,7 @@ export default function Workflow() {
         <div className="flex gap-6">
           <div className="flex-1">
             {isLoading ? (
-              <div className="p-8 text-center text-gray-500 dark:text-gray-400">Loading...</div>
+              <div className="p-8 text-center text-surface-500 dark:text-surface-400">Loading...</div>
             ) : (
               <KanbanBoard
                 items={engagements?.data?.items || []}
@@ -480,9 +480,9 @@ export default function Workflow() {
             transition-all overflow-hidden flex flex-col
             lg:h-[calc(100vh-320px)] lg:min-h-[500px]
           `}>
-            <div className="card divide-y divide-gray-200 dark:divide-gray-700 overflow-y-auto flex-1">
+            <div className="card divide-y divide-surface-200 dark:divide-surface-700 overflow-y-auto flex-1">
               {isLoading ? (
-                <div className="p-8 text-center text-gray-500 dark:text-gray-400">Loading...</div>
+                <div className="p-8 text-center text-surface-500 dark:text-surface-400">Loading...</div>
               ) : items.length === 0 ? (
                 <EmptyState
                   icon={ListTodo}
@@ -493,15 +493,15 @@ export default function Workflow() {
                   ]}
                 />
               ) : filteredItems.length === 0 ? (
-                <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+                <div className="p-8 text-center text-surface-500 dark:text-surface-400">
                   No items match "{searchTerm}"
                 </div>
               ) : (
                 filteredItems.map((item: EngagementItem) => (
                   <div
                     key={item.id}
-                    className={`p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 ${
-                      selectedItem?.id === item.id ? 'bg-brand-50 dark:bg-brand-900/30' : ''
+                    className={`p-4 cursor-pointer hover:bg-surface-50 dark:hover:bg-surface-700 ${
+                      selectedItem?.id === item.id ? 'bg-primary-50 dark:bg-primary-900/30' : ''
                     }`}
                   >
                     <div className="flex items-start gap-3">
@@ -513,8 +513,8 @@ export default function Workflow() {
                         }}
                         className={`mt-0.5 p-0.5 rounded ${
                           ['draft_ready', 'in_review'].includes(item.status)
-                            ? 'text-gray-400 hover:text-brand-600 dark:hover:text-brand-400'
-                            : 'text-gray-300 dark:text-gray-600 cursor-not-allowed'
+                            ? 'text-surface-400 hover:text-primary-600 dark:hover:text-primary-400'
+                            : 'text-surface-300 dark:text-surface-600 cursor-not-allowed'
                         }`}
                         disabled={!['draft_ready', 'in_review'].includes(item.status)}
                         title={
@@ -524,7 +524,7 @@ export default function Workflow() {
                         }
                       >
                         {selectedItems.has(item.id) ? (
-                          <CheckSquare className="h-5 w-5 text-brand-600 dark:text-brand-400" />
+                          <CheckSquare className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                         ) : (
                           <Square className="h-5 w-5" />
                         )}
@@ -542,12 +542,12 @@ export default function Workflow() {
                               {item.isRecommended && (
                                 <Star className="h-4 w-4 text-yellow-500 fill-yellow-500 flex-shrink-0" />
                               )}
-                              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                              <p className="text-sm font-medium text-surface-900 dark:text-surface-100 truncate">
                                 {item.postTitle}
                               </p>
                             </div>
                             <div className="flex items-center gap-2 mt-1">
-                              <p className="text-xs text-gray-500 dark:text-gray-400">
+                              <p className="text-xs text-surface-500 dark:text-surface-400">
                                 r/{item.subreddit}
                                 {item.matchedKeyword && ` · ${item.matchedKeyword}`}
                               </p>

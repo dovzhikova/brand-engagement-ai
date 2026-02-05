@@ -35,7 +35,7 @@ const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
         {label && (
           <label
             htmlFor={id}
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1"
           >
             {label}
           </label>
@@ -43,7 +43,7 @@ const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
         <div className="relative">
           {showIcon && (
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Clock className="h-4 w-4 text-gray-400" />
+              <Clock className="h-4 w-4 text-surface-400" />
             </div>
           )}
           <input
@@ -55,11 +55,11 @@ const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
             disabled={disabled}
             className={`
               block w-full rounded-md shadow-sm
-              text-sm text-gray-900 dark:text-gray-100
-              bg-white dark:bg-gray-800
-              border-gray-300 dark:border-gray-600
-              focus:ring-brand-500 focus:border-brand-500
-              dark:focus:ring-brand-400 dark:focus:border-brand-400
+              text-sm text-surface-900 dark:text-surface-100
+              bg-white dark:bg-surface-800
+              border-surface-300 dark:border-surface-600
+              focus:ring-primary-500 focus:border-primary-500
+              dark:focus:ring-primary-400 dark:focus:border-primary-400
               disabled:opacity-50 disabled:cursor-not-allowed
               ${showIcon ? 'pl-9' : 'pl-3'} pr-3 py-2
               ${error ? 'border-red-500 dark:border-red-400' : 'border'}
@@ -105,11 +105,11 @@ export function InlineTimePicker({
       disabled={disabled}
       className={`
         px-2 py-1 text-sm rounded-md
-        text-gray-700 dark:text-gray-300
-        bg-gray-100 dark:bg-gray-700
-        border border-gray-200 dark:border-gray-600
-        focus:ring-2 focus:ring-brand-500 focus:border-brand-500
-        dark:focus:ring-brand-400 dark:focus:border-brand-400
+        text-surface-700 dark:text-surface-300
+        bg-surface-100 dark:bg-surface-700
+        border border-surface-200 dark:border-surface-600
+        focus:ring-2 focus:ring-primary-500 focus:border-primary-500
+        dark:focus:ring-primary-400 dark:focus:border-primary-400
         disabled:opacity-50 disabled:cursor-not-allowed
         transition-colors
         ${className}

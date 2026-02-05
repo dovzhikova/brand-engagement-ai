@@ -492,13 +492,13 @@ export default function Keywords() {
                 <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 mr-3" />
               ) : null}
               <div>
-                <p className="font-medium dark:text-gray-100">
+                <p className="font-medium dark:text-surface-100">
                   {isDiscoveryRunning ? 'Discovery in progress...' :
                    currentJob.status === 'completed' ? 'Discovery completed' :
                    currentJob.status === 'failed' ? 'Discovery failed' :
                    'Pending'}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-surface-600 dark:text-surface-400">
                   {currentJob.discoveredCount} posts discovered
                 </p>
               </div>
@@ -523,12 +523,12 @@ export default function Keywords() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Keywords Section */}
         <div className="card">
-          <div className="px-6 py-4 border-b dark:border-gray-700">
+          <div className="px-6 py-4 border-b dark:border-surface-700">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <h2 className="font-semibold text-gray-900 dark:text-gray-100">Keywords</h2>
+                <h2 className="font-semibold text-surface-900 dark:text-surface-100">Keywords</h2>
                 {keywords?.data && keywords.data.length > 0 && (
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                  <span className="text-sm text-surface-500 dark:text-surface-400">
                     ({filteredKeywords.length}{keywordSearch ? ` / ${keywords.data.length}` : ''})
                   </span>
                 )}
@@ -578,11 +578,11 @@ export default function Keywords() {
 
             {/* Selection Bar */}
             {filteredKeywords.length > 0 && (
-              <div className="flex items-center justify-between mt-3 pt-3 border-t dark:border-gray-700">
+              <div className="flex items-center justify-between mt-3 pt-3 border-t dark:border-surface-700">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={isAllKeywordsSelected ? clearKeywordSelection : selectAllKeywords}
-                    className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                    className="flex items-center gap-2 text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-200"
                   >
                     {isAllKeywordsSelected ? (
                       <CheckSquare className="h-4 w-4 text-blue-600" />
@@ -614,7 +614,7 @@ export default function Keywords() {
                     <button
                       onClick={() => handleBatchToggleKeywords(false)}
                       disabled={deletingKeywords}
-                      className="p-1.5 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                      className="p-1.5 text-surface-500 hover:bg-surface-100 dark:hover:bg-surface-700 rounded"
                       title="Deactivate selected"
                     >
                       <ToggleLeft className="h-4 w-4" />
@@ -637,9 +637,9 @@ export default function Keywords() {
             )}
           </div>
 
-          <div className="divide-y dark:divide-gray-700 max-h-96 overflow-y-auto">
+          <div className="divide-y dark:divide-surface-700 max-h-96 overflow-y-auto">
             {keywordsLoading ? (
-              <div className="p-6 text-center text-gray-500">Loading...</div>
+              <div className="p-6 text-center text-surface-500">Loading...</div>
             ) : !Array.isArray(keywords?.data) || keywords.data.length === 0 ? (
               <EmptyState
                 icon={Key}
@@ -658,14 +658,14 @@ export default function Keywords() {
                 ]}
               />
             ) : filteredKeywords.length === 0 ? (
-              <div className="p-6 text-center text-gray-500">
+              <div className="p-6 text-center text-surface-500">
                 No keywords match "{keywordSearch}"
               </div>
             ) : (
               filteredKeywords.map((kw: Keyword) => (
                 <div
                   key={kw.id}
-                  className={`px-6 py-3 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer transition-colors ${
+                  className={`px-6 py-3 flex items-center gap-3 hover:bg-surface-50 dark:hover:bg-surface-800/50 cursor-pointer transition-colors ${
                     selectedKeywords.has(kw.id) ? 'bg-blue-50 dark:bg-blue-900/20' : ''
                   }`}
                   onClick={() => toggleKeywordSelection(kw.id)}
@@ -675,13 +675,13 @@ export default function Keywords() {
                     {selectedKeywords.has(kw.id) ? (
                       <CheckSquare className="h-5 w-5 text-blue-600" />
                     ) : (
-                      <Square className="h-5 w-5 text-gray-400" />
+                      <Square className="h-5 w-5 text-surface-400" />
                     )}
                   </div>
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{kw.keyword}</p>
+                      <p className="text-sm font-medium text-surface-900 dark:text-surface-100">{kw.keyword}</p>
                       {!kw.isActive && (
                         <span className="badge badge-gray text-xs">Inactive</span>
                       )}
@@ -692,7 +692,7 @@ export default function Keywords() {
                           {kw.category}
                         </span>
                       )}
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                      <span className="text-xs text-surface-500 dark:text-surface-400">
                         Priority: {kw.priority === 1 ? 'High' : kw.priority === 2 ? 'Medium' : 'Low'}
                       </span>
                     </div>
@@ -700,7 +700,7 @@ export default function Keywords() {
                   <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                     <button
                       onClick={() => openEditKeyword(kw)}
-                      className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 p-1"
+                      className="text-surface-400 hover:text-blue-600 dark:hover:text-blue-400 p-1"
                       title="Edit keyword"
                     >
                       <Pencil className="h-4 w-4" />
@@ -711,7 +711,7 @@ export default function Keywords() {
                           deleteKeyword.mutate(kw.id);
                         }
                       }}
-                      className="text-gray-400 hover:text-red-600 dark:hover:text-red-400 p-1"
+                      className="text-surface-400 hover:text-red-600 dark:hover:text-red-400 p-1"
                       title="Delete keyword"
                     >
                       <Trash2 className="h-4 w-4" />
@@ -725,12 +725,12 @@ export default function Keywords() {
 
         {/* Subreddits Section */}
         <div className="card">
-          <div className="px-6 py-4 border-b dark:border-gray-700">
+          <div className="px-6 py-4 border-b dark:border-surface-700">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <h2 className="font-semibold text-gray-900 dark:text-gray-100">Subreddits</h2>
+                <h2 className="font-semibold text-surface-900 dark:text-surface-100">Subreddits</h2>
                 {subreddits?.data && subreddits.data.length > 0 && (
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                  <span className="text-sm text-surface-500 dark:text-surface-400">
                     ({filteredSubreddits.length}{subredditSearch ? ` / ${subreddits.data.length}` : ''})
                   </span>
                 )}
@@ -772,11 +772,11 @@ export default function Keywords() {
 
             {/* Selection Bar */}
             {filteredSubreddits.length > 0 && (
-              <div className="flex items-center justify-between mt-3 pt-3 border-t dark:border-gray-700">
+              <div className="flex items-center justify-between mt-3 pt-3 border-t dark:border-surface-700">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={isAllSubredditsSelected ? clearSubredditSelection : selectAllSubreddits}
-                    className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                    className="flex items-center gap-2 text-sm text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-200"
                   >
                     {isAllSubredditsSelected ? (
                       <CheckSquare className="h-4 w-4 text-blue-600" />
@@ -808,7 +808,7 @@ export default function Keywords() {
                     <button
                       onClick={() => handleBatchToggleSubreddits(false)}
                       disabled={deletingSubreddits}
-                      className="p-1.5 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                      className="p-1.5 text-surface-500 hover:bg-surface-100 dark:hover:bg-surface-700 rounded"
                       title="Deactivate selected"
                     >
                       <ToggleLeft className="h-4 w-4" />
@@ -831,9 +831,9 @@ export default function Keywords() {
             )}
           </div>
 
-          <div className="divide-y dark:divide-gray-700 max-h-96 overflow-y-auto">
+          <div className="divide-y dark:divide-surface-700 max-h-96 overflow-y-auto">
             {subredditsLoading ? (
-              <div className="p-6 text-center text-gray-500">Loading...</div>
+              <div className="p-6 text-center text-surface-500">Loading...</div>
             ) : !Array.isArray(subreddits?.data) || subreddits.data.length === 0 ? (
               <EmptyState
                 icon={MessageCircle}
@@ -848,14 +848,14 @@ export default function Keywords() {
                 ]}
               />
             ) : filteredSubreddits.length === 0 ? (
-              <div className="p-6 text-center text-gray-500">
+              <div className="p-6 text-center text-surface-500">
                 No subreddits match "{subredditSearch}"
               </div>
             ) : (
               filteredSubreddits.map((sub: Subreddit) => (
                 <div
                   key={sub.id}
-                  className={`px-6 py-3 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 cursor-pointer transition-colors ${
+                  className={`px-6 py-3 flex items-center gap-3 hover:bg-surface-50 dark:hover:bg-surface-800/50 cursor-pointer transition-colors ${
                     selectedSubreddits.has(sub.id) ? 'bg-blue-50 dark:bg-blue-900/20' : ''
                   }`}
                   onClick={() => toggleSubredditSelection(sub.id)}
@@ -865,25 +865,25 @@ export default function Keywords() {
                     {selectedSubreddits.has(sub.id) ? (
                       <CheckSquare className="h-5 w-5 text-blue-600" />
                     ) : (
-                      <Square className="h-5 w-5 text-gray-400" />
+                      <Square className="h-5 w-5 text-surface-400" />
                     )}
                   </div>
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">r/{sub.name}</p>
+                      <p className="text-sm font-medium text-surface-900 dark:text-surface-100">r/{sub.name}</p>
                       <span className={`badge ${sub.isActive ? 'badge-success' : 'badge-gray'}`}>
                         {sub.isActive ? 'Active' : 'Inactive'}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    <p className="text-xs text-surface-500 dark:text-surface-400 mt-1">
                       Phase {sub.phase} · Min karma: {sub.minKarma}
                     </p>
                   </div>
                   <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                     <button
                       onClick={() => openEditSubreddit(sub)}
-                      className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 p-1"
+                      className="text-surface-400 hover:text-blue-600 dark:hover:text-blue-400 p-1"
                       title="Edit subreddit"
                     >
                       <Pencil className="h-4 w-4" />
@@ -894,7 +894,7 @@ export default function Keywords() {
                           deleteSubreddit.mutate(sub.id);
                         }
                       }}
-                      className="text-gray-400 hover:text-red-600 dark:hover:text-red-400 p-1"
+                      className="text-surface-400 hover:text-red-600 dark:hover:text-red-400 p-1"
                       title="Delete subreddit"
                     >
                       <Trash2 className="h-4 w-4" />
@@ -912,22 +912,22 @@ export default function Keywords() {
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex min-h-screen items-center justify-center p-4">
             <div className="fixed inset-0 bg-black bg-opacity-25" onClick={closeKeywordForm} />
-            <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-6">
+            <div className="relative bg-white dark:bg-surface-800 rounded-lg shadow-xl max-w-md w-full p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold dark:text-gray-100">
+                <h2 className="text-lg font-semibold dark:text-surface-100">
                   {editingKeyword ? 'Edit Keyword' : 'Add Keyword'}
                 </h2>
-                <button onClick={closeKeywordForm} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                <button onClick={closeKeywordForm} className="text-surface-400 hover:text-surface-600 dark:hover:text-surface-300">
                   <X className="h-5 w-5" />
                 </button>
               </div>
               <form onSubmit={keywordForm.handleSubmit(onSubmitKeyword)} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Keyword</label>
+                  <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">Keyword</label>
                   <input {...keywordForm.register('keyword', { required: true })} className="input mt-1" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
+                  <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">Category</label>
                   <select {...keywordForm.register('category')} className="input mt-1">
                     <option value="">Select category</option>
                     <option value="core">Core</option>
@@ -937,7 +937,7 @@ export default function Keywords() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Priority</label>
+                  <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">Priority</label>
                   <select {...keywordForm.register('priority', { valueAsNumber: true })} className="input mt-1">
                     <option value={1}>High</option>
                     <option value={2}>Medium</option>
@@ -945,7 +945,7 @@ export default function Keywords() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Search Variants (comma-separated)</label>
+                  <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">Search Variants (comma-separated)</label>
                   <input {...keywordForm.register('searchVariants')} className="input mt-1" placeholder="variant1, variant2" />
                 </div>
                 <div className="flex items-center gap-2">
@@ -953,9 +953,9 @@ export default function Keywords() {
                     type="checkbox"
                     {...keywordForm.register('isActive')}
                     id="keyword-active"
-                    className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                    className="h-4 w-4 rounded border-surface-300 text-red-600 focus:ring-red-500"
                   />
-                  <label htmlFor="keyword-active" className="text-sm text-gray-700 dark:text-gray-300">Active</label>
+                  <label htmlFor="keyword-active" className="text-sm text-surface-700 dark:text-surface-300">Active</label>
                 </div>
                 <div className="flex justify-end gap-3 pt-2">
                   <button type="button" onClick={closeKeywordForm} className="btn btn-secondary">Cancel</button>
@@ -978,18 +978,18 @@ export default function Keywords() {
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex min-h-screen items-center justify-center p-4">
             <div className="fixed inset-0 bg-black bg-opacity-25" onClick={closeSubredditForm} />
-            <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-6">
+            <div className="relative bg-white dark:bg-surface-800 rounded-lg shadow-xl max-w-md w-full p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold dark:text-gray-100">
+                <h2 className="text-lg font-semibold dark:text-surface-100">
                   {editingSubreddit ? 'Edit Subreddit' : 'Add Subreddit'}
                 </h2>
-                <button onClick={closeSubredditForm} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                <button onClick={closeSubredditForm} className="text-surface-400 hover:text-surface-600 dark:hover:text-surface-300">
                   <X className="h-5 w-5" />
                 </button>
               </div>
               <form onSubmit={subredditForm.handleSubmit(onSubmitSubreddit)} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Subreddit Name</label>
+                  <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">Subreddit Name</label>
                   <input
                     {...subredditForm.register('name', { required: true })}
                     className="input mt-1"
@@ -997,11 +997,11 @@ export default function Keywords() {
                     disabled={!!editingSubreddit}
                   />
                   {editingSubreddit && (
-                    <p className="text-xs text-gray-500 mt-1">Subreddit name cannot be changed</p>
+                    <p className="text-xs text-surface-500 mt-1">Subreddit name cannot be changed</p>
                   )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Phase</label>
+                  <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">Phase</label>
                   <select {...subredditForm.register('phase', { valueAsNumber: true })} className="input mt-1">
                     <option value={1}>Phase 1</option>
                     <option value={2}>Phase 2</option>
@@ -1009,11 +1009,11 @@ export default function Keywords() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Minimum Karma</label>
+                  <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">Minimum Karma</label>
                   <input {...subredditForm.register('minKarma', { valueAsNumber: true })} type="number" className="input mt-1" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Self-Promo Rules</label>
+                  <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">Self-Promo Rules</label>
                   <textarea {...subredditForm.register('selfPromoRules')} className="input mt-1" rows={2} />
                 </div>
                 <div className="flex items-center gap-2">
@@ -1021,9 +1021,9 @@ export default function Keywords() {
                     type="checkbox"
                     {...subredditForm.register('isActive')}
                     id="subreddit-active"
-                    className="h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500"
+                    className="h-4 w-4 rounded border-surface-300 text-red-600 focus:ring-red-500"
                   />
-                  <label htmlFor="subreddit-active" className="text-sm text-gray-700 dark:text-gray-300">Active</label>
+                  <label htmlFor="subreddit-active" className="text-sm text-surface-700 dark:text-surface-300">Active</label>
                 </div>
                 <div className="flex justify-end gap-3 pt-2">
                   <button type="button" onClick={closeSubredditForm} className="btn btn-secondary">Cancel</button>
@@ -1052,31 +1052,31 @@ export default function Keywords() {
                 setSelectedGscKeywords(new Set());
               }}
             />
-            <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full p-6">
+            <div className="relative bg-white dark:bg-surface-800 rounded-lg shadow-xl max-w-2xl w-full p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold dark:text-gray-100">Import from Google Search Console</h2>
+                <h2 className="text-lg font-semibold dark:text-surface-100">Import from Google Search Console</h2>
                 <button
                   onClick={() => {
                     setShowGscImport(false);
                     setSelectedGscKeywords(new Set());
                   }}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  className="text-surface-400 hover:text-surface-600 dark:hover:text-surface-300"
                 >
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              <p className="text-sm text-surface-600 dark:text-surface-400 mb-4">
                 Select keywords from Search Console to add as tracking keywords. These are high-potential queries based on impressions and position.
               </p>
 
               {gscLoading ? (
                 <div className="flex items-center justify-center py-8">
-                  <RefreshCw className="h-6 w-6 animate-spin text-gray-400" />
-                  <span className="ml-2 text-gray-500">Loading suggestions...</span>
+                  <RefreshCw className="h-6 w-6 animate-spin text-surface-400" />
+                  <span className="ml-2 text-surface-500">Loading suggestions...</span>
                 </div>
               ) : gscSuggestions.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-surface-500">
                   <Database className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   <p>No keyword suggestions available.</p>
                   <p className="text-sm mt-1">Connect Search Console and sync data first.</p>
@@ -1084,24 +1084,24 @@ export default function Keywords() {
               ) : (
                 <>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-sm text-surface-600 dark:text-surface-400">
                       {selectedGscKeywords.size} of {gscSuggestions.length} selected
                     </span>
                     <div className="flex gap-2">
                       <button onClick={selectAllGscKeywords} className="text-sm text-blue-600 hover:text-blue-800">
                         Select All
                       </button>
-                      <button onClick={clearGscSelection} className="text-sm text-gray-600 hover:text-gray-800">
+                      <button onClick={clearGscSelection} className="text-sm text-surface-600 hover:text-surface-800">
                         Clear
                       </button>
                     </div>
                   </div>
 
-                  <div className="max-h-80 overflow-y-auto border dark:border-gray-700 rounded-lg divide-y dark:divide-gray-700">
+                  <div className="max-h-80 overflow-y-auto border dark:border-surface-700 rounded-lg divide-y dark:divide-surface-700">
                     {gscSuggestions.map((suggestion) => (
                       <div
                         key={suggestion.query}
-                        className={`p-3 flex items-start gap-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 ${
+                        className={`p-3 flex items-start gap-3 cursor-pointer hover:bg-surface-50 dark:hover:bg-surface-700/50 ${
                           selectedGscKeywords.has(suggestion.query) ? 'bg-blue-50 dark:bg-blue-900/20' : ''
                         }`}
                         onClick={() => toggleGscKeyword(suggestion.query)}
@@ -1110,23 +1110,23 @@ export default function Keywords() {
                           {selectedGscKeywords.has(suggestion.query) ? (
                             <CheckCircle className="h-5 w-5 text-blue-600" />
                           ) : (
-                            <div className="h-5 w-5 border-2 border-gray-300 dark:border-gray-600 rounded-full" />
+                            <div className="h-5 w-5 border-2 border-surface-300 dark:border-surface-600 rounded-full" />
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-gray-900 dark:text-gray-100">{suggestion.query}</p>
-                          <div className="flex items-center gap-3 mt-1 text-xs text-gray-500 dark:text-gray-400">
+                          <p className="font-medium text-surface-900 dark:text-surface-100">{suggestion.query}</p>
+                          <div className="flex items-center gap-3 mt-1 text-xs text-surface-500 dark:text-surface-400">
                             <span>{suggestion.impressions.toLocaleString()} impressions</span>
                             <span>Pos: {suggestion.position.toFixed(1)}</span>
                             <span>{suggestion.clicks} clicks</span>
                           </div>
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{suggestion.reason}</p>
+                          <p className="text-xs text-surface-500 dark:text-surface-400 mt-1">{suggestion.reason}</p>
                         </div>
                         <div className="flex flex-col items-end gap-1">
                           <span className={`badge ${getCategoryBadge(suggestion.suggestedCategory)}`}>
                             {suggestion.suggestedCategory}
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-surface-500">
                             Priority: {suggestion.suggestedPriority === 1 ? 'High' : suggestion.suggestedPriority === 2 ? 'Medium' : 'Low'}
                           </span>
                         </div>
@@ -1136,7 +1136,7 @@ export default function Keywords() {
                 </>
               )}
 
-              <div className="flex justify-end gap-3 mt-4 pt-4 border-t dark:border-gray-700">
+              <div className="flex justify-end gap-3 mt-4 pt-4 border-t dark:border-surface-700">
                 <button
                   onClick={() => {
                     setShowGscImport(false);

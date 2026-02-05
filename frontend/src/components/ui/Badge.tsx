@@ -25,7 +25,7 @@ interface BadgeProps {
 }
 
 const variantClasses: Record<BadgeVariant, string> = {
-  default: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
+  default: 'bg-surface-100 text-surface-700 ring-surface-500/20 dark:bg-surface-700 dark:text-surface-200 dark:ring-surface-500/20',
   success: 'badge-success',
   warning: 'badge-warning',
   danger: 'badge-danger',
@@ -54,7 +54,7 @@ export default function Badge({
   return (
     <span
       className={`
-        inline-flex items-center gap-1.5 rounded-full font-medium
+        inline-flex items-center gap-1.5 rounded-full font-medium ring-1 ring-inset
         ${variantClasses[variant]}
         ${sizeClasses[size]}
         ${className}
@@ -112,7 +112,7 @@ export function StatusBadge({ status, size = 'md', className = '' }: StatusBadge
   return (
     <span
       className={`
-        inline-flex items-center gap-1.5 rounded-full font-medium
+        inline-flex items-center gap-1.5 rounded-full font-medium ring-1 ring-inset
         ${colors.bg} ${colors.text}
         ${sizeClasses[size]}
         ${className}
@@ -140,7 +140,7 @@ export function CounterBadge({
   const displayCount = count > max ? `${max}+` : count.toString();
 
   const variantStyles = {
-    default: 'bg-gray-500 text-white',
+    default: 'bg-surface-500 text-white',
     danger: 'bg-red-500 text-white',
   };
 

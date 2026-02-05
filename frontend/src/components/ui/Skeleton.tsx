@@ -116,9 +116,9 @@ export function SkeletonTable({
 }) {
   return (
     <div className={`overflow-hidden ${className}`} aria-hidden="true">
-      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+      <table className="min-w-full divide-y divide-surface-200 dark:divide-surface-700">
         {showHeader && (
-          <thead className="bg-gray-50 dark:bg-gray-900">
+          <thead className="bg-surface-50 dark:bg-surface-900">
             <tr>
               {Array.from({ length: columns }).map((_, i) => (
                 <th key={i} className="px-6 py-3">
@@ -128,7 +128,7 @@ export function SkeletonTable({
             </tr>
           </thead>
         )}
-        <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+        <tbody className="bg-white dark:bg-surface-800 divide-y divide-surface-200 dark:divide-surface-700">
           {Array.from({ length: rows }).map((_, i) => (
             <SkeletonTableRow key={i} columns={columns} />
           ))}
@@ -164,7 +164,7 @@ export function SkeletonList({
 }) {
   return (
     <div
-      className={`${divided ? 'divide-y divide-gray-200 dark:divide-gray-700' : 'space-y-2'} ${className}`}
+      className={`${divided ? 'divide-y divide-surface-200 dark:divide-surface-700' : 'space-y-2'} ${className}`}
       aria-hidden="true"
     >
       {Array.from({ length: items }).map((_, i) => (
@@ -236,7 +236,7 @@ export function SkeletonChart({
 export function SkeletonKanbanCard({ className = '' }: { className?: string }) {
   return (
     <div
-      className={`p-3 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 ${className}`}
+      className={`p-3 rounded-lg border border-surface-200 dark:border-surface-600 bg-white dark:bg-surface-800 ${className}`}
       aria-hidden="true"
     >
       <div className="flex items-start gap-2">
@@ -268,7 +268,7 @@ export function SkeletonKanbanColumn({
         <Skeleton className="h-5 w-24 rounded" />
         <Skeleton className="h-4 w-6 rounded" />
       </div>
-      <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-2 space-y-2 min-h-[400px]">
+      <div className="bg-surface-50 dark:bg-surface-900 rounded-lg p-2 space-y-2 min-h-[400px]">
         {Array.from({ length: cards }).map((_, i) => (
           <SkeletonKanbanCard key={i} />
         ))}
