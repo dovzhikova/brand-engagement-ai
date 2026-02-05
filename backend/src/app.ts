@@ -17,6 +17,7 @@ import gscRoutes from './api/routes/gsc.routes';
 import youtubeRoutes from './api/routes/youtube.routes';
 import settingsRoutes from './api/routes/settings.routes';
 import referralsRoutes from './api/routes/referrals.routes';
+import brandsRoutes from './api/routes/brands.routes';
 import { errorHandler } from './api/middleware/errorHandler';
 import { logger } from './utils/logger';
 
@@ -66,6 +67,7 @@ app.get('/health', (_req: Request, res: Response) => {
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/brands', brandsRoutes);
 app.use('/api/organizations', organizationsRoutes);
 app.use('/api/accounts', accountRoutes);
 app.use('/api/personas', personaRoutes);

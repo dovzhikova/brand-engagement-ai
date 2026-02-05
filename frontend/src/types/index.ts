@@ -41,6 +41,7 @@ export interface User {
   name: string;
   role: 'admin' | 'manager' | 'reviewer';
   defaultOrganizationId?: string;
+  defaultBrandId?: string;
   organizations?: Array<{
     id: string;
     name: string;
@@ -284,4 +285,40 @@ export interface YouTubeAnalytics {
   topByRoi: YouTubeChannel[];
   topByRelevance: YouTubeChannel[];
   recentlyDiscovered: YouTubeChannel[];
+}
+
+// Brand types
+export type BrandRole = 'owner' | 'admin' | 'member';
+
+export interface Brand {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  logoUrl?: string;
+  role?: BrandRole;
+  createdAt: string;
+  updatedAt: string;
+  _count?: {
+    members: number;
+    redditAccounts: number;
+    keywords: number;
+  };
+}
+
+export interface BrandMember {
+  id: string;
+  brandId: string;
+  userId: string;
+  role: BrandRole;
+  createdAt: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
+
+export interface BrandWithMembers extends Brand {
+  members: BrandMember[];
 }

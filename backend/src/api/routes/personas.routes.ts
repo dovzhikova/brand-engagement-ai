@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { PersonasController } from '../controllers/personas.controller';
 import { authenticate, authorize } from '../middleware/auth';
 import { requireOrgContext } from '../middleware/organization';
+import { optionalBrandContext } from '../middleware/brand';
 
 const router = Router();
 const personasController = new PersonasController();
@@ -9,6 +10,7 @@ const personasController = new PersonasController();
 // All routes require authentication and organization context
 router.use(authenticate);
 router.use(requireOrgContext);
+router.use(optionalBrandContext);
 
 // GET /api/personas - List all personas
 router.get('/', personasController.list);

@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import type { EngagementItem, RedditAccount, GenerationOptions, CommentLength, CommentStyle } from '../types';
 
-const LAST_ACCOUNT_KEY = 'brand_last_account_id';
+const LAST_ACCOUNT_KEY = 'engage_last_account_id';
 
 const REDDIT_CHAR_LIMIT = 10000;
 

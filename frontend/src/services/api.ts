@@ -1,5 +1,6 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from '../hooks/useAuthStore';
+import { getCurrentBrandId } from '../hooks/useBrandStore';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api',
@@ -37,6 +38,12 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const orgId = localStorage.getItem('currentOrganizationId');
   if (orgId) {
     config.headers['X-Organization-Id'] = orgId;
+  }
+
+  // Add brand context header
+  const brandId = getCurrentBrandId();
+  if (brandId) {
+    config.headers['X-Brand-Id'] = brandId;
   }
 
   return config;
@@ -275,6 +282,24 @@ export const organizationsApi = {
   updateMemberRole: (id: string, memberId: string, role: 'OWNER' | 'ADMIN' | 'MEMBER') =>
     api.patch(`/organizations/${id}/members/${memberId}/role`, { role }),
   leave: (id: string) => api.post(`/organizations/${id}/leave`),
+};
+
+// Brands API
+export const brandsApi = {
+  list: () => api.get('/brands'),
+  create: (data: { name: string; slug: string; description?: string; logoUrl?: string }) =>
+    api.post('/brands', data),
+  get: (id: string) => api.get(`/brands/${id}`),
+  update: (id: string, data: { name?: string; slug?: string; description?: string; logoUrl?: string }) =>
+    api.put(`/brands/${id}`, data),
+  delete: (id: string) => api.delete(`/brands/${id}`),
+  setDefault: (id: string) => api.post(`/brands/${id}/default`),
+  inviteMember: (id: string, data: { email: string; role?: string }) =>
+    api.post(`/brands/${id}/members`, data),
+  updateMember: (id: string, memberId: string, data: { role: string }) =>
+    api.patch(`/brands/${id}/members/${memberId}`, data),
+  removeMember: (id: string, memberId: string) =>
+    api.delete(`/brands/${id}/members/${memberId}`),
 };
 
 // YouTube API

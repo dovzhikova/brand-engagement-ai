@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { EngagementsController } from '../controllers/engagements.controller';
 import { authenticate } from '../middleware/auth';
 import { requireOrgContext } from '../middleware/organization';
+import { optionalBrandContext } from '../middleware/brand';
 
 const router = Router();
 const engagementsController = new EngagementsController();
@@ -9,6 +10,7 @@ const engagementsController = new EngagementsController();
 // All routes require authentication and organization context
 router.use(authenticate);
 router.use(requireOrgContext);
+router.use(optionalBrandContext);
 
 // GET /api/engagements - List engagement items (with filters)
 router.get('/', engagementsController.list);

@@ -82,6 +82,7 @@ export class EngagementsController {
       const where: Record<string, unknown> = {
         organizationId: req.organizationId,
       };
+      if (req.brandId) where.brandId = req.brandId;
       if (status) where.status = status;
       if (subreddit) where.subreddit = subreddit;
       if (recommended !== undefined) where.isRecommended = recommended;
@@ -122,6 +123,7 @@ export class EngagementsController {
         where: {
           id,
           organizationId: req.organizationId,
+          ...(req.brandId ? { brandId: req.brandId } : {}),
         },
         include: {
           assignedAccount: {
@@ -530,6 +532,7 @@ export class EngagementsController {
       const where: Record<string, unknown> = {
         organizationId: req.organizationId,
       };
+      if (req.brandId) where.brandId = req.brandId;
       if (status) where.status = status;
       if (subreddit) where.subreddit = subreddit;
 

@@ -15,7 +15,10 @@ export class KeywordsController {
   list = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const keywords = await prisma.keyword.findMany({
-        where: { organizationId: req.organizationId },
+        where: {
+          organizationId: req.organizationId,
+          ...(req.brandId ? { brandId: req.brandId } : {}),
+        },
         orderBy: [
           { priority: 'asc' },
           { createdAt: 'desc' },
@@ -36,6 +39,7 @@ export class KeywordsController {
         data: {
           ...data,
           organizationId: req.organizationId,
+          brandId: req.brandId,
         },
       });
 
@@ -51,7 +55,11 @@ export class KeywordsController {
       const data = keywordSchema.partial().parse(req.body);
 
       const existing = await prisma.keyword.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: {
+          id,
+          organizationId: req.organizationId,
+          ...(req.brandId ? { brandId: req.brandId } : {}),
+        },
       });
       if (!existing) {
         throw new NotFoundError('Keyword not found');
@@ -73,7 +81,11 @@ export class KeywordsController {
       const { id } = req.params;
 
       const existing = await prisma.keyword.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: {
+          id,
+          organizationId: req.organizationId,
+          ...(req.brandId ? { brandId: req.brandId } : {}),
+        },
       });
       if (!existing) {
         throw new NotFoundError('Keyword not found');

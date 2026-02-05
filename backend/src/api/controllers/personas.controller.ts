@@ -19,7 +19,10 @@ export class PersonasController {
   list = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const personas = await prisma.persona.findMany({
-        where: { organizationId: req.organizationId },
+        where: {
+          organizationId: req.organizationId,
+          ...(req.brandId ? { brandId: req.brandId } : {}),
+        },
         include: {
           _count: {
             select: { redditAccounts: true },
@@ -39,7 +42,11 @@ export class PersonasController {
       const { id } = req.params;
 
       const persona = await prisma.persona.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: {
+          id,
+          organizationId: req.organizationId,
+          ...(req.brandId ? { brandId: req.brandId } : {}),
+        },
         include: {
           redditAccounts: {
             select: {
@@ -69,6 +76,7 @@ export class PersonasController {
         data: {
           ...data,
           organizationId: req.organizationId,
+          brandId: req.brandId,
         },
       });
 
@@ -84,7 +92,11 @@ export class PersonasController {
       const data = personaSchema.partial().parse(req.body);
 
       const existing = await prisma.persona.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: {
+          id,
+          organizationId: req.organizationId,
+          ...(req.brandId ? { brandId: req.brandId } : {}),
+        },
       });
       if (!existing) {
         throw new NotFoundError('Persona not found');
@@ -106,7 +118,11 @@ export class PersonasController {
       const { id } = req.params;
 
       const existing = await prisma.persona.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: {
+          id,
+          organizationId: req.organizationId,
+          ...(req.brandId ? { brandId: req.brandId } : {}),
+        },
       });
       if (!existing) {
         throw new NotFoundError('Persona not found');

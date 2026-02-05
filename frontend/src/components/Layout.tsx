@@ -4,9 +4,11 @@ import { Menu, X, LogOut, ChevronRight, ChevronLeft } from 'lucide-react';
 import { useAuthStore } from '../hooks/useAuthStore';
 import { useThemeStore } from '../hooks/useThemeStore';
 import { useOrganizationStore } from '../hooks/useOrganizationStore';
-import { organizationsApi } from '../services/api';
+import { useBrandStore } from '../hooks/useBrandStore';
+import { organizationsApi, brandsApi } from '../services/api';
 import KeyboardShortcutsModal from './KeyboardShortcutsModal';
 import OrganizationSwitcher from './OrganizationSwitcher';
+import BrandSwitcher from './BrandSwitcher';
 
 interface NavItem {
   name: string;
@@ -54,6 +56,7 @@ export default function Layout() {
   const { user, logout } = useAuthStore();
   const { theme, setTheme } = useThemeStore();
   const { setOrganizations, clearOrganizations } = useOrganizationStore();
+  const { setBrands, clearBrands } = useBrandStore();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -72,6 +75,22 @@ export default function Layout() {
       fetchOrganizations();
     }
   }, [user, setOrganizations]);
+
+  // Fetch brands on mount
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const response = await brandsApi.list();
+        setBrands(response.data);
+      } catch (error) {
+        console.error('Failed to fetch brands:', error);
+      }
+    };
+
+    if (user) {
+      fetchBrands();
+    }
+  }, [user, setBrands]);
 
   // Close mobile sidebar on route change
   useEffect(() => {
@@ -107,6 +126,7 @@ export default function Layout() {
 
   const handleLogout = () => {
     clearOrganizations();
+    clearBrands();
     logout();
     navigate('/login');
   };
@@ -181,7 +201,7 @@ export default function Layout() {
           <div className="flex h-16 items-center justify-between px-4 border-b border-slate-200 dark:border-slate-700">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-brand-600 rounded flex items-center justify-center">
-                <span className="text-white font-bold text-xl">B</span>
+                <span className="text-white font-bold text-xl">E</span>
               </div>
               <span className="text-brand-600 font-bold text-xl tracking-tight whitespace-nowrap">
                 Engage
@@ -199,6 +219,11 @@ export default function Layout() {
           {/* Mobile Organization Switcher */}
           <div className="px-3 py-3 border-b border-slate-200 dark:border-slate-700">
             <OrganizationSwitcher />
+          </div>
+
+          {/* Mobile Brand Switcher */}
+          <div className="px-3 py-3 border-b border-slate-200 dark:border-slate-700">
+            <BrandSwitcher />
           </div>
 
           {/* Mobile Navigation */}
@@ -290,6 +315,15 @@ export default function Layout() {
             }`}
           >
             <OrganizationSwitcher collapsed={sidebarCollapsed} />
+          </div>
+
+          {/* Desktop Brand Switcher */}
+          <div
+            className={`border-b border-slate-200 dark:border-slate-700 ${
+              sidebarCollapsed ? 'px-2 py-2' : 'px-3 py-3'
+            }`}
+          >
+            <BrandSwitcher />
           </div>
 
           {/* Desktop Navigation */}

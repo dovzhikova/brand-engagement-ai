@@ -17,7 +17,10 @@ export class AccountsController {
   list = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const accounts = await prisma.redditAccount.findMany({
-        where: { organizationId: req.organizationId },
+        where: {
+          organizationId: req.organizationId,
+          ...(req.brandId ? { brandId: req.brandId } : {}),
+        },
         include: {
           persona: {
             select: {
@@ -46,7 +49,11 @@ export class AccountsController {
       const { id } = req.params;
 
       const account = await prisma.redditAccount.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: {
+          id,
+          organizationId: req.organizationId,
+          ...(req.brandId ? { brandId: req.brandId } : {}),
+        },
         include: {
           persona: true,
           _count: {
