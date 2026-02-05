@@ -183,18 +183,20 @@ export default function BrandSwitcher() {
 
   if (brands.length === 0) {
     return (
-      <button
-        onClick={() => setShowCreateModal(true)}
-        className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-primary hover:bg-primary/5 rounded-xl transition-colors"
-      >
-        <Plus className="h-4 w-4" />
-        Create Brand
+      <>
+        <button
+          onClick={() => setShowCreateModal(true)}
+          className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-primary hover:bg-primary/5 rounded-xl transition-colors"
+        >
+          <Plus className="h-4 w-4" />
+          Create Brand
+        </button>
         <CreateBrandModal
           isOpen={showCreateModal}
           onClose={() => setShowCreateModal(false)}
           onCreated={handleBrandCreated}
         />
-      </button>
+      </>
     );
   }
 
