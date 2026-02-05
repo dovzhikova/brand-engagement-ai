@@ -138,8 +138,8 @@ export default function EngagementDetailPanel({
     return text
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/`(.*?)`/g, '<code class="bg-surface-200 dark:bg-surface-700 px-1 rounded">$1</code>')
-      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-primary-600 underline">$1</a>')
+      .replace(/`(.*?)`/g, '<code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">$1</code>')
+      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-brand-600 underline">$1</a>')
       .replace(/\n/g, '<br/>');
   };
 
@@ -156,13 +156,13 @@ export default function EngagementDetailPanel({
           {inline && (
             <button
               onClick={onClose}
-              className="lg:hidden p-1 -ml-1 mr-1 text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200"
+              className="lg:hidden p-1 -ml-1 mr-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               title="Back to list"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
           )}
-          <h3 className="font-medium text-surface-900 dark:text-surface-100">Post Details</h3>
+          <h3 className="font-medium text-gray-900 dark:text-gray-100">Post Details</h3>
           {item.isRecommended && (
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
               <Star className="h-3 w-3 fill-current" />
@@ -175,7 +175,7 @@ export default function EngagementDetailPanel({
                 ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
                 : item.relevanceScore >= 4
                 ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
-                : 'bg-surface-100 text-surface-600 dark:bg-surface-700 dark:text-surface-400'
+                : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
             }`}>
               {item.relevanceScore}/10
             </span>
@@ -185,7 +185,7 @@ export default function EngagementDetailPanel({
           {(item.draftResponse || item.editedResponse) && (
             <button
               onClick={() => setSplitView(!splitView)}
-              className="p-1 text-surface-400 hover:text-surface-600 dark:hover:text-surface-300"
+              className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
               title={splitView ? 'Collapse view' : 'Split view'}
             >
               {splitView ? <PanelRightClose className="h-4 w-4" /> : <Columns className="h-4 w-4" />}
@@ -195,13 +195,13 @@ export default function EngagementDetailPanel({
             href={item.postUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary-600 hover:text-primary-700"
+            className="text-brand-600 hover:text-brand-700"
           >
             <ExternalLink className="h-4 w-4" />
           </a>
           <button
             onClick={onClose}
-            className="text-surface-400 hover:text-surface-600 dark:hover:text-surface-300"
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
           >
             <X className="h-5 w-5" />
           </button>
@@ -211,26 +211,26 @@ export default function EngagementDetailPanel({
       {/* Split View Layout */}
       <div className={splitView ? 'grid grid-cols-2 gap-4' : ''}>
         {/* Left Side - Original Post */}
-        <div className={splitView ? 'space-y-4 border-r dark:border-surface-700 pr-4' : 'space-y-4'}>
+        <div className={splitView ? 'space-y-4 border-r dark:border-gray-700 pr-4' : 'space-y-4'}>
           <div>
-            <p className="text-sm font-medium text-surface-900 dark:text-surface-100">
+            <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
               {item.postTitle}
             </p>
-            <p className="text-xs text-surface-500 dark:text-surface-400 mt-1">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               r/{item.subreddit} · by u/{item.postAuthor}
             </p>
           </div>
 
           {item.postContent && (
-            <div className="bg-surface-50 dark:bg-surface-900 rounded-lg p-3 text-sm text-surface-700 dark:text-surface-300 max-h-48 overflow-y-auto">
+            <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 text-sm text-gray-700 dark:text-gray-300 max-h-48 overflow-y-auto">
               {item.postContent}
             </div>
           )}
 
           {item.aiAnalysis && (
             <div className="text-sm">
-              <p className="font-medium text-surface-700 dark:text-surface-300">AI Analysis</p>
-              <p className="text-surface-600 dark:text-surface-400 mt-1">
+              <p className="font-medium text-gray-700 dark:text-gray-300">AI Analysis</p>
+              <p className="text-gray-600 dark:text-gray-400 mt-1">
                 {item.aiAnalysis.reasoning}
               </p>
               {item.aiAnalysis.cautions && item.aiAnalysis.cautions.length > 0 && (
@@ -245,10 +245,10 @@ export default function EngagementDetailPanel({
           {!splitView && (item.status === 'discovered' || item.status === 'analyzing') && (
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-surface-700 dark:text-surface-300">Generate Draft</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Generate Draft</p>
                 <button
                   onClick={() => setShowGenOptions(!showGenOptions)}
-                  className="text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200 p-1 flex items-center gap-1 text-xs"
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-1 flex items-center gap-1 text-xs"
                   title="Generation options"
                 >
                   <Settings2 className="h-3.5 w-3.5" />
@@ -259,10 +259,10 @@ export default function EngagementDetailPanel({
 
               {/* Generation Options */}
               {showGenOptions && (
-                <div className="bg-surface-50 dark:bg-surface-900 rounded-lg p-3 space-y-3">
+                <div className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 space-y-3">
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="text-xs font-medium text-surface-600 dark:text-surface-400">Length</label>
+                      <label className="text-xs font-medium text-gray-600 dark:text-gray-400">Length</label>
                       <select
                         value={genLength}
                         onChange={(e) => setGenLength(e.target.value as CommentLength)}
@@ -274,7 +274,7 @@ export default function EngagementDetailPanel({
                       </select>
                     </div>
                     <div>
-                      <label className="text-xs font-medium text-surface-600 dark:text-surface-400">Style</label>
+                      <label className="text-xs font-medium text-gray-600 dark:text-gray-400">Style</label>
                       <select
                         value={genStyle}
                         onChange={(e) => setGenStyle(e.target.value as CommentStyle)}
@@ -288,7 +288,7 @@ export default function EngagementDetailPanel({
                     </div>
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-surface-600 dark:text-surface-400">Brand Voice (optional)</label>
+                    <label className="text-xs font-medium text-gray-600 dark:text-gray-400">Brand Voice (optional)</label>
                     <textarea
                       value={brandVoice}
                       onChange={(e) => setBrandVoice(e.target.value)}
@@ -297,7 +297,7 @@ export default function EngagementDetailPanel({
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-medium text-surface-600 dark:text-surface-400">Custom Instructions (optional)</label>
+                    <label className="text-xs font-medium text-gray-600 dark:text-gray-400">Custom Instructions (optional)</label>
                     <textarea
                       value={customInstructions}
                       onChange={(e) => setCustomInstructions(e.target.value)}
@@ -326,23 +326,23 @@ export default function EngagementDetailPanel({
                     <button
                       onClick={() => setShowAccountDropdown(!showAccountDropdown)}
                       disabled={isGenerating}
-                      className="btn btn-primary text-sm px-2 rounded-l-none border-l border-primary-500"
+                      className="btn btn-primary text-sm px-2 rounded-l-none border-l border-brand-500"
                     >
                       <ChevronDown className="h-4 w-4" />
                     </button>
                   </div>
                   {showAccountDropdown && (
-                    <div className="absolute z-10 mt-1 w-full bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg shadow-lg">
+                    <div className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg">
                       {activeAccounts.map((acc: RedditAccount) => (
                         <button
                           key={acc.id}
                           onClick={() => handleSelectAccount(acc.id)}
-                          className={`w-full text-left px-3 py-2 text-sm hover:bg-surface-50 dark:hover:bg-surface-700 first:rounded-t-lg last:rounded-b-lg ${
-                            selectedAccountId === acc.id ? 'bg-primary-50 dark:bg-primary-900/30' : ''
+                          className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 first:rounded-t-lg last:rounded-b-lg ${
+                            selectedAccountId === acc.id ? 'bg-brand-50 dark:bg-brand-900/30' : ''
                           }`}
                         >
                           <span className="font-medium">u/{acc.username}</span>
-                          <span className="text-surface-500 dark:text-surface-400 ml-1">({acc.persona?.name})</span>
+                          <span className="text-gray-500 dark:text-gray-400 ml-1">({acc.persona?.name})</span>
                         </button>
                       ))}
                     </div>
@@ -373,12 +373,12 @@ export default function EngagementDetailPanel({
             {(item.draftResponse || item.editedResponse) && (
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-surface-700 dark:text-surface-300">
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     {splitView ? 'Your Response' : 'Response'}
                   </p>
                   <button
                     onClick={() => setShowPreview(!showPreview)}
-                    className="text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200 p-1"
+                    className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-1"
                     title={showPreview ? 'Edit' : 'Preview'}
                   >
                     {showPreview ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -386,7 +386,7 @@ export default function EngagementDetailPanel({
                 </div>
                 {showPreview ? (
                   <div
-                    className="bg-surface-50 dark:bg-surface-900 rounded-lg p-3 text-sm text-surface-700 dark:text-surface-300 min-h-[200px] max-h-64 overflow-y-auto"
+                    className="bg-gray-50 dark:bg-gray-900 rounded-lg p-3 text-sm text-gray-700 dark:text-gray-300 min-h-[200px] max-h-64 overflow-y-auto"
                     dangerouslySetInnerHTML={{ __html: renderMarkdown(editedResponse) }}
                   />
                 ) : (
@@ -397,7 +397,7 @@ export default function EngagementDetailPanel({
                         <button
                           type="button"
                           onClick={() => insertFormatting('**')}
-                          className="p-1.5 text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200 hover:bg-surface-100 dark:hover:bg-surface-700 rounded"
+                          className="p-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                           title="Bold (Ctrl+B)"
                         >
                           <Bold className="h-4 w-4" />
@@ -405,7 +405,7 @@ export default function EngagementDetailPanel({
                         <button
                           type="button"
                           onClick={() => insertFormatting('*')}
-                          className="p-1.5 text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200 hover:bg-surface-100 dark:hover:bg-surface-700 rounded"
+                          className="p-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                           title="Italic (Ctrl+I)"
                         >
                           <Italic className="h-4 w-4" />
@@ -413,7 +413,7 @@ export default function EngagementDetailPanel({
                         <button
                           type="button"
                           onClick={() => insertFormatting('[', '](url)')}
-                          className="p-1.5 text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200 hover:bg-surface-100 dark:hover:bg-surface-700 rounded"
+                          className="p-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                           title="Insert link"
                         >
                           <Link className="h-4 w-4" />
@@ -421,7 +421,7 @@ export default function EngagementDetailPanel({
                         <button
                           type="button"
                           onClick={() => insertFormatting('\n- ', '')}
-                          className="p-1.5 text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200 hover:bg-surface-100 dark:hover:bg-surface-700 rounded"
+                          className="p-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
                           title="Bullet list"
                         >
                           <List className="h-4 w-4" />
@@ -430,12 +430,12 @@ export default function EngagementDetailPanel({
 
                       {/* AI Refinement buttons */}
                       {item.status !== 'published' && (
-                        <div className="flex items-center gap-1 border-l dark:border-surface-600 pl-2 ml-2">
+                        <div className="flex items-center gap-1 border-l dark:border-gray-600 pl-2 ml-2">
                           <button
                             type="button"
                             onClick={() => onRefine({ action: 'shorten' })}
                             disabled={isRefining}
-                            className="p-1.5 text-surface-500 hover:text-primary-600 dark:text-surface-400 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded flex items-center gap-1 text-xs"
+                            className="p-1.5 text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/30 rounded flex items-center gap-1 text-xs"
                             title="Make shorter"
                           >
                             {isRefining ? (
@@ -450,7 +450,7 @@ export default function EngagementDetailPanel({
                               type="button"
                               onClick={() => setShowStyleDropdown(!showStyleDropdown)}
                               disabled={isRefining}
-                              className="p-1.5 text-surface-500 hover:text-primary-600 dark:text-surface-400 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded flex items-center gap-1 text-xs"
+                              className="p-1.5 text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/30 rounded flex items-center gap-1 text-xs"
                               title="Change style"
                             >
                               <Palette className="h-3.5 w-3.5" />
@@ -458,7 +458,7 @@ export default function EngagementDetailPanel({
                               <ChevronDown className="h-3 w-3" />
                             </button>
                             {showStyleDropdown && (
-                              <div className="absolute right-0 z-10 mt-1 w-32 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg shadow-lg">
+                              <div className="absolute right-0 z-10 mt-1 w-32 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg">
                                 {(['casual', 'friendly', 'professional', 'technical'] as CommentStyle[]).map((style) => (
                                   <button
                                     key={style}
@@ -466,7 +466,7 @@ export default function EngagementDetailPanel({
                                       onRefine({ action: 'restyle', targetStyle: style });
                                       setShowStyleDropdown(false);
                                     }}
-                                    className="w-full text-left px-3 py-2 text-xs hover:bg-surface-50 dark:hover:bg-surface-700 first:rounded-t-lg last:rounded-b-lg capitalize"
+                                    className="w-full text-left px-3 py-2 text-xs hover:bg-gray-50 dark:hover:bg-gray-700 first:rounded-t-lg last:rounded-b-lg capitalize"
                                   >
                                     {style}
                                   </button>
@@ -478,7 +478,7 @@ export default function EngagementDetailPanel({
                             type="button"
                             onClick={() => onRefine({ action: 'expand' })}
                             disabled={isRefining}
-                            className="p-1.5 text-surface-500 hover:text-primary-600 dark:text-surface-400 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded flex items-center gap-1 text-xs"
+                            className="p-1.5 text-gray-500 hover:text-brand-600 dark:text-gray-400 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/30 rounded flex items-center gap-1 text-xs"
                             title="Expand with more detail"
                           >
                             <Maximize2 className="h-3.5 w-3.5" />
@@ -496,7 +496,7 @@ export default function EngagementDetailPanel({
                     />
                   </div>
                 )}
-                <div className={`text-xs text-right ${isOverLimit ? 'text-red-500' : 'text-surface-500 dark:text-surface-400'}`}>
+                <div className={`text-xs text-right ${isOverLimit ? 'text-red-500' : 'text-gray-500 dark:text-gray-400'}`}>
                   {charCount.toLocaleString()} / {REDDIT_CHAR_LIMIT.toLocaleString()}
                   {isOverLimit && ' (over limit!)'}
                 </div>
@@ -506,7 +506,7 @@ export default function EngagementDetailPanel({
             {/* Generate Draft in split view */}
             {splitView && (item.status === 'discovered' || item.status === 'analyzing') && (
               <div className="space-y-2">
-                <p className="text-sm font-medium text-surface-700 dark:text-surface-300">Generate Draft</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Generate Draft</p>
                 {activeAccounts.length > 0 ? (
                   <>
                     <div className="relative">
@@ -526,29 +526,29 @@ export default function EngagementDetailPanel({
                         <button
                           onClick={() => setShowAccountDropdown(!showAccountDropdown)}
                           disabled={isGenerating}
-                          className="btn btn-primary text-sm px-2 rounded-l-none border-l border-primary-500"
+                          className="btn btn-primary text-sm px-2 rounded-l-none border-l border-brand-500"
                         >
                           <ChevronDown className="h-4 w-4" />
                         </button>
                       </div>
                       {showAccountDropdown && (
-                        <div className="absolute z-10 mt-1 w-full bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg shadow-lg">
+                        <div className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg">
                           {activeAccounts.map((acc: RedditAccount) => (
                             <button
                               key={acc.id}
                               onClick={() => handleSelectAccount(acc.id)}
-                              className={`w-full text-left px-3 py-2 text-sm hover:bg-surface-50 dark:hover:bg-surface-700 first:rounded-t-lg last:rounded-b-lg ${
-                                selectedAccountId === acc.id ? 'bg-primary-50 dark:bg-primary-900/30' : ''
+                              className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 first:rounded-t-lg last:rounded-b-lg ${
+                                selectedAccountId === acc.id ? 'bg-brand-50 dark:bg-brand-900/30' : ''
                               }`}
                             >
                               <span className="font-medium">u/{acc.username}</span>
-                              <span className="text-surface-500 dark:text-surface-400 ml-1">({acc.persona?.name})</span>
+                              <span className="text-gray-500 dark:text-gray-400 ml-1">({acc.persona?.name})</span>
                             </button>
                           ))}
                         </div>
                       )}
                     </div>
-                    <p className="text-xs text-surface-500 dark:text-surface-400">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       Using: {selectedAccount?.username || 'None selected'}
                     </p>
                   </>
@@ -573,7 +573,7 @@ export default function EngagementDetailPanel({
       </div>
 
       {/* Actions */}
-      <div className="flex flex-col gap-2 pt-3 border-t dark:border-surface-700">
+      <div className="flex flex-col gap-2 pt-3 border-t dark:border-gray-700">
         {(item.status === 'discovered' || item.status === 'analyzing') && (
           <button
             onClick={onAnalyze}
@@ -690,7 +690,7 @@ export default function EngagementDetailPanel({
         )}
 
         {item.status === 'rejected' && (
-          <div className="text-sm text-surface-500 dark:text-surface-400 bg-surface-50 dark:bg-surface-900 rounded-lg p-3 text-center">
+          <div className="text-sm text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900 rounded-lg p-3 text-center">
             <X className="h-5 w-5 mx-auto mb-1" />
             <p>This item was rejected</p>
           </div>

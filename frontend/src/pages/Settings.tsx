@@ -86,18 +86,18 @@ export default function Settings() {
 
       {/* Profile Section */}
       <div className="card p-6">
-        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">Profile</h2>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Profile</h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">Name</label>
-            <p className="mt-1 text-surface-900 dark:text-surface-100">{user?.name}</p>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+            <p className="mt-1 text-gray-900 dark:text-gray-100">{user?.name}</p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">Email</label>
-            <p className="mt-1 text-surface-900 dark:text-surface-100">{user?.email}</p>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+            <p className="mt-1 text-gray-900 dark:text-gray-100">{user?.email}</p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">Role</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Role</label>
             <Badge variant="info" className="mt-1 capitalize">{user?.role}</Badge>
           </div>
         </div>
@@ -105,8 +105,8 @@ export default function Settings() {
 
       {/* AI Configuration */}
       <div className="card p-6">
-        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">AI Configuration</h2>
-        <p className="text-sm text-surface-500 dark:text-surface-400 mb-4">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">AI Configuration</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
           Choose which AI provider and model to use for generating and analyzing content.
         </p>
 
@@ -171,42 +171,42 @@ export default function Settings() {
 
       {/* Business Rules */}
       <div className="card p-6">
-        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">Business Rules</h2>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Business Rules</h2>
         <div className="space-y-3 text-sm">
           <div className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 flex items-center justify-center text-xs font-bold mr-3">1</span>
-            <p className="text-surface-700 dark:text-surface-300"><strong>80/20 Rule:</strong> Responses must be max 80% value content, 20% product mention</p>
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xs font-bold mr-3">1</span>
+            <p className="text-gray-700 dark:text-gray-300"><strong>80/20 Rule:</strong> Responses must be max 80% value content, 20% product mention</p>
           </div>
           <div className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 flex items-center justify-center text-xs font-bold mr-3">2</span>
-            <p className="text-surface-700 dark:text-surface-300"><strong>Relevance Threshold:</strong> Only generate drafts for posts with relevance score {'>='} 6</p>
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xs font-bold mr-3">2</span>
+            <p className="text-gray-700 dark:text-gray-300"><strong>Relevance Threshold:</strong> Only generate drafts for posts with relevance score {'>='} 6</p>
           </div>
           <div className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 flex items-center justify-center text-xs font-bold mr-3">3</span>
-            <p className="text-surface-700 dark:text-surface-300"><strong>Account Warm-up:</strong> New accounts start in warming_up status for 14 days</p>
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xs font-bold mr-3">3</span>
+            <p className="text-gray-700 dark:text-gray-300"><strong>Account Warm-up:</strong> New accounts start in warming_up status for 14 days</p>
           </div>
           <div className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 flex items-center justify-center text-xs font-bold mr-3">4</span>
-            <p className="text-surface-700 dark:text-surface-300"><strong>Rate Limits:</strong> Max 10 posts per account per day to avoid spam flags</p>
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xs font-bold mr-3">4</span>
+            <p className="text-gray-700 dark:text-gray-300"><strong>Rate Limits:</strong> Max 10 posts per account per day to avoid spam flags</p>
           </div>
           <div className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 flex items-center justify-center text-xs font-bold mr-3">5</span>
-            <p className="text-surface-700 dark:text-surface-300"><strong>Disclosure:</strong> If subreddit rules require, disclose brand affiliation</p>
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xs font-bold mr-3">5</span>
+            <p className="text-gray-700 dark:text-gray-300"><strong>Disclosure:</strong> If subreddit rules require, disclose brand affiliation</p>
           </div>
           <div className="flex items-start">
-            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 flex items-center justify-center text-xs font-bold mr-3">6</span>
-            <p className="text-surface-700 dark:text-surface-300"><strong>No Medical Claims:</strong> Never make health claims not backed by cited research</p>
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xs font-bold mr-3">6</span>
+            <p className="text-gray-700 dark:text-gray-300"><strong>No Medical Claims:</strong> Never make health claims not backed by cited research</p>
           </div>
         </div>
       </div>
 
       {/* About */}
       <div className="card p-6">
-        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">About</h2>
-        <p className="text-sm text-surface-600 dark:text-surface-400">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">About</h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           Brand Engagement Platform v1.0.0
         </p>
-        <p className="text-sm text-surface-500 dark:text-surface-500 mt-2">
+        <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
           A platform for managing Reddit engagement with persona-based AI response generation.
         </p>
       </div>

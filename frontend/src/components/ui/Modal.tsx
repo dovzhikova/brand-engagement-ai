@@ -114,9 +114,9 @@ export default function Modal({
       aria-labelledby={title ? 'modal-title' : undefined}
       aria-describedby={description ? 'modal-description' : undefined}
     >
-      {/* Backdrop - frosted glass */}
+      {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/40 backdrop-blur-sm dark:bg-black/60 animate-fade-in"
+        className="fixed inset-0 bg-black/50 dark:bg-black/70 animate-fade-in"
         style={{ zIndex: Z_INDEX.modalBackdrop }}
         onClick={closeOnBackdrop ? onClose : undefined}
         aria-hidden="true"
@@ -127,8 +127,8 @@ export default function Modal({
         ref={modalRef}
         className={`
           relative w-full ${MODAL_SIZES[size]}
-          bg-white dark:bg-surface-800
-          rounded-2xl shadow-modal
+          bg-white dark:bg-gray-800
+          rounded-xl shadow-modal
           animate-scale-in
           max-h-[90vh] flex flex-col
           ${className}
@@ -137,12 +137,12 @@ export default function Modal({
       >
         {/* Header */}
         {(title || showCloseButton) && (
-          <div className="flex items-start justify-between px-6 py-4 border-b border-surface-200 dark:border-surface-700">
+          <div className="flex items-start justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
             <div>
               {title && (
                 <h2
                   id="modal-title"
-                  className="text-lg font-semibold text-surface-900 dark:text-surface-100 tracking-tight"
+                  className="text-lg font-semibold text-gray-900 dark:text-gray-100"
                 >
                   {title}
                 </h2>
@@ -150,7 +150,7 @@ export default function Modal({
               {description && (
                 <p
                   id="modal-description"
-                  className="mt-1 text-sm text-surface-500 dark:text-surface-400"
+                  className="mt-1 text-sm text-gray-500 dark:text-gray-400"
                 >
                   {description}
                 </p>
@@ -160,7 +160,7 @@ export default function Modal({
               <button
                 type="button"
                 onClick={onClose}
-                className="p-2 -m-2 text-surface-400 hover:text-surface-600 dark:hover:text-surface-300 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors"
+                className="p-2 -m-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 aria-label="Close modal"
               >
                 <X className="h-5 w-5" />
@@ -176,7 +176,7 @@ export default function Modal({
 
         {/* Footer */}
         {footer && (
-          <div className="px-6 py-4 border-t border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-900/50 rounded-b-2xl">
+          <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 rounded-b-xl">
             {footer}
           </div>
         )}

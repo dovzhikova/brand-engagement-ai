@@ -58,54 +58,54 @@ function CreateBrandModal({ isOpen, onClose, onCreated }: CreateBrandModalProps)
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden="true"
       />
-      <div className="relative bg-white dark:bg-surface-800 rounded-2xl shadow-modal max-w-md w-full p-6 animate-scale-in">
-        <h2 className="text-xl font-semibold text-surface-900 dark:text-surface-100 mb-4 tracking-tight">
+      <div className="relative bg-white dark:bg-warm-card-dark rounded-2xl shadow-2xl max-w-md w-full p-6 animate-fade-in">
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-4">
           Create New Brand
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
               Brand Name
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="input"
+              className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-warm-bg-dark text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary/20 focus:border-primary"
               placeholder="My Brand"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
               Slug
             </label>
             <input
               type="text"
               value={slug}
               onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
-              className="input"
+              className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-warm-bg-dark text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary/20 focus:border-primary"
               placeholder="my-brand"
               pattern="^[a-z0-9-]+$"
               required
             />
-            <p className="mt-1 text-xs text-surface-500">Lowercase letters, numbers, and hyphens only</p>
+            <p className="mt-1 text-xs text-slate-500">Lowercase letters, numbers, and hyphens only</p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
               Description (optional)
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="input resize-none"
+              className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-warm-bg-dark text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none"
               rows={2}
               placeholder="Brief description of this brand"
             />
@@ -119,14 +119,14 @@ function CreateBrandModal({ isOpen, onClose, onCreated }: CreateBrandModalProps)
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm font-medium text-surface-600 dark:text-surface-400 hover:text-surface-800 dark:hover:text-surface-200"
+              className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting || !name || !slug}
-              className="btn btn-primary"
+              className="px-4 py-2 text-sm font-medium bg-primary text-white rounded-xl hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? 'Creating...' : 'Create Brand'}
             </button>
@@ -186,7 +186,7 @@ export default function BrandSwitcher() {
       <>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/10 rounded-lg transition-colors"
+          className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-primary hover:bg-primary/5 rounded-xl transition-colors"
         >
           <Plus className="h-4 w-4" />
           Create Brand
@@ -205,20 +205,20 @@ export default function BrandSwitcher() {
       <div className="relative" ref={dropdownRef}>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700 rounded-lg transition-colors min-w-[160px]"
+          className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-white/50 dark:hover:bg-white/5 rounded-xl transition-colors min-w-[160px]"
           aria-expanded={isOpen}
           aria-haspopup="listbox"
         >
-          <Building2 className="h-4 w-4 text-primary-500" />
+          <Building2 className="h-4 w-4 text-primary" />
           <span className="truncate flex-1 text-left">
             {currentBrand?.name || 'Select Brand'}
           </span>
-          <ChevronDown className={`h-4 w-4 text-surface-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
         </button>
 
         {isOpen && (
-          <div className="absolute top-full left-0 mt-1 w-64 bg-white dark:bg-surface-800 rounded-xl shadow-float border border-surface-200 dark:border-surface-700 py-1 z-50">
-            <div className="px-3 py-2 text-[10px] font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-[0.08em]">
+          <div className="absolute top-full left-0 mt-1 w-64 bg-white dark:bg-warm-card-dark rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50">
+            <div className="px-3 py-2 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Switch Brand
             </div>
 
@@ -227,43 +227,43 @@ export default function BrandSwitcher() {
                 <button
                   key={brand.id}
                   onClick={() => handleBrandSelect(brand.id)}
-                  className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-surface-50 dark:hover:bg-surface-700 transition-colors"
+                  className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
                   role="option"
                   aria-selected={currentBrand?.id === brand.id}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-primary-50 dark:bg-primary-900/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                     {brand.logoUrl ? (
                       <img src={brand.logoUrl} alt="" className="w-6 h-6 rounded" />
                     ) : (
-                      <Building2 className="h-4 w-4 text-primary-500" />
+                      <Building2 className="h-4 w-4 text-primary" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium text-surface-900 dark:text-surface-100 truncate">
+                    <div className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
                       {brand.name}
                     </div>
                     {brand.role && (
-                      <div className="text-xs text-surface-500 dark:text-surface-400 capitalize">
+                      <div className="text-xs text-slate-500 dark:text-slate-400 capitalize">
                         {brand.role}
                       </div>
                     )}
                   </div>
                   {currentBrand?.id === brand.id && (
-                    <Check className="h-4 w-4 text-primary-500 flex-shrink-0" />
+                    <Check className="h-4 w-4 text-primary flex-shrink-0" />
                   )}
                 </button>
               ))}
             </div>
 
-            <div className="border-t border-surface-200 dark:border-surface-700 mt-1 pt-1">
+            <div className="border-t border-gray-200 dark:border-gray-700 mt-1 pt-1">
               <button
                 onClick={() => {
                   setIsOpen(false);
                   setShowCreateModal(true);
                 }}
-                className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-surface-50 dark:hover:bg-surface-700 transition-colors text-primary-600 dark:text-primary-400"
+                className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-gray-50 dark:hover:bg-white/5 transition-colors text-primary"
               >
-                <div className="w-8 h-8 rounded-lg bg-primary-50 dark:bg-primary-900/20 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                   <Plus className="h-4 w-4" />
                 </div>
                 <span className="text-sm font-medium">Create New Brand</span>

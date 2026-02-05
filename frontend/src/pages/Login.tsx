@@ -70,42 +70,29 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-accent-50 dark:from-surface-900 dark:via-surface-900 dark:to-primary-950 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Subtle grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
-        style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)',
-          backgroundSize: '24px 24px',
-        }}
-      />
-
-      <div className="max-w-md w-full space-y-8 animate-fade-in relative">
-        {/* Logo + Heading */}
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 animate-fade-in">
         <div className="text-center">
-          <div className="mx-auto w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center shadow-glow-primary mb-6 animate-slide-up">
-            <span className="text-white font-bold text-2xl">E</span>
-          </div>
-          <h1 className="text-2xl font-bold text-surface-900 dark:text-white tracking-heading animate-slide-up" style={{ animationDelay: '50ms' }}>
-            Welcome back
+          <h1 className="text-3xl font-bold text-brand-600 animate-slide-up">
+            Brand Engage
           </h1>
-          <p className="mt-2 text-sm text-surface-500 dark:text-surface-400 animate-slide-up" style={{ animationDelay: '75ms' }}>
-            Sign in to your Engage platform
-          </p>
+          <h2 className="mt-2 text-xl text-gray-600 dark:text-gray-400 animate-slide-up" style={{ animationDelay: '50ms' }}>
+            Reddit Engagement Platform
+          </h2>
         </div>
 
         {/* Referral Banner */}
         {referralCode && (
-          <div className="bg-white/80 dark:bg-surface-800/80 backdrop-blur-xl p-4 rounded-2xl shadow-card border border-purple-200/50 dark:border-purple-700/50 animate-slide-up" style={{ animationDelay: '75ms' }}>
+          <div className="card p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-700 animate-slide-up" style={{ animationDelay: '75ms' }}>
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30">
-                <Gift className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+              <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30">
+                <Gift className="h-5 w-5 text-purple-600" />
               </div>
               <div>
-                <p className="text-sm font-medium text-surface-900 dark:text-surface-100">
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                   {referrerName ? `${referrerName} invited you!` : 'You have a referral code!'}
                 </p>
-                <p className="text-xs text-surface-500 dark:text-surface-400">
+                <p className="text-xs text-gray-600 dark:text-gray-400">
                   Sign in to get 1 week free premium
                 </p>
               </div>
@@ -114,7 +101,7 @@ export default function Login() {
         )}
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div className="bg-white/80 dark:bg-surface-800/80 backdrop-blur-xl p-8 rounded-2xl shadow-float border border-surface-200/50 dark:border-surface-700/50 space-y-5 animate-scale-in" style={{ animationDelay: '100ms' }}>
+          <div className="card p-6 space-y-4 animate-scale-in" style={{ animationDelay: '100ms' }}>
             {error && (
               <Alert
                 variant="error"
@@ -128,7 +115,7 @@ export default function Login() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Email address
               </label>
@@ -145,11 +132,11 @@ export default function Login() {
                 autoComplete="email"
                 aria-invalid={errors.email ? 'true' : 'false'}
                 aria-describedby={errors.email ? 'email-error' : undefined}
-                className={`input ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
+                className={`input mt-1 ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
                 placeholder="you@example.com"
               />
               {errors.email && (
-                <p id="email-error" className="mt-1.5 text-sm text-red-600 dark:text-red-400" role="alert">
+                <p id="email-error" className="mt-1 text-sm text-red-600 dark:text-red-400" role="alert">
                   {errors.email.message}
                 </p>
               )}
@@ -158,7 +145,7 @@ export default function Login() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Password
               </label>
@@ -175,11 +162,11 @@ export default function Login() {
                 autoComplete="current-password"
                 aria-invalid={errors.password ? 'true' : 'false'}
                 aria-describedby={errors.password ? 'password-error' : undefined}
-                className={`input ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : ''}`}
+                className={`input mt-1 ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''}`}
                 placeholder="••••••••"
               />
               {errors.password && (
-                <p id="password-error" className="mt-1.5 text-sm text-red-600 dark:text-red-400" role="alert">
+                <p id="password-error" className="mt-1 text-sm text-red-600 dark:text-red-400" role="alert">
                   {errors.password.message}
                 </p>
               )}
@@ -188,7 +175,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-2.5 px-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-medium rounded-lg hover:shadow-glow-primary transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-surface-800 relative"
+              className="btn btn-primary w-full relative"
             >
               {isSubmitting ? (
                 <>

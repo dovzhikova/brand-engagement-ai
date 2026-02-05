@@ -203,19 +203,19 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           ref={ref}
           type="checkbox"
           id={checkboxId}
-          className="h-4 w-4 mt-0.5 rounded border-surface-300 text-primary-600 focus:ring-primary-500 dark:border-surface-600 dark:bg-surface-800"
+          className="h-4 w-4 mt-0.5 rounded border-gray-300 text-brand-600 focus:ring-brand-500 dark:border-gray-600 dark:bg-gray-800"
           aria-invalid={!!error}
           {...props}
         />
         <div className="flex-1">
           <label
             htmlFor={checkboxId}
-            className="text-sm font-medium text-surface-700 dark:text-surface-300 cursor-pointer"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer"
           >
             {label}
           </label>
           {helpText && !error && (
-            <p className="text-sm text-surface-500 dark:text-surface-400 mt-0.5">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
               {helpText}
             </p>
           )}
@@ -290,14 +290,14 @@ export function RadioGroup({
               checked={value === option.value}
               onChange={(e) => onChange?.(e.target.value)}
               disabled={option.disabled}
-              className="h-4 w-4 mt-0.5 border-surface-300 text-primary-600 focus:ring-primary-500 dark:border-surface-600 dark:bg-surface-800"
+              className="h-4 w-4 mt-0.5 border-gray-300 text-brand-600 focus:ring-brand-500 dark:border-gray-600 dark:bg-gray-800"
             />
             <div>
-              <span className="text-sm font-medium text-surface-700 dark:text-surface-300">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {option.label}
               </span>
               {option.description && (
-                <p className="text-sm text-surface-500 dark:text-surface-400">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   {option.description}
                 </p>
               )}

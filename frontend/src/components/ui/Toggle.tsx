@@ -60,10 +60,10 @@ const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
         className={`
           relative inline-flex flex-shrink-0 cursor-pointer rounded-full
           border-2 border-transparent transition-colors duration-200 ease-in-out
-          focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2
-          dark:focus-visible:ring-offset-surface-900
+          focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2
+          dark:focus-visible:ring-offset-gray-900
           ${sizes.track}
-          ${checked ? 'bg-primary-600' : 'bg-surface-200 dark:bg-surface-700'}
+          ${checked ? 'bg-brand-600' : 'bg-gray-200 dark:bg-gray-700'}
           ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
           ${className}
         `}
@@ -92,7 +92,7 @@ const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
           {label && (
             <label
               htmlFor={id}
-              className={`text-sm font-medium text-surface-700 dark:text-surface-300 ${
+              className={`text-sm font-medium text-gray-700 dark:text-gray-300 ${
                 disabled ? '' : 'cursor-pointer'
               }`}
             >
@@ -100,7 +100,7 @@ const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
             </label>
           )}
           {description && (
-            <p className="text-sm text-surface-500 dark:text-surface-400">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               {description}
             </p>
           )}
@@ -177,8 +177,8 @@ export function SwitchWithLabels({
       <span
         className={`text-sm ${
           !checked
-            ? 'font-medium text-surface-900 dark:text-surface-100'
-            : 'text-surface-500 dark:text-surface-400'
+            ? 'font-medium text-gray-900 dark:text-gray-100'
+            : 'text-gray-500 dark:text-gray-400'
         }`}
       >
         {offLabel}
@@ -187,8 +187,8 @@ export function SwitchWithLabels({
       <span
         className={`text-sm ${
           checked
-            ? 'font-medium text-surface-900 dark:text-surface-100'
-            : 'text-surface-500 dark:text-surface-400'
+            ? 'font-medium text-gray-900 dark:text-gray-100'
+            : 'text-gray-500 dark:text-gray-400'
         }`}
       >
         {onLabel}

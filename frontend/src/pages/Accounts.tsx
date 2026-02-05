@@ -85,7 +85,7 @@ export default function Accounts() {
   };
 
   const getHealthColor = (score: number | null | undefined) => {
-    if (score === null || score === undefined) return 'text-surface-400';
+    if (score === null || score === undefined) return 'text-gray-400';
     if (score >= 85) return 'text-green-500';
     if (score >= 70) return 'text-green-400';
     if (score >= 50) return 'text-yellow-500';
@@ -102,7 +102,7 @@ export default function Accounts() {
       case 'confirmed':
         return <span title="Shadowbanned"><AlertTriangle className="h-4 w-4 text-red-500" /></span>;
       default:
-        return <span title="Not checked"><Shield className="h-4 w-4 text-surface-400" /></span>;
+        return <span title="Not checked"><Shield className="h-4 w-4 text-gray-400" /></span>;
     }
   };
 
@@ -159,7 +159,7 @@ export default function Accounts() {
             placeholder="Search accounts..."
           />
           {searchTerm && (
-            <p className="mt-2 text-sm text-surface-500 dark:text-surface-400">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               Showing {filteredAccounts.length} of {accounts.data.length} accounts
             </p>
           )}
@@ -168,39 +168,39 @@ export default function Accounts() {
 
       <div className="card">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-surface-200 dark:divide-surface-700">
-            <thead className="bg-surface-50 dark:bg-surface-900">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead className="bg-gray-50 dark:bg-gray-900">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Account
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   <div className="flex items-center gap-1">
                     Health
                     <InfoTooltip content={metricExplanations.healthScore} iconClassName="h-3 w-3" />
                   </div>
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   <div className="flex items-center gap-1">
                     Shadowban
                     <InfoTooltip content={metricExplanations.shadowbanStatus} iconClassName="h-3 w-3" />
                   </div>
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Karma / Age
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Persona
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-surface-800 divide-y divide-surface-200 dark:divide-surface-700">
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {isLoading ? (
                 <SkeletonTable rows={5} columns={7} />
               ) : !Array.isArray(accounts?.data) || accounts.data.length === 0 ? (
@@ -222,7 +222,7 @@ export default function Accounts() {
                 </tr>
               ) : filteredAccounts.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-8 text-center text-surface-500 dark:text-surface-400">
+                  <td colSpan={7} className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
                     No accounts match "{searchTerm}"
                   </td>
                 </tr>
@@ -232,7 +232,7 @@ export default function Accounts() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div>
-                          <p className="text-sm font-medium text-surface-900 dark:text-surface-100">
+                          <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                             u/{account.username}
                           </p>
                         </div>
@@ -240,7 +240,7 @@ export default function Accounts() {
                           href={`https://reddit.com/u/${account.username}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="ml-2 text-surface-400 hover:text-surface-600 dark:hover:text-surface-300"
+                          className="ml-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                         >
                           <ExternalLink className="h-4 w-4" />
                         </a>
@@ -262,7 +262,7 @@ export default function Accounts() {
                         <button
                           onClick={() => checkHealthMutation.mutate(account.id)}
                           disabled={checkHealthMutation.isPending}
-                          className="text-surface-400 hover:text-primary-600 dark:hover:text-primary-400"
+                          className="text-gray-400 hover:text-brand-600 dark:hover:text-brand-400"
                           title="Refresh health score"
                         >
                           <RefreshCw className={`h-3 w-3 ${checkHealthMutation.isPending ? 'animate-spin' : ''}`} />
@@ -272,23 +272,23 @@ export default function Accounts() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center gap-2">
                         {getShadowbanIcon(account.shadowbanStatus)}
-                        <span className="text-sm text-surface-600 dark:text-surface-400">
+                        <span className="text-sm text-gray-600 dark:text-gray-400">
                           {account.shadowbanStatus || 'unchecked'}
                         </span>
                         <button
                           onClick={() => checkShadowbanMutation.mutate(account.id)}
                           disabled={checkShadowbanMutation.isPending}
-                          className="text-surface-400 hover:text-primary-600 dark:hover:text-primary-400"
+                          className="text-gray-400 hover:text-brand-600 dark:hover:text-brand-400"
                           title="Check for shadowban"
                         >
                           <RefreshCw className={`h-3 w-3 ${checkShadowbanMutation.isPending ? 'animate-spin' : ''}`} />
                         </button>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-surface-500 dark:text-surface-400">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                       <div>
                         <span className="font-medium">{account.karma?.toLocaleString() || '—'}</span>
-                        <span className="text-surface-400 mx-1">·</span>
+                        <span className="text-gray-400 mx-1">·</span>
                         <span>{account.accountAgeDays ? `${account.accountAgeDays}d` : '—'}</span>
                       </div>
                     </td>
@@ -330,30 +330,30 @@ export default function Accounts() {
 
       {/* Health Score Legend */}
       <div className="card p-4">
-        <h3 className="text-sm font-medium text-surface-900 dark:text-surface-100 mb-3">Health Score Guide</h3>
+        <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">Health Score Guide</h3>
         <div className="flex flex-wrap gap-4 text-sm">
           <div className="flex items-center gap-1">
             <Heart className="h-4 w-4 text-green-500" />
-            <span className="text-surface-600 dark:text-surface-400">85+ Excellent</span>
+            <span className="text-gray-600 dark:text-gray-400">85+ Excellent</span>
           </div>
           <div className="flex items-center gap-1">
             <Heart className="h-4 w-4 text-green-400" />
-            <span className="text-surface-600 dark:text-surface-400">70-84 Good</span>
+            <span className="text-gray-600 dark:text-gray-400">70-84 Good</span>
           </div>
           <div className="flex items-center gap-1">
             <Heart className="h-4 w-4 text-yellow-500" />
-            <span className="text-surface-600 dark:text-surface-400">50-69 Fair</span>
+            <span className="text-gray-600 dark:text-gray-400">50-69 Fair</span>
           </div>
           <div className="flex items-center gap-1">
             <Heart className="h-4 w-4 text-orange-500" />
-            <span className="text-surface-600 dark:text-surface-400">30-49 Poor</span>
+            <span className="text-gray-600 dark:text-gray-400">30-49 Poor</span>
           </div>
           <div className="flex items-center gap-1">
             <Heart className="h-4 w-4 text-red-500" />
-            <span className="text-surface-600 dark:text-surface-400">&lt;30 Critical</span>
+            <span className="text-gray-600 dark:text-gray-400">&lt;30 Critical</span>
           </div>
         </div>
-        <p className="text-xs text-surface-500 dark:text-surface-500 mt-2">
+        <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
           Health score is calculated based on karma, account age, engagement rate, and shadowban risk.
         </p>
       </div>

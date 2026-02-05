@@ -335,8 +335,8 @@ export default function GSCAnalytics() {
                   <Search className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-surface-600 dark:text-surface-400">Keywords</p>
-                  <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Keywords</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                     {formatNumber(dashboardStats.totalKeywords)}
                   </p>
                 </div>
@@ -349,8 +349,8 @@ export default function GSCAnalytics() {
                   <MousePointer className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-surface-600 dark:text-surface-400">Clicks</p>
-                  <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Clicks</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                     {formatNumber(dashboardStats.totalClicks)}
                   </p>
                 </div>
@@ -363,8 +363,8 @@ export default function GSCAnalytics() {
                   <Eye className="w-5 h-5 text-purple-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-surface-600 dark:text-surface-400">Impressions</p>
-                  <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Impressions</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                     {formatNumber(dashboardStats.totalImpressions)}
                   </p>
                 </div>
@@ -377,8 +377,8 @@ export default function GSCAnalytics() {
                   <TrendingUp className="w-5 h-5 text-yellow-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-surface-600 dark:text-surface-400">Avg CTR</p>
-                  <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Avg CTR</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                     {formatPercent(dashboardStats.avgCTR)}
                   </p>
                 </div>
@@ -391,8 +391,8 @@ export default function GSCAnalytics() {
                   <Target className="w-5 h-5 text-red-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-surface-600 dark:text-surface-400">Avg Position</p>
-                  <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Avg Position</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                     {dashboardStats.avgPosition.toFixed(1)}
                   </p>
                 </div>
@@ -404,32 +404,32 @@ export default function GSCAnalytics() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Top Keywords */}
             <div className="card">
-              <div className="px-6 py-4 border-b border-surface-200 dark:border-surface-700">
-                <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Top Keywords</h2>
+              <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Top Keywords</h2>
               </div>
               <div className="p-6">
                 <div className="space-y-4">
                   {dashboardStats.topKeywords.slice(0, 10).map((keyword, index) => (
                     <div key={keyword.query} className="flex items-center justify-between">
                       <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <span className="text-sm font-medium text-surface-500 dark:text-surface-400 w-6">
+                        <span className="text-sm font-medium text-gray-500 dark:text-gray-400 w-6">
                           {index + 1}
                         </span>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-surface-900 dark:text-surface-100 truncate">
+                          <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
                             {keyword.query}
                           </p>
-                          <p className="text-xs text-surface-500 dark:text-surface-400">
+                          <p className="text-xs text-gray-500 dark:text-gray-400">
                             Pos: {keyword.position.toFixed(1)} | CTR:{' '}
                             {formatPercent(keyword.ctr)}
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-semibold text-surface-900 dark:text-surface-100">
+                        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
                           {formatNumber(keyword.clicks)}
                         </p>
-                        <p className="text-xs text-surface-500 dark:text-surface-400">clicks</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">clicks</p>
                       </div>
                     </div>
                   ))}
@@ -439,12 +439,12 @@ export default function GSCAnalytics() {
 
             {/* Content Gaps */}
             <div className="card">
-              <div className="px-6 py-4 border-b border-surface-200 dark:border-surface-700">
-                <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Content Gap Opportunities</h2>
+              <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Content Gap Opportunities</h2>
               </div>
               <div className="p-6">
                 {dashboardStats.contentGaps.length === 0 ? (
-                  <p className="text-sm text-surface-500 dark:text-surface-400 text-center py-8">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-8">
                     No content gaps identified. Great job!
                   </p>
                 ) : (
@@ -452,11 +452,11 @@ export default function GSCAnalytics() {
                     {dashboardStats.contentGaps.slice(0, 8).map((gap) => (
                       <div
                         key={gap.query}
-                        className="flex items-start justify-between gap-4 p-3 bg-surface-50 dark:bg-surface-900 rounded-lg"
+                        className="flex items-start justify-between gap-4 p-3 bg-gray-50 dark:bg-gray-900 rounded-lg"
                       >
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <p className="text-sm font-medium text-surface-900 dark:text-surface-100 truncate">
+                            <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
                               {gap.query}
                             </p>
                             <Badge
@@ -472,9 +472,9 @@ export default function GSCAnalytics() {
                               {gap.opportunity}
                             </Badge>
                           </div>
-                          <p className="text-xs text-surface-600 dark:text-surface-400 mt-1">{gap.reason}</p>
+                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{gap.reason}</p>
                         </div>
-                        <div className="text-right text-xs text-surface-500 dark:text-surface-400">
+                        <div className="text-right text-xs text-gray-500 dark:text-gray-400">
                           <p>{formatNumber(gap.impressions)} imp</p>
                           <p>Pos: {gap.position.toFixed(1)}</p>
                         </div>
@@ -489,50 +489,50 @@ export default function GSCAnalytics() {
           {/* Keyword Suggestions */}
           {suggestions.length > 0 && (
             <div className="card">
-              <div className="px-6 py-4 border-b border-surface-200 dark:border-surface-700">
-                <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
+              <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                   Suggested Keywords for Reddit Discovery
                 </h2>
-                <p className="text-sm text-surface-600 dark:text-surface-400 mt-1">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                   Keywords from GSC that could drive Reddit engagement
                 </p>
               </div>
               <div className="p-6">
                 <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-surface-200 dark:divide-surface-700">
+                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead>
                       <tr>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                           Keyword
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                           Impressions
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                           Position
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                           Category
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                           Priority
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                           Reason
                         </th>
                         <th className="px-4 py-3"></th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-surface-200 dark:divide-surface-700">
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                       {suggestions.slice(0, 15).map((suggestion) => (
-                        <tr key={suggestion.query} className="hover:bg-surface-50 dark:hover:bg-surface-800">
-                          <td className="px-4 py-3 text-sm font-medium text-surface-900 dark:text-surface-100">
+                        <tr key={suggestion.query} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+                          <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-gray-100">
                             {suggestion.query}
                           </td>
-                          <td className="px-4 py-3 text-sm text-surface-600 dark:text-surface-400">
+                          <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
                             {formatNumber(suggestion.impressions)}
                           </td>
-                          <td className="px-4 py-3 text-sm text-surface-600 dark:text-surface-400">
+                          <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
                             {suggestion.position.toFixed(1)}
                           </td>
                           <td className="px-4 py-3">
@@ -546,14 +546,14 @@ export default function GSCAnalytics() {
                               showLabel={false}
                             />
                           </td>
-                          <td className="px-4 py-3 text-sm text-surface-600 dark:text-surface-400 max-w-xs truncate">
+                          <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400 max-w-xs truncate">
                             {suggestion.reason}
                           </td>
                           <td className="px-4 py-3">
                             <button
                               onClick={() => addKeywordMutation.mutate(suggestion)}
                               disabled={addKeywordMutation.isPending}
-                              className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 text-sm font-medium"
+                              className="text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 text-sm font-medium"
                             >
                               Add
                             </button>

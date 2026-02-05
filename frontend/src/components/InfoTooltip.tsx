@@ -31,7 +31,7 @@ export default function InfoTooltip({
       <button
         ref={triggerRef}
         type="button"
-        className="text-surface-400 hover:text-surface-600 dark:hover:text-surface-300 focus:outline-none"
+        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none"
         onMouseEnter={() => setIsVisible(true)}
         onMouseLeave={() => setIsVisible(false)}
         onFocus={() => setIsVisible(true)}
@@ -43,7 +43,7 @@ export default function InfoTooltip({
       {isVisible && (
         <div
           ref={tooltipRef}
-          className={`absolute z-50 w-64 p-3 text-sm bg-surface-900 dark:bg-surface-700 text-white rounded-lg shadow-lg ${
+          className={`absolute z-50 w-64 p-3 text-sm bg-gray-900 dark:bg-gray-700 text-white rounded-lg shadow-lg ${
             position === 'top'
               ? 'bottom-full mb-2 left-1/2 -translate-x-1/2'
               : 'top-full mt-2 left-1/2 -translate-x-1/2'
@@ -54,8 +54,8 @@ export default function InfoTooltip({
           <div
             className={`absolute left-1/2 -translate-x-1/2 border-8 border-transparent ${
               position === 'top'
-                ? 'top-full border-t-surface-900 dark:border-t-surface-700'
-                : 'bottom-full border-b-surface-900 dark:border-b-surface-700'
+                ? 'top-full border-t-gray-900 dark:border-t-gray-700'
+                : 'bottom-full border-b-gray-900 dark:border-b-gray-700'
             }`}
           />
         </div>

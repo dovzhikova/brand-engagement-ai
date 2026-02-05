@@ -307,11 +307,11 @@ export default function Personas() {
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="font-semibold text-surface-900 dark:text-surface-100">
+                  <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                     {persona.name}
                   </h3>
                   {persona.description && (
-                    <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                       {persona.description}
                     </p>
                   )}
@@ -319,7 +319,7 @@ export default function Personas() {
                 <div className="flex gap-1">
                   <button
                     onClick={() => openEditForm(persona)}
-                    className="p-2 text-surface-400 hover:text-surface-600 dark:hover:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700 rounded-lg transition-colors"
+                    className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                     title="Edit persona"
                   >
                     <Edit2 className="h-4 w-4" />
@@ -335,10 +335,10 @@ export default function Personas() {
               </div>
               <div className="mt-4 space-y-3">
                 <div>
-                  <p className="text-xs font-medium text-surface-500 dark:text-surface-400 uppercase">
+                  <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
                     Tone
                   </p>
-                  <p className="text-sm text-surface-700 dark:text-surface-300 line-clamp-2">
+                  <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">
                     {persona.toneOfVoice}
                   </p>
                 </div>
@@ -356,7 +356,7 @@ export default function Personas() {
                 </div>
               </div>
               {persona._count && (
-                <p className="text-xs text-surface-500 dark:text-surface-400 mt-4 pt-3 border-t dark:border-surface-700">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-4 pt-3 border-t dark:border-gray-700">
                   Used by {persona._count.redditAccounts} account(s)
                 </p>
               )}

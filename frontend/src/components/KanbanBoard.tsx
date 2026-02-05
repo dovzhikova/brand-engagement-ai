@@ -28,7 +28,7 @@ interface KanbanBoardProps {
 }
 
 const COLUMNS: { id: EngagementStatus; title: string; color: string }[] = [
-  { id: 'discovered', title: 'Discovered', color: 'bg-surface-400' },
+  { id: 'discovered', title: 'Discovered', color: 'bg-gray-400' },
   { id: 'draft_ready', title: 'Draft Ready', color: 'bg-yellow-400' },
   { id: 'in_review', title: 'In Review', color: 'bg-blue-400' },
   { id: 'approved', title: 'Approved', color: 'bg-green-400' },
@@ -82,10 +82,10 @@ function KanbanCard({ item, onClick, isSelected, onKeyDown, onMoveToColumn }: Ka
       tabIndex={0}
       aria-selected={isSelected}
       aria-label={`${item.postTitle} in r/${item.subreddit}${item.relevanceScore ? `, relevance ${item.relevanceScore} out of 10` : ''}`}
-      className={`p-3 rounded-lg border cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface-900 ${
+      className={`p-3 rounded-lg border cursor-pointer transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900 ${
         isSelected
-          ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30'
-          : 'border-surface-200 dark:border-surface-600 bg-white dark:bg-surface-800 hover:border-surface-300 dark:hover:border-surface-500'
+          ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30'
+          : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-500'
       }`}
       onClick={onClick}
       onKeyDown={handleKeyDown}
@@ -95,20 +95,20 @@ function KanbanCard({ item, onClick, isSelected, onKeyDown, onMoveToColumn }: Ka
           {...attributes}
           {...listeners}
           aria-label="Drag to reorder"
-          className="mt-1 cursor-grab text-surface-400 hover:text-surface-600 dark:hover:text-surface-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded"
+          className="mt-1 cursor-grab text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
         >
           <GripVertical className="h-4 w-4" aria-hidden="true" />
         </button>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-surface-900 dark:text-surface-100 truncate">
+          <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
             {item.postTitle}
           </p>
           <div className="flex items-center gap-2 mt-1">
-            <span className="text-xs text-surface-500 dark:text-surface-400">
+            <span className="text-xs text-gray-500 dark:text-gray-400">
               r/{item.subreddit}
             </span>
             {item.relevanceScore && (
-              <span className="text-xs text-surface-400">
+              <span className="text-xs text-gray-400">
                 · {item.relevanceScore}/10
               </span>
             )}
@@ -124,7 +124,7 @@ function KanbanCard({ item, onClick, isSelected, onKeyDown, onMoveToColumn }: Ka
           target="_blank"
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="text-surface-400 hover:text-primary-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded"
+          className="text-gray-400 hover:text-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
           aria-label={`Open original post in new tab`}
         >
           <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -164,16 +164,16 @@ function KanbanColumn({
         <div className={`w-3 h-3 rounded-full ${column.color}`} aria-hidden="true" />
         <h3
           id={`column-${column.id}-title`}
-          className="font-medium text-surface-900 dark:text-surface-100"
+          className="font-medium text-gray-900 dark:text-gray-100"
         >
           {column.title}
         </h3>
-        <span className="text-sm text-surface-500 dark:text-surface-400" aria-label={`${items.length} items`}>
+        <span className="text-sm text-gray-500 dark:text-gray-400" aria-label={`${items.length} items`}>
           ({items.length})
         </span>
       </div>
       <div
-        className="bg-surface-50 dark:bg-surface-900 rounded-lg p-2 min-h-[400px] max-h-[calc(100vh-280px)] overflow-y-auto"
+        className="bg-gray-50 dark:bg-gray-900 rounded-lg p-2 min-h-[400px] max-h-[calc(100vh-280px)] overflow-y-auto"
         role="list"
         aria-label={`${column.title} items`}
       >
@@ -192,7 +192,7 @@ function KanbanColumn({
               />
             ))}
             {items.length === 0 && (
-              <div className="text-center text-sm text-surface-400 dark:text-surface-500 py-8" role="status">
+              <div className="text-center text-sm text-gray-400 dark:text-gray-500 py-8" role="status">
                 No items
               </div>
             )}
@@ -200,16 +200,16 @@ function KanbanColumn({
         </SortableContext>
       </div>
       {/* Keyboard navigation hint */}
-      <div className="mt-2 text-xs text-surface-400 dark:text-surface-500 flex items-center justify-center gap-2">
+      <div className="mt-2 text-xs text-gray-400 dark:text-gray-500 flex items-center justify-center gap-2">
         {columnIndex > 0 && (
           <span className="flex items-center gap-1">
             <ChevronLeft className="h-3 w-3" aria-hidden="true" />
-            <kbd className="px-1 py-0.5 bg-surface-100 dark:bg-surface-700 rounded text-[10px]">←</kbd>
+            <kbd className="px-1 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-[10px]">←</kbd>
           </span>
         )}
         {columnIndex < totalColumns - 1 && (
           <span className="flex items-center gap-1">
-            <kbd className="px-1 py-0.5 bg-surface-100 dark:bg-surface-700 rounded text-[10px]">→</kbd>
+            <kbd className="px-1 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-[10px]">→</kbd>
             <ChevronRight className="h-3 w-3" aria-hidden="true" />
           </span>
         )}
@@ -373,13 +373,13 @@ export default function KanbanBoard({
         <DragOverlay>
           {activeItem ? (
             <div
-              className="p-3 rounded-lg border border-primary-500 bg-white dark:bg-surface-800 shadow-lg rotate-3"
+              className="p-3 rounded-lg border border-brand-500 bg-white dark:bg-gray-800 shadow-lg rotate-3"
               aria-hidden="true"
             >
-              <p className="text-sm font-medium text-surface-900 dark:text-surface-100 truncate">
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
                 {activeItem.postTitle}
               </p>
-              <p className="text-xs text-surface-500 dark:text-surface-400 mt-1">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                 r/{activeItem.subreddit}
               </p>
             </div>

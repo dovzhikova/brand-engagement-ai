@@ -27,13 +27,13 @@ export default function EmptyState({
 }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-12 px-4">
-      <div className="rounded-2xl bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/20 dark:to-primary-800/20 p-5 mb-4">
-        <Icon className="h-8 w-8 text-primary-500 dark:text-primary-400" />
+      <div className="rounded-full bg-gray-100 dark:bg-gray-800 p-4 mb-4">
+        <Icon className="h-8 w-8 text-gray-400 dark:text-gray-500" />
       </div>
-      <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-1 tracking-tight">
+      <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-1">
         {title}
       </h3>
-      <p className="text-sm text-surface-500 dark:text-surface-400 text-center max-w-sm mb-6">
+      <p className="text-sm text-gray-500 dark:text-gray-400 text-center max-w-sm mb-6">
         {description}
       </p>
       {actions.length > 0 && (

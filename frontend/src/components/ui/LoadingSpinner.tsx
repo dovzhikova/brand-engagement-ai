@@ -29,10 +29,10 @@ export default function LoadingSpinner({
       aria-label={label || 'Loading'}
     >
       <Loader2
-        className={`${sizeClasses[size]} animate-spin text-primary-600 dark:text-primary-400`}
+        className={`${sizeClasses[size]} animate-spin text-brand-600 dark:text-brand-400`}
       />
       {label && (
-        <span className="text-sm text-surface-600 dark:text-surface-400">{label}</span>
+        <span className="text-sm text-gray-600 dark:text-gray-400">{label}</span>
       )}
       <span className="sr-only">{label || 'Loading...'}</span>
     </div>
@@ -40,7 +40,7 @@ export default function LoadingSpinner({
 
   if (fullPage) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-surface-900/80 z-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-gray-900/80 z-50">
         {spinner}
       </div>
     );
@@ -71,8 +71,8 @@ export function ButtonSpinner({ className = '' }: { className?: string }) {
 export function PageLoading({ message = 'Loading...' }: { message?: string }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
-      <Loader2 className="h-10 w-10 animate-spin text-primary-600 dark:text-primary-400" />
-      <p className="text-surface-500 dark:text-surface-400">{message}</p>
+      <Loader2 className="h-10 w-10 animate-spin text-brand-600 dark:text-brand-400" />
+      <p className="text-gray-500 dark:text-gray-400">{message}</p>
     </div>
   );
 }

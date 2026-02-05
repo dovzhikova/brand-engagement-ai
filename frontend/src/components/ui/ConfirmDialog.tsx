@@ -49,8 +49,8 @@ const variantConfig: Record<
   },
   default: {
     icon: HelpCircle,
-    iconBg: 'bg-surface-100 dark:bg-surface-700',
-    iconColor: 'text-surface-600 dark:text-surface-400',
+    iconBg: 'bg-gray-100 dark:bg-gray-700',
+    iconColor: 'text-gray-600 dark:text-gray-400',
     confirmClass: 'btn-primary',
   },
 };
@@ -97,11 +97,11 @@ export default function ConfirmDialog({
           />
         </div>
         <div className="flex-1">
-          <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {title}
           </h3>
           {displayDescription && (
-            <p className="mt-2 text-sm text-surface-500 dark:text-surface-400">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               {displayDescription}
             </p>
           )}
