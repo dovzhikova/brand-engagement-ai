@@ -30,6 +30,7 @@ model User {
 
   // Organization
   defaultOrganizationId String? @map("default_organization_id")
+  defaultBrandId        String? @map("default_brand_id")
 
   // Relations
   reviewedEngagements     EngagementItem[]     @relation("ReviewedBy")
@@ -37,6 +38,7 @@ model User {
   sentReferrals           Referral[]           @relation("ReferrerReferrals")
   receivedReferral        Referral?            @relation("RefereeReferrals")
   organizationMemberships OrganizationMember[]
+  brandMemberships        BrandMember[]
 
   @@map("users")
 }
@@ -84,6 +86,46 @@ enum OrgRole {
   OWNER
   ADMIN
   MEMBER
+}
+
+// Brand for multi-brand workspaces
+model Brand {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String?
+  logoUrl     String?  @map("logo_url")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  members        BrandMember[]
+  redditAccounts RedditAccount[] @relation("BrandRedditAccounts")
+  personas       Persona[]       @relation("BrandPersonas")
+  keywords       Keyword[]       @relation("BrandKeywords")
+  engagements    EngagementItem[] @relation("BrandEngagements")
+
+  @@map("brands")
+}
+
+model BrandMember {
+  id        String    @id @default(uuid())
+  brandId   String    @map("brand_id")
+  userId    String    @map("user_id")
+  role      BrandRole @default(member)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  brand Brand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([brandId, userId])
+  @@map("brand_members")
+}
+
+enum BrandRole {
+  owner
+  admin
+  member
 }
 
 // Referral tracking
@@ -156,6 +198,9 @@ model Persona {
   organizationId String?       @map("organization_id")
   organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
+  brandId String? @map("brand_id")
+  brand   Brand?  @relation("BrandPersonas", fields: [brandId], references: [id], onDelete: Cascade)
+
   // Core persona attributes (used in AI prompts)
   toneOfVoice     String @map("tone_of_voice")
   goals           Json   @default("[]")
@@ -174,6 +219,7 @@ model Persona {
   redditAccounts RedditAccount[]
 
   @@index([organizationId])
+  @@index([brandId])
   @@map("personas")
 }
 
@@ -191,6 +237,9 @@ model RedditAccount {
 
   organizationId String?       @map("organization_id")
   organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  brandId String? @map("brand_id")
+  brand   Brand?  @relation("BrandRedditAccounts", fields: [brandId], references: [id], onDelete: Cascade)
 
   personaId String?  @map("persona_id")
   persona   Persona? @relation(fields: [personaId], references: [id], onDelete: SetNull)
@@ -211,6 +260,7 @@ model RedditAccount {
   engagements EngagementItem[]
 
   @@index([organizationId])
+  @@index([brandId])
   @@map("reddit_accounts")
 }
 
@@ -234,10 +284,14 @@ model Keyword {
   organizationId String?       @map("organization_id")
   organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
+  brandId String? @map("brand_id")
+  brand   Brand?  @relation("BrandKeywords", fields: [brandId], references: [id], onDelete: Cascade)
+
   // GSC integration - linked keywords from Search Console
   gscKeywords GSCKeyword[]
 
   @@index([organizationId])
+  @@index([brandId])
   @@map("keywords")
 }
 
@@ -260,6 +314,9 @@ model EngagementItem {
 
   organizationId String?       @map("organization_id")
   organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  brandId String? @map("brand_id")
+  brand   Brand?  @relation("BrandEngagements", fields: [brandId], references: [id], onDelete: Cascade)
 
   // Reddit post data
   redditPostId  String    @map("reddit_post_id")
@@ -310,6 +367,7 @@ model EngagementItem {
   metrics EngagementMetric[]
 
   @@index([organizationId])
+  @@index([brandId])
   @@map("engagement_items")
 }
 
