@@ -1,3 +1,4 @@
+// Discovery routes - uses brand context (not organization context)
 import { Router } from 'express';
 import { DiscoveryController } from '../controllers/discovery.controller';
 import { authenticate, authorize } from '../middleware/auth';
