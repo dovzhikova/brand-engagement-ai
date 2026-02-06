@@ -12,4 +12,4 @@ cmds = [
 ]
 
 [start]
-cmd = "cd backend && node dist/index.js"
+cmd = "cd backend && npm start"
