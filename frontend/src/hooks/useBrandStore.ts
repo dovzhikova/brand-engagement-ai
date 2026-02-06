@@ -69,7 +69,21 @@ export const useBrandStore = create<BrandState>()(
   )
 );
 
-// Helper to get current brand ID from localStorage (for use outside React components)
+// Helper to get current brand ID (for use outside React components)
 export function getCurrentBrandId(): string | null {
-  return localStorage.getItem('currentBrandId');
+  // First try the direct localStorage key
+  const directId = localStorage.getItem('currentBrandId');
+  if (directId) return directId;
+
+  // Fall back to reading from persisted zustand store
+  try {
+    const stored = localStorage.getItem('brand-storage');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      return parsed?.state?.currentBrand?.id || null;
+    }
+  } catch {
+    // Ignore parse errors
+  }
+  return null;
 }

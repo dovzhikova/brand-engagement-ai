@@ -1,15 +1,13 @@
 import { Router } from 'express';
 import { PersonasController } from '../controllers/personas.controller';
 import { authenticate, authorize } from '../middleware/auth';
-import { requireOrgContext } from '../middleware/organization';
 import { requireBrandContext } from '../middleware/brand';
 
 const router = Router();
 const personasController = new PersonasController();
 
-// All routes require authentication, organization context, and brand context
+// All routes require authentication and brand context
 router.use(authenticate);
-router.use(requireOrgContext);
 router.use(requireBrandContext);
 
 // GET /api/personas - List all personas
