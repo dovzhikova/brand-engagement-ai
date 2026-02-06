@@ -39,7 +39,6 @@ export class OrganizationsController {
                 select: {
                   members: true,
                   redditAccounts: true,
-                  personas: true,
                   keywords: true,
                   engagementItems: true,
                 },
@@ -170,7 +169,6 @@ export class OrganizationsController {
           _count: {
             select: {
               redditAccounts: true,
-              personas: true,
               keywords: true,
               engagementItems: true,
               youtubeChannels: true,

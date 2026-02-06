@@ -296,6 +296,15 @@ export interface Brand {
   slug: string;
   description?: string;
   logoUrl?: string;
+  website?: string;
+  toneOfVoice?: string;
+  messagingStrategy?: string;
+  goals: string[];
+  targetAudience?: string;
+  productDescription?: string;
+  keyDifferentiators: string[];
+  brandValues: string[];
+  contentGuidelines?: string;
   role?: BrandRole;
   createdAt: string;
   updatedAt: string;

@@ -54,7 +54,6 @@ model Organization {
   // Relations
   members         OrganizationMember[]
   redditAccounts  RedditAccount[]
-  personas        Persona[]
   keywords        Keyword[]
   engagementItems EngagementItem[]
   youtubeChannels YouTubeChannel[]
@@ -97,6 +96,17 @@ model Brand {
   logoUrl     String?  @map("logo_url")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Brand parameter fields
+  website            String?
+  toneOfVoice        String?  @map("tone_of_voice")
+  messagingStrategy  String?  @map("messaging_strategy")
+  goals              Json     @default("[]")
+  targetAudience     String?  @map("target_audience")
+  productDescription String?  @map("product_description")
+  keyDifferentiators Json     @default("[]") @map("key_differentiators")
+  brandValues        Json     @default("[]") @map("brand_values")
+  contentGuidelines  String?  @map("content_guidelines")
 
   members        BrandMember[]
   redditAccounts RedditAccount[] @relation("BrandRedditAccounts")
@@ -195,11 +205,8 @@ model Persona {
   name        String
   description String?
 
-  organizationId String?       @map("organization_id")
-  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-
-  brandId String? @map("brand_id")
-  brand   Brand?  @relation("BrandPersonas", fields: [brandId], references: [id], onDelete: Cascade)
+  brandId String @map("brand_id")
+  brand   Brand  @relation("BrandPersonas", fields: [brandId], references: [id], onDelete: Cascade)
 
   // Core persona attributes (used in AI prompts)
   toneOfVoice     String @map("tone_of_voice")
@@ -218,7 +225,6 @@ model Persona {
   // Relations
   redditAccounts RedditAccount[]
 
-  @@index([organizationId])
   @@index([brandId])
   @@map("personas")
 }

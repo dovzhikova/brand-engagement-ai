@@ -8,6 +8,7 @@ import Accounts from './pages/Accounts';
 import Personas from './pages/Personas';
 import Keywords from './pages/Keywords';
 import Settings from './pages/Settings';
+import BrandSettings from './pages/BrandSettings';
 import GSCAnalytics from './pages/GSCAnalytics';
 import YouTube from './pages/YouTube';
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="keywords" element={<Keywords />} />
         <Route path="gsc" element={<GSCAnalytics />} />
         <Route path="youtube" element={<YouTube />} />
+        <Route path="brand-settings" element={<BrandSettings />} />
         <Route path="settings" element={<Settings />} />
       </Route>
     </Routes>

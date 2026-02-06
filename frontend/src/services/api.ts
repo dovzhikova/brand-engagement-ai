@@ -287,10 +287,10 @@ export const organizationsApi = {
 // Brands API
 export const brandsApi = {
   list: () => api.get('/brands'),
-  create: (data: { name: string; slug: string; description?: string; logoUrl?: string }) =>
+  create: (data: Partial<import('../types').Brand> & { name: string; slug: string }) =>
     api.post('/brands', data),
   get: (id: string) => api.get(`/brands/${id}`),
-  update: (id: string, data: { name?: string; slug?: string; description?: string; logoUrl?: string }) =>
+  update: (id: string, data: Partial<import('../types').Brand>) =>
     api.put(`/brands/${id}`, data),
   delete: (id: string) => api.delete(`/brands/${id}`),
   setDefault: (id: string) => api.post(`/brands/${id}/default`),

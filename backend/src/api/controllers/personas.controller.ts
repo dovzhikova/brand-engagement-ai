@@ -20,8 +20,7 @@ export class PersonasController {
     try {
       const personas = await prisma.persona.findMany({
         where: {
-          organizationId: req.organizationId,
-          ...(req.brandId ? { brandId: req.brandId } : {}),
+          brandId: req.brandId!,
         },
         include: {
           _count: {
@@ -44,8 +43,7 @@ export class PersonasController {
       const persona = await prisma.persona.findFirst({
         where: {
           id,
-          organizationId: req.organizationId,
-          ...(req.brandId ? { brandId: req.brandId } : {}),
+          brandId: req.brandId!,
         },
         include: {
           redditAccounts: {
@@ -75,8 +73,7 @@ export class PersonasController {
       const persona = await prisma.persona.create({
         data: {
           ...data,
-          organizationId: req.organizationId,
-          brandId: req.brandId,
+          brandId: req.brandId!,
         },
       });
 
@@ -94,8 +91,7 @@ export class PersonasController {
       const existing = await prisma.persona.findFirst({
         where: {
           id,
-          organizationId: req.organizationId,
-          ...(req.brandId ? { brandId: req.brandId } : {}),
+          brandId: req.brandId!,
         },
       });
       if (!existing) {
@@ -120,8 +116,7 @@ export class PersonasController {
       const existing = await prisma.persona.findFirst({
         where: {
           id,
-          organizationId: req.organizationId,
-          ...(req.brandId ? { brandId: req.brandId } : {}),
+          brandId: req.brandId!,
         },
       });
       if (!existing) {

@@ -43,6 +43,7 @@ const navigationGroups: NavGroup[] = [
   {
     label: 'Settings',
     items: [
+      { name: 'Brand Settings', href: '/brand-settings', icon: 'storefront' },
       { name: 'Accounts', href: '/accounts', icon: 'manage_accounts' },
       { name: 'Personas', href: '/personas', icon: 'face' },
       { name: 'Configuration', href: '/settings', icon: 'settings' },

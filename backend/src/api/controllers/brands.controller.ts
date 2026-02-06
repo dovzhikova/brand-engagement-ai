@@ -9,6 +9,15 @@ const createBrandSchema = z.object({
   slug: z.string().min(1).max(50).regex(/^[a-z0-9-]+$/, 'Slug must be lowercase alphanumeric with hyphens'),
   description: z.string().optional(),
   logoUrl: z.string().url().optional(),
+  website: z.string().optional(),
+  toneOfVoice: z.string().optional(),
+  messagingStrategy: z.string().optional(),
+  goals: z.array(z.string()).default([]),
+  targetAudience: z.string().optional(),
+  productDescription: z.string().optional(),
+  keyDifferentiators: z.array(z.string()).default([]),
+  brandValues: z.array(z.string()).default([]),
+  contentGuidelines: z.string().optional(),
 });
 
 const updateBrandSchema = createBrandSchema.partial();
@@ -79,12 +88,7 @@ export class BrandsController {
       // Create brand and membership in transaction
       const brand = await prisma.$transaction(async (tx) => {
         const newBrand = await tx.brand.create({
-          data: {
-            name: data.name,
-            slug: data.slug,
-            description: data.description,
-            logoUrl: data.logoUrl,
-          },
+          data,
         });
 
         // Add creator as owner
