@@ -80,10 +80,9 @@ export class EngagementsController {
       const { status, subreddit, recommended, limit, offset } = listQuerySchema.parse(req.query);
 
       const where: Record<string, unknown> = {
-        organizationId: req.organizationId,
+        brandId: req.brandId!,
       };
-      if (req.brandId) where.brandId = req.brandId;
-      if (status) where.status = status;
+            if (status) where.status = status;
       if (subreddit) where.subreddit = subreddit;
       if (recommended !== undefined) where.isRecommended = recommended;
 
@@ -122,8 +121,7 @@ export class EngagementsController {
       const item = await prisma.engagementItem.findFirst({
         where: {
           id,
-          organizationId: req.organizationId,
-          ...(req.brandId ? { brandId: req.brandId } : {}),
+          brandId: req.brandId!,
         },
         include: {
           assignedAccount: {
@@ -153,7 +151,7 @@ export class EngagementsController {
       const userId = req.user!.userId;
 
       const item = await prisma.engagementItem.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
       });
       if (!item) {
         throw new NotFoundError('Engagement item not found');
@@ -198,7 +196,7 @@ export class EngagementsController {
       const userId = req.user!.userId;
 
       const item = await prisma.engagementItem.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
       });
       if (!item) {
         throw new NotFoundError('Engagement item not found');
@@ -262,7 +260,7 @@ export class EngagementsController {
       const userId = req.user!.userId;
 
       const item = await prisma.engagementItem.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
         include: {
           assignedAccount: {
             include: { persona: true },
@@ -310,7 +308,7 @@ export class EngagementsController {
       const userId = req.user!.userId;
 
       const item = await prisma.engagementItem.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
         include: {
           assignedAccount: {
             include: { persona: true },
@@ -358,7 +356,7 @@ export class EngagementsController {
       const userId = req.user!.userId;
 
       const item = await prisma.engagementItem.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
         include: {
           assignedAccount: {
             include: { persona: true },
@@ -396,7 +394,7 @@ export class EngagementsController {
       const data = updateEngagementSchema.parse(req.body);
 
       const existing = await prisma.engagementItem.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
       });
       if (!existing) {
         throw new NotFoundError('Engagement item not found');
@@ -421,7 +419,7 @@ export class EngagementsController {
       const { id } = req.params;
 
       const item = await prisma.engagementItem.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
       });
       if (!item) {
         throw new NotFoundError('Engagement item not found');
@@ -448,7 +446,7 @@ export class EngagementsController {
       const { reason } = req.body;
 
       const item = await prisma.engagementItem.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
       });
       if (!item) {
         throw new NotFoundError('Engagement item not found');
@@ -475,7 +473,7 @@ export class EngagementsController {
       const { id } = req.params;
 
       const item = await prisma.engagementItem.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
         include: { assignedAccount: true },
       });
 
@@ -530,10 +528,9 @@ export class EngagementsController {
       const { status, subreddit, format } = exportQuerySchema.parse(req.query);
 
       const where: Record<string, unknown> = {
-        organizationId: req.organizationId,
+        brandId: req.brandId!,
       };
-      if (req.brandId) where.brandId = req.brandId;
-      if (status) where.status = status;
+            if (status) where.status = status;
       if (subreddit) where.subreddit = subreddit;
 
       const items = await prisma.engagementItem.findMany({

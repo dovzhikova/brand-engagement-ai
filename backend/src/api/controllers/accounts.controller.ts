@@ -18,8 +18,7 @@ export class AccountsController {
     try {
       const accounts = await prisma.redditAccount.findMany({
         where: {
-          organizationId: req.organizationId,
-          ...(req.brandId ? { brandId: req.brandId } : {}),
+          brandId: req.brandId!,
         },
         include: {
           persona: {
@@ -51,8 +50,7 @@ export class AccountsController {
       const account = await prisma.redditAccount.findFirst({
         where: {
           id,
-          organizationId: req.organizationId,
-          ...(req.brandId ? { brandId: req.brandId } : {}),
+          brandId: req.brandId!,
         },
         include: {
           persona: true,
@@ -110,7 +108,7 @@ export class AccountsController {
       const data = updateAccountSchema.parse(req.body);
 
       const existing = await prisma.redditAccount.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
       });
       if (!existing) {
         throw new NotFoundError('Account not found');
@@ -141,7 +139,7 @@ export class AccountsController {
       const { id } = req.params;
 
       const existing = await prisma.redditAccount.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
       });
       if (!existing) {
         throw new NotFoundError('Account not found');
@@ -164,7 +162,7 @@ export class AccountsController {
       const { id } = req.params;
 
       const existing = await prisma.redditAccount.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
       });
       if (!existing) {
         throw new NotFoundError('Account not found');
@@ -205,7 +203,7 @@ export class AccountsController {
       const { id } = req.params;
 
       const existing = await prisma.redditAccount.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id, brandId: req.brandId! },
       });
       if (!existing) {
         throw new NotFoundError('Account not found');

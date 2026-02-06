@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import { DiscoveryController } from '../controllers/discovery.controller';
 import { authenticate, authorize } from '../middleware/auth';
-import { requireOrgContext } from '../middleware/organization';
+import { requireBrandContext } from '../middleware/brand';
 
 const router = Router();
 const discoveryController = new DiscoveryController();
 
-// All routes require authentication and organization context
+// All routes require authentication and brand context
 router.use(authenticate);
-router.use(requireOrgContext);
+router.use(requireBrandContext);
 
 // POST /api/discovery/fetch - Trigger manual fetch
 router.post('/fetch', authorize('admin', 'manager'), discoveryController.fetch);

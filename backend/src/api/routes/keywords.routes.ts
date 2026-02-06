@@ -1,16 +1,14 @@
 import { Router } from 'express';
 import { KeywordsController } from '../controllers/keywords.controller';
 import { authenticate, authorize } from '../middleware/auth';
-import { requireOrgContext } from '../middleware/organization';
-import { optionalBrandContext } from '../middleware/brand';
+import { requireBrandContext } from '../middleware/brand';
 
 const router = Router();
 const keywordsController = new KeywordsController();
 
-// All routes require authentication and organization context
+// All routes require authentication and brand context
 router.use(authenticate);
-router.use(requireOrgContext);
-router.use(optionalBrandContext);
+router.use(requireBrandContext);
 
 // GET /api/keywords - List keywords
 router.get('/', keywordsController.list);

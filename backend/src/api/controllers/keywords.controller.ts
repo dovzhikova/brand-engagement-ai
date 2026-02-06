@@ -16,8 +16,7 @@ export class KeywordsController {
     try {
       const keywords = await prisma.keyword.findMany({
         where: {
-          organizationId: req.organizationId,
-          ...(req.brandId ? { brandId: req.brandId } : {}),
+          brandId: req.brandId!,
         },
         orderBy: [
           { priority: 'asc' },
@@ -38,8 +37,7 @@ export class KeywordsController {
       const keyword = await prisma.keyword.create({
         data: {
           ...data,
-          organizationId: req.organizationId,
-          brandId: req.brandId,
+          brandId: req.brandId!,
         },
       });
 
@@ -57,8 +55,7 @@ export class KeywordsController {
       const existing = await prisma.keyword.findFirst({
         where: {
           id,
-          organizationId: req.organizationId,
-          ...(req.brandId ? { brandId: req.brandId } : {}),
+          brandId: req.brandId!,
         },
       });
       if (!existing) {
@@ -83,8 +80,7 @@ export class KeywordsController {
       const existing = await prisma.keyword.findFirst({
         where: {
           id,
-          organizationId: req.organizationId,
-          ...(req.brandId ? { brandId: req.brandId } : {}),
+          brandId: req.brandId!,
         },
       });
       if (!existing) {
