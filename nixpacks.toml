@@ -8,7 +8,6 @@ cmds = ["cd backend && npm ci --include=dev"]
 [phases.build]
 cmds = [
   "cd backend && npx prisma generate",
-  "cd backend && npx prisma migrate deploy",
   "cd backend && npm run build"
 ]
 
