@@ -20,12 +20,46 @@ async function main() {
   });
   console.log('Created admin user:', admin.email);
 
-  // Create sample persona
-  const persona = await prisma.persona.upsert({
-    where: { id: '00000000-0000-0000-0000-000000000001' },
+  // Create a default brand
+  const brand = await prisma.brand.upsert({
+    where: { slug: 'default-brand' },
     update: {},
     create: {
+      name: 'Default Brand',
+      slug: 'default-brand',
+      description: 'Default brand for testing',
+      toneOfVoice: 'Friendly and helpful',
+      messagingStrategy: 'Value-first approach',
+      goals: ['Build community', 'Share knowledge'],
+      targetAudience: 'General consumers',
+    },
+  });
+  console.log('Created brand:', brand.name);
+
+  // Add admin as brand member
+  await prisma.brandMember.upsert({
+    where: {
+      brandId_userId: {
+        brandId: brand.id,
+        userId: admin.id,
+      },
+    },
+    update: {},
+    create: {
+      brandId: brand.id,
+      userId: admin.id,
+      role: 'owner',
+    },
+  });
+  console.log('Added admin as brand owner');
+
+  // Create sample persona linked to brand
+  const persona = await prisma.persona.upsert({
+    where: { id: '00000000-0000-0000-0000-000000000001' },
+    update: { brandId: brand.id },
+    create: {
       id: '00000000-0000-0000-0000-000000000001',
+      brandId: brand.id,
       name: 'Brand Enthusiast',
       description: 'Genuine customer who loves the product',
       toneOfVoice: 'Casual and encouraging. Uses first-person experiences. Avoids jargon unless explaining it. Asks questions to engage. Short paragraphs, conversational flow.',
@@ -67,9 +101,10 @@ async function main() {
   for (const kw of keywords) {
     await prisma.keyword.upsert({
       where: { id: `kw-${kw.keyword.toLowerCase().replace(/\s+/g, '-')}` },
-      update: {},
+      update: { brandId: brand.id },
       create: {
         id: `kw-${kw.keyword.toLowerCase().replace(/\s+/g, '-')}`,
+        brandId: brand.id,
         ...kw,
         category: kw.category as 'core' | 'competitor' | 'broad' | 'brand',
       },
