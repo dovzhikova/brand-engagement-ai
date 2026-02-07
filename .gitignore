@@ -31,6 +31,8 @@ Thumbs.db
 
 # Testing
 coverage/
+.playwright-mcp/
+*-test-production.png
 
 # Prisma
 prisma/*.db
