@@ -267,11 +267,11 @@ export class RedditService {
         return null;
       }
 
-      const data = await response.json() as { access_token: string; expires_in: number };
+      const data = await response.json() as { access_token: string; expires_in: number; scope?: string };
       this.scriptAccessToken = data.access_token;
       this.scriptTokenExpiresAt = new Date(Date.now() + (data.expires_in - 60) * 1000); // Refresh 1 min early
 
-      logger.info('Script access token obtained successfully');
+      logger.info(`Script access token obtained successfully, scope: ${data.scope || 'unknown'}`);
       return this.scriptAccessToken;
     } catch (error) {
       logger.error('Error getting script access token:', error);
@@ -303,7 +303,8 @@ export class RedditService {
         return data.data.children.map((child: { data: RedditPost }) => child.data);
       }
 
-      logger.warn(`Script auth search failed: ${response.status}`);
+      const errorBody = await response.text();
+      logger.warn(`Script auth search failed: ${response.status} - ${errorBody}`);
       return null;
     } catch (error) {
       logger.error('Script auth search error:', error);
