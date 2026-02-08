@@ -80,10 +80,10 @@ export function errorHandler(
     return;
   }
 
-  // Default error
+  // Default error - include message for debugging
   res.status(500).json({
-    error: process.env.NODE_ENV === 'production'
-      ? 'Internal server error'
-      : err.message,
+    error: 'Internal server error',
+    message: err.message,
+    stack: process.env.NODE_ENV !== 'production' ? err.stack : undefined,
   });
 }
