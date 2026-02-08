@@ -261,15 +261,30 @@ export class RedditService {
         }),
       });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        logger.error('Failed to get script access token:', errorText);
+      const data = await response.json() as {
+        access_token?: string;
+        expires_in?: number;
+        scope?: string;
+        error?: string;
+        error_description?: string;
+      };
+
+      if (!response.ok || data.error) {
+        if (data.error === 'unauthorized_client' && data.error_description?.includes('script apps')) {
+          logger.warn('Reddit app is not a script-type app. Password auth requires a script-type app. Use OAuth flow instead.');
+        } else {
+          logger.error(`Failed to get script access token: ${data.error} - ${data.error_description}`);
+        }
         return null;
       }
 
-      const data = await response.json() as { access_token: string; expires_in: number; scope?: string };
+      if (!data.access_token) {
+        logger.error('No access token in response');
+        return null;
+      }
+
       this.scriptAccessToken = data.access_token;
-      this.scriptTokenExpiresAt = new Date(Date.now() + (data.expires_in - 60) * 1000); // Refresh 1 min early
+      this.scriptTokenExpiresAt = new Date(Date.now() + ((data.expires_in || 3600) - 60) * 1000);
 
       logger.info(`Script access token obtained successfully, scope: ${data.scope || 'unknown'}`);
       return this.scriptAccessToken;
