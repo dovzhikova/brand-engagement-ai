@@ -43,11 +43,11 @@ export class RedditService {
   private scriptAccessToken: string | null = null;
   private scriptTokenExpiresAt: Date | null = null;
 
-  getAuthorizationUrl(): string {
+  getAuthorizationUrl(brandId?: string): string {
     const state = uuidv4();
 
-    // Store state in Redis for verification
-    redisHelpers.setWithExpiry(`oauth:state:${state}`, 'pending', 600);
+    // Store state in Redis for verification, include brandId
+    redisHelpers.setJSON(`oauth:state:${state}`, { status: 'pending', brandId }, 600);
 
     const params = new URLSearchParams({
       client_id: this.clientId,
@@ -62,11 +62,12 @@ export class RedditService {
   }
 
   async handleCallback(code: string, state: string) {
-    // Verify state
-    const storedState = await redisHelpers.get(`oauth:state:${state}`);
+    // Verify state and get brandId
+    const storedState = await redisHelpers.getJSON<{ status: string; brandId?: string }>(`oauth:state:${state}`);
     if (!storedState) {
       throw new Error('Invalid or expired state');
     }
+    const brandId = storedState.brandId;
     await redisHelpers.delete(`oauth:state:${state}`);
 
     // Exchange code for tokens
@@ -87,7 +88,7 @@ export class RedditService {
     const tokenExpiresAt = new Date(Date.now() + tokens.expires_in * 1000);
 
     if (existingAccount) {
-      // Update existing account
+      // Update existing account - also update brandId if reconnecting to a different brand
       return prisma.redditAccount.update({
         where: { id: existingAccount.id },
         data: {
@@ -97,11 +98,12 @@ export class RedditService {
           karma: userInfo.link_karma + userInfo.comment_karma,
           accountAgeDays,
           status: existingAccount.status === 'disconnected' ? 'warming_up' : existingAccount.status,
+          ...(brandId && { brandId }), // Update brandId if provided
         },
       });
     }
 
-    // Create new account
+    // Create new account with brandId
     return prisma.redditAccount.create({
       data: {
         username: userInfo.name,
@@ -112,6 +114,7 @@ export class RedditService {
         karma: userInfo.link_karma + userInfo.comment_karma,
         accountAgeDays,
         status: 'warming_up',
+        brandId,
       },
     });
   }

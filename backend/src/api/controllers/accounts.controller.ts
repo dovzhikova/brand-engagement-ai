@@ -73,9 +73,9 @@ export class AccountsController {
     }
   };
 
-  oauthInit = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
+  oauthInit = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const authUrl = this.redditService.getAuthorizationUrl();
+      const authUrl = this.redditService.getAuthorizationUrl(req.brandId);
       res.json({ authUrl });
     } catch (error) {
       next(error);
