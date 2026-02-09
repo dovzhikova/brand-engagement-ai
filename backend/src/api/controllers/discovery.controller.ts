@@ -22,6 +22,7 @@ export class DiscoveryController {
         keywords,
         limit,
         userId: req.user!.userId,
+        brandId: req.brandId!,
       });
 
       res.json({ jobId, message: 'Discovery job started' });

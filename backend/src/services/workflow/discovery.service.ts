@@ -11,6 +11,7 @@ interface DiscoveryJobData {
   keywords?: string[];
   limit: number;
   userId: string;
+  brandId?: string;
 }
 
 interface JobStatus {
@@ -38,7 +39,7 @@ export class DiscoveryService {
 
   private setupQueueProcessor() {
     this.queue.process(async (job) => {
-      const { subreddits, keywords, limit } = job.data as DiscoveryJobData;
+      const { subreddits, keywords, limit, brandId } = job.data as DiscoveryJobData;
       const jobId = job.id as string;
 
       try {
@@ -50,6 +51,7 @@ export class DiscoveryService {
         });
 
         // Get active subreddits and keywords from DB if not specified
+        // Subreddits are shared across all brands, keywords are brand-specific
         const targetSubreddits = subreddits?.length
           ? subreddits
           : (await prisma.subreddit.findMany({
@@ -57,10 +59,15 @@ export class DiscoveryService {
               select: { name: true },
             })).map((s: { name: string }) => s.name);
 
+        // Filter keywords by brandId if provided
+        const keywordWhere = brandId
+          ? { isActive: true, brandId }
+          : { isActive: true };
+
         const targetKeywords = keywords?.length
           ? keywords
           : (await prisma.keyword.findMany({
-              where: { isActive: true },
+              where: keywordWhere,
               select: { keyword: true, searchVariants: true },
             })).flatMap((k: { keyword: string; searchVariants: unknown }) => [k.keyword, ...(k.searchVariants as string[])]);
 
@@ -92,6 +99,7 @@ export class DiscoveryService {
                       postCreatedAt: new Date(post.created_utc * 1000),
                       matchedKeyword: keyword,
                       status: 'discovered',
+                      brandId: brandId,
                     },
                   });
                   discoveredCount++;
