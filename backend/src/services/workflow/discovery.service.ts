@@ -30,11 +30,30 @@ export class DiscoveryService {
   private aiService = new AIService();
 
   constructor() {
+    logger.info('DiscoveryService: Initializing Bull queue...');
     this.queue = new Bull('discovery', {
       redis: process.env.REDIS_URL || 'redis://localhost:6379',
     });
 
+    // Log queue events for debugging
+    this.queue.on('error', (error) => {
+      logger.error('Bull queue error:', error);
+    });
+    this.queue.on('waiting', (jobId) => {
+      logger.info(`Job ${jobId} is waiting to be processed`);
+    });
+    this.queue.on('active', (job) => {
+      logger.info(`Job ${job.id} has started processing`);
+    });
+    this.queue.on('completed', (job, result) => {
+      logger.info(`Job ${job.id} completed with result:`, result);
+    });
+    this.queue.on('failed', (job, err) => {
+      logger.error(`Job ${job?.id} failed:`, err);
+    });
+
     this.setupQueueProcessor();
+    logger.info('DiscoveryService: Queue processor set up');
   }
 
   private setupQueueProcessor() {
