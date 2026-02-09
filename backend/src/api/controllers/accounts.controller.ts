@@ -83,22 +83,28 @@ export class AccountsController {
   };
 
   oauthCallback = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const frontendUrl = process.env.FRONTEND_URL || 'https://brand-engagement-ai.vercel.app';
+
     try {
       const { code, error: oauthError, state } = req.query;
 
       if (oauthError) {
-        throw new ValidationError(`OAuth error: ${oauthError}`);
+        res.redirect(`${frontendUrl}/accounts?error=${encodeURIComponent(String(oauthError))}`);
+        return;
       }
 
       if (!code || typeof code !== 'string') {
-        throw new ValidationError('Authorization code required');
+        res.redirect(`${frontendUrl}/accounts?error=${encodeURIComponent('Authorization code required')}`);
+        return;
       }
 
       const account = await this.redditService.handleCallback(code, state as string);
 
-      res.json(account);
+      // Redirect to frontend with success
+      res.redirect(`${frontendUrl}/accounts?connected=${encodeURIComponent(account.username)}`);
     } catch (error) {
-      next(error);
+      const message = error instanceof Error ? error.message : 'OAuth failed';
+      res.redirect(`${frontendUrl}/accounts?error=${encodeURIComponent(message)}`);
     }
   };
 

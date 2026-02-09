@@ -6,7 +6,10 @@ import { requireBrandContext } from '../middleware/brand';
 const router = Router();
 const accountsController = new AccountsController();
 
-// All routes require authentication and brand context
+// OAuth callback must be BEFORE auth middleware (Reddit redirects here without our token)
+router.get('/oauth/callback', accountsController.oauthCallback);
+
+// All other routes require authentication and brand context
 router.use(authenticate);
 router.use(requireBrandContext);
 
@@ -15,9 +18,6 @@ router.get('/', accountsController.list);
 
 // GET /api/accounts/oauth/init - Start Reddit OAuth flow
 router.get('/oauth/init', accountsController.oauthInit);
-
-// GET /api/accounts/oauth/callback - OAuth callback handler
-router.get('/oauth/callback', accountsController.oauthCallback);
 
 // Shadowban detection routes (before :id routes)
 // GET /api/accounts/shadowban/check-all - Check all accounts for shadowbans
