@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { prisma } from '../../utils/prisma';
 import { NotFoundError, ValidationError } from '../middleware/errorHandler';
-import { AIService, GenerationOptions, RefinementOptions, AIConfig } from '../../services/ai/ai.service';
+import { AIService, GenerationOptions, RefinementOptions, AIConfig, BrandContext } from '../../services/ai/ai.service';
 import { RedditService } from '../../services/reddit/reddit.service';
 
 const listQuerySchema = z.object({
@@ -38,13 +38,14 @@ const generateBodySchema = z.object({
 });
 
 // Default persona for generating drafts without an account
+// Note: Brand-specific context is provided separately via BrandContext
 const defaultPersona = {
   name: 'Default Brand Voice',
-  backgroundStory: 'A knowledgeable fitness enthusiast who has used the product and is passionate about science-backed exercise.',
+  backgroundStory: 'A helpful community member who genuinely wants to provide value.',
   toneOfVoice: 'Friendly, helpful, and informative without being pushy or promotional',
-  characterTraits: ['helpful', 'knowledgeable', 'genuine', 'science-minded'],
-  expertiseAreas: ['REHIT protocol', 'VO2max', 'fitness science', 'time-efficient workouts'],
-  goals: ['Share genuine experiences', 'Educate about REHIT benefits', 'Help people make informed decisions'],
+  characterTraits: ['helpful', 'knowledgeable', 'genuine', 'authentic'],
+  expertiseAreas: [], // Will be filled from brand context
+  goals: ['Share genuine experiences', 'Provide helpful information', 'Help people make informed decisions'],
   writingGuidelines: 'Be authentic and helpful. Share personal experience naturally. Never be salesy or promotional.',
   exampleResponses: [],
 };
@@ -164,12 +165,39 @@ export class EngagementsController {
 
       const aiConfig = await this.getUserAIConfig(userId);
 
+      // Fetch brand context for AI analysis
+      const brandData = await prisma.brand.findUnique({
+        where: { id: req.brandId! },
+        select: {
+          name: true,
+          description: true,
+          productDescription: true,
+          targetAudience: true,
+          keyDifferentiators: true,
+          brandValues: true,
+          toneOfVoice: true,
+          goals: true,
+          contentGuidelines: true,
+        },
+      });
+
+      if (!brandData || (!brandData.productDescription && !brandData.description && !brandData.targetAudience)) {
+        throw new ValidationError('Brand settings required. Please configure your brand (product description, target audience) in Brand Settings before analyzing posts.');
+      }
+
+      const brand: BrandContext = {
+        ...brandData,
+        keyDifferentiators: brandData.keyDifferentiators as string[] || [],
+        brandValues: brandData.brandValues as string[] || [],
+        goals: brandData.goals as string[] || [],
+      };
+
       const analysis = await this.aiService.analyzePost({
         subreddit: item.subreddit,
         title: item.postTitle,
         content: item.postContent || '',
         score: item.postScore || 0,
-      }, aiConfig);
+      }, brand, aiConfig);
 
       const isRecommended = analysis.relevance_score >= 7;
 
@@ -229,11 +257,39 @@ export class EngagementsController {
 
       const aiConfig = await this.getUserAIConfig(userId);
 
+      // Fetch brand context for AI generation
+      const brandData = await prisma.brand.findUnique({
+        where: { id: req.brandId! },
+        select: {
+          name: true,
+          description: true,
+          productDescription: true,
+          targetAudience: true,
+          keyDifferentiators: true,
+          brandValues: true,
+          toneOfVoice: true,
+          goals: true,
+          contentGuidelines: true,
+        },
+      });
+
+      if (!brandData || (!brandData.productDescription && !brandData.description && !brandData.targetAudience)) {
+        throw new ValidationError('Brand settings required. Please configure your brand (product description, target audience, key differentiators) in Brand Settings before generating responses.');
+      }
+
+      const brand: BrandContext = {
+        ...brandData,
+        keyDifferentiators: brandData.keyDifferentiators as string[] || [],
+        brandValues: brandData.brandValues as string[] || [],
+        goals: brandData.goals as string[] || [],
+      };
+
       const draft = await this.aiService.generateResponse({
         persona,
         subreddit: item.subreddit,
         postTitle: item.postTitle,
         postContent: item.postContent || '',
+        brand,
         options: options as GenerationOptions,
         config: aiConfig,
       });
@@ -278,11 +334,39 @@ export class EngagementsController {
 
       const aiConfig = await this.getUserAIConfig(userId);
 
+      // Fetch brand context for AI generation
+      const brandData = await prisma.brand.findUnique({
+        where: { id: req.brandId! },
+        select: {
+          name: true,
+          description: true,
+          productDescription: true,
+          targetAudience: true,
+          keyDifferentiators: true,
+          brandValues: true,
+          toneOfVoice: true,
+          goals: true,
+          contentGuidelines: true,
+        },
+      });
+
+      if (!brandData || (!brandData.productDescription && !brandData.description && !brandData.targetAudience)) {
+        throw new ValidationError('Brand settings required. Please configure your brand in Brand Settings before regenerating responses.');
+      }
+
+      const brand: BrandContext = {
+        ...brandData,
+        keyDifferentiators: brandData.keyDifferentiators as string[] || [],
+        brandValues: brandData.brandValues as string[] || [],
+        goals: brandData.goals as string[] || [],
+      };
+
       const draft = await this.aiService.generateResponse({
         persona: item.assignedAccount.persona,
         subreddit: item.subreddit,
         postTitle: item.postTitle,
         postContent: item.postContent || '',
+        brand,
         options: options as GenerationOptions,
         config: aiConfig,
       });

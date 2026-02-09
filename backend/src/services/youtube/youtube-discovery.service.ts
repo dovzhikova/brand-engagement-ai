@@ -6,6 +6,7 @@ import { YouTubeService } from './youtube.service';
 import { YouTubeAnalysisService } from './youtube-analysis.service';
 import { YouTubeROIService } from './youtube-roi.service';
 import { logger } from '../../utils/logger';
+import { BrandContext } from '../ai/ai.service';
 
 interface DiscoveryJobData {
   keywords: string[];
@@ -311,8 +312,43 @@ export class YouTubeDiscoveryService {
         });
       }
 
-      // Run AI analysis
-      const analysis = await this.analysisService.analyzeChannel(channel, videos);
+      // Get first brand for analysis context (YouTube discovery is not brand-specific currently)
+      // TODO: Add brand context to YouTube discovery workflow
+      const firstBrand = await prisma.brand.findFirst({
+        select: {
+          name: true,
+          description: true,
+          productDescription: true,
+          targetAudience: true,
+          keyDifferentiators: true,
+          brandValues: true,
+          toneOfVoice: true,
+          goals: true,
+          contentGuidelines: true,
+        },
+      });
+
+      let analysis;
+      if (firstBrand && (firstBrand.productDescription || firstBrand.description || firstBrand.targetAudience)) {
+        const brand: BrandContext = {
+          ...firstBrand,
+          keyDifferentiators: firstBrand.keyDifferentiators as string[] || [],
+          brandValues: firstBrand.brandValues as string[] || [],
+          goals: firstBrand.goals as string[] || [],
+        };
+        analysis = await this.analysisService.analyzeChannel(channel, videos, brand);
+      } else {
+        logger.warn('YouTube channel analysis skipped: Brand settings not configured. Please set up brand parameters (product description, target audience) in Brand Settings.');
+        analysis = {
+          relevanceScore: 0,
+          category: 'low_fit' as const,
+          reasoning: 'Analysis skipped - brand settings not configured',
+          contentTopics: [],
+          audienceAlignment: 'Unknown',
+          collaborationPotential: 'Unknown',
+          cautions: ['Configure brand settings to enable AI analysis'],
+        };
+      }
 
       // Calculate ROI score
       const roi = await this.roiService.calculateROIScore(channel, videos, analysis.relevanceScore);

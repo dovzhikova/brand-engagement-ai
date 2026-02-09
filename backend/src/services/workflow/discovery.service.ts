@@ -3,7 +3,7 @@ import Bull from 'bull';
 import { prisma } from '../../utils/prisma';
 import { redis, redisHelpers } from '../../utils/redis';
 import { RedditService } from '../reddit/reddit.service';
-import { AIService } from '../ai/ai.service';
+import { AIService, BrandContext } from '../ai/ai.service';
 import { logger } from '../../utils/logger';
 
 interface DiscoveryJobData {
@@ -124,7 +124,7 @@ export class DiscoveryService {
                   discoveredCount++;
 
                   // Auto-analyze the post (non-blocking)
-                  this.analyzePost(newItem.id, post.subreddit, post.title, post.selftext || '', post.score)
+                  this.analyzePost(newItem.id, post.subreddit, post.title, post.selftext || '', post.score, brandId)
                     .catch(err => logger.warn(`Auto-analyze failed for ${newItem.id}:`, err));
                 }
               }
@@ -232,17 +232,51 @@ export class DiscoveryService {
     subreddit: string,
     title: string,
     content: string,
-    score: number
+    score: number,
+    brandId?: string
   ): Promise<void> {
     try {
       logger.info(`Auto-analyzing post: ${itemId}`);
+
+      // Fetch brand settings for context
+      let brand: BrandContext | null = null;
+      if (brandId) {
+        const brandData = await prisma.brand.findUnique({
+          where: { id: brandId },
+          select: {
+            name: true,
+            description: true,
+            productDescription: true,
+            targetAudience: true,
+            keyDifferentiators: true,
+            brandValues: true,
+            toneOfVoice: true,
+            goals: true,
+            contentGuidelines: true,
+          },
+        });
+        if (brandData) {
+          brand = {
+            ...brandData,
+            keyDifferentiators: brandData.keyDifferentiators as string[] || [],
+            brandValues: brandData.brandValues as string[] || [],
+            goals: brandData.goals as string[] || [],
+          };
+        }
+      }
+
+      // Skip analysis if brand settings aren't configured
+      if (!brand || (!brand.productDescription && !brand.description && !brand.targetAudience)) {
+        logger.warn(`Skipping auto-analysis for ${itemId}: Brand settings not configured. Please set up brand parameters (product description, target audience) in Brand Settings.`);
+        return;
+      }
 
       const analysis = await this.aiService.analyzePost({
         subreddit,
         title,
         content,
         score,
-      });
+      }, brand);
 
       // Update the engagement item with analysis results
       const newStatus = analysis.should_engage ? 'analyzing' : 'rejected';

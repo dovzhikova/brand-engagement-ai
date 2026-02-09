@@ -53,6 +53,18 @@ export interface AIConfig {
   model: string;
 }
 
+export interface BrandContext {
+  name: string;
+  description?: string | null;
+  productDescription?: string | null;
+  targetAudience?: string | null;
+  keyDifferentiators?: string[];
+  brandValues?: string[];
+  toneOfVoice?: string | null;
+  goals?: string[];
+  contentGuidelines?: string | null;
+}
+
 export class AIService {
   private openai: OpenAI | null = null;
   private anthropic: Anthropic | null = null;
@@ -84,15 +96,51 @@ export class AIService {
     return config?.model || this.defaultModel;
   }
 
-  private getDefaultBrandContext(): string {
-    // This should be configured per-client in production
-    return process.env.BRAND_CONTEXT || `
-- Brand: Your company/product name and description
-- Key benefits: Main value propositions for your product/service
-- Target audience: Who you're trying to reach
-- Differentiator: What makes you unique vs competitors
-- Competitors: Key competitors to position against
+  /**
+   * Build brand context string from brand settings
+   * Throws an error if brand settings are not configured
+   */
+  buildBrandContext(brand?: BrandContext | null): string {
+    if (!brand) {
+      throw new Error('Brand settings required. Please configure your brand settings (product description, target audience, key differentiators) before using AI features.');
+    }
+
+    // Check if essential brand settings are configured
+    const hasEssentialSettings = brand.productDescription || brand.description || brand.targetAudience;
+    if (!hasEssentialSettings) {
+      throw new Error(`Brand "${brand.name}" needs configuration. Please set up product description, target audience, and key differentiators in Brand Settings before using AI features.`);
+    }
+
+    const differentiators = Array.isArray(brand.keyDifferentiators) && brand.keyDifferentiators.length > 0
+      ? brand.keyDifferentiators.join(', ')
+      : 'Not specified';
+
+    const values = Array.isArray(brand.brandValues) && brand.brandValues.length > 0
+      ? brand.brandValues.join(', ')
+      : 'Not specified';
+
+    const goals = Array.isArray(brand.goals) && brand.goals.length > 0
+      ? brand.goals.join(', ')
+      : 'Not specified';
+
+    return `
+- Brand: ${brand.name}
+- Description: ${brand.description || 'Not specified'}
+- Product/Service: ${brand.productDescription || 'Not specified'}
+- Target Audience: ${brand.targetAudience || 'Not specified'}
+- Key Differentiators: ${differentiators}
+- Brand Values: ${values}
+- Goals: ${goals}
+- Tone of Voice: ${brand.toneOfVoice || 'Not specified'}
+- Content Guidelines: ${brand.contentGuidelines || 'None specified'}
     `.trim();
+  }
+
+  /**
+   * @deprecated Use buildBrandContext(brand) instead
+   */
+  private getDefaultBrandContext(): string {
+    throw new Error('Brand context required. Please pass brand settings to AI methods.');
   }
 
   private getLengthInstructions(length: CommentLength): string {
@@ -126,12 +174,14 @@ export class AIService {
     title: string;
     content: string;
     score: number;
-  }, config?: AIConfig): Promise<AnalysisResult> {
+  }, brand?: BrandContext | null, config?: AIConfig): Promise<AnalysisResult> {
+    const brandContext = this.buildBrandContext(brand);
+
     const prompt = `
 Analyze this Reddit post for engagement opportunity for your brand.
 
 BRAND CONTEXT:
-${this.getDefaultBrandContext()}
+${brandContext}
 
 POST:
 Subreddit: r/${post.subreddit}
@@ -173,10 +223,11 @@ Respond ONLY with valid JSON (no markdown, no code blocks):
     subreddit: string;
     postTitle: string;
     postContent: string;
+    brand?: BrandContext | null;
     options?: GenerationOptions;
     config?: AIConfig;
   }): Promise<string> {
-    const { persona, subreddit, postTitle, postContent, options = {}, config } = params;
+    const { persona, subreddit, postTitle, postContent, brand, options = {}, config } = params;
 
     const traits = Array.isArray(persona.characterTraits)
       ? persona.characterTraits.join(', ')
@@ -193,7 +244,7 @@ Respond ONLY with valid JSON (no markdown, no code blocks):
 
     const lengthInstructions = this.getLengthInstructions(options.length || 'standard');
     const styleInstructions = this.getStyleInstructions(options.style || 'friendly');
-    const brandContext = options.brandVoice || this.getDefaultBrandContext();
+    const brandContext = options.brandVoice || this.buildBrandContext(brand);
     const customInstructions = options.customInstructions
       ? `\n=== CUSTOM INSTRUCTIONS ===\n${options.customInstructions}`
       : '';
