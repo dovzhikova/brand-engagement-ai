@@ -1,6 +1,6 @@
 import Bull from 'bull';
 import { prisma } from '../../utils/prisma';
-import { DiscoveryService } from '../workflow/discovery.service';
+import { getDiscoveryService, DiscoveryService } from '../workflow/discovery.service';
 import { logger } from '../../utils/logger';
 
 export class SchedulerService {
@@ -11,7 +11,7 @@ export class SchedulerService {
     this.schedulerQueue = new Bull('scheduler', {
       redis: process.env.REDIS_URL || 'redis://localhost:6379',
     });
-    this.discoveryService = new DiscoveryService();
+    this.discoveryService = getDiscoveryService();
 
     this.setupProcessors();
   }

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
-import { DiscoveryService } from '../../services/workflow/discovery.service';
+import { getDiscoveryService } from '../../services/workflow/discovery.service';
 import { redisHelpers } from '../../utils/redis';
 import { getScheduler } from '../../services/scheduler/scheduler.service';
 
@@ -11,7 +11,7 @@ const fetchSchema = z.object({
 });
 
 export class DiscoveryController {
-  private discoveryService = new DiscoveryService();
+  private discoveryService = getDiscoveryService();
 
   fetch = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

@@ -247,4 +247,12 @@ export class DiscoveryService {
   }
 }
 
-// Force redeploy marker
+// Singleton instance
+let discoveryInstance: DiscoveryService | null = null;
+
+export function getDiscoveryService(): DiscoveryService {
+  if (!discoveryInstance) {
+    discoveryInstance = new DiscoveryService();
+  }
+  return discoveryInstance;
+}
