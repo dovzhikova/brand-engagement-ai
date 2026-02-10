@@ -72,7 +72,8 @@ export class GSCController {
   listAccounts = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const accounts = await prisma.googleAccount.findMany({
-        where: { organizationId: req.organizationId },
+        // GSC accounts are user-level, not brand-specific
+        where: {},
         select: {
           id: true,
           email: true,
@@ -101,7 +102,7 @@ export class GSCController {
       const { id } = req.params;
 
       const account = await prisma.googleAccount.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id },
         select: {
           id: true,
           email: true,
@@ -177,7 +178,7 @@ export class GSCController {
 
       // Verify account exists and is active
       const account = await prisma.googleAccount.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id },
       });
 
       if (!account) {
@@ -207,7 +208,7 @@ export class GSCController {
 
       // Verify account exists and is active
       const account = await prisma.googleAccount.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id },
       });
 
       if (!account) {
@@ -288,7 +289,7 @@ export class GSCController {
 
       // Verify account exists
       const account = await prisma.googleAccount.findFirst({
-        where: { id, organizationId: req.organizationId },
+        where: { id },
       });
 
       if (!account) {
@@ -386,7 +387,7 @@ export class GSCController {
       let googleAccountId = accountId;
       if (!googleAccountId) {
         const account = await prisma.googleAccount.findFirst({
-          where: { status: 'active', organizationId: req.organizationId },
+          where: { status: 'active' },
           select: { id: true },
         });
 
@@ -419,11 +420,11 @@ export class GSCController {
         throw new ValidationError('Query is required');
       }
 
-      // Check if keyword already exists in this organization
+      // Check if keyword already exists for this brand
       const existing = await prisma.keyword.findFirst({
         where: {
           keyword: { equals: query, mode: 'insensitive' },
-          organizationId: req.organizationId,
+          brandId: req.brandId,
         },
       });
 
@@ -437,7 +438,7 @@ export class GSCController {
           category: category || 'broad',
           priority: priority || 2,
           isActive: true,
-          organizationId: req.organizationId,
+          brandId: req.brandId,
         },
       });
 

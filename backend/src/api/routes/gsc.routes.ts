@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { GSCController } from '../controllers/gsc.controller';
 import { authenticate } from '../middleware/auth';
-import { requireOrgContext } from '../middleware/organization';
+import { optionalBrandContext } from '../middleware/brand';
 
 const router = Router();
 const gscController = new GSCController();
@@ -9,9 +9,9 @@ const gscController = new GSCController();
 // OAuth callback must be BEFORE auth middleware (Google redirects here without JWT)
 router.get('/oauth/callback', gscController.oauthCallback);
 
-// All other routes require authentication and organization context
+// All other routes require authentication, brand context is optional for GSC
 router.use(authenticate);
-router.use(requireOrgContext);
+router.use(optionalBrandContext);
 
 // ==========================================
 // OAuth
